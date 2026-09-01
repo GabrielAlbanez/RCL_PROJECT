@@ -59,6 +59,22 @@ export const content = {
       button: 'Meet the team',
       quote: 'Built by engineers. Focused on outcomes.',
     },
+    // PEOPLE / CREDIBILITY — the buyer is a company that wants to grow; the team is the proof.
+    // ⚠️ trust[] numbers are PLACEHOLDERS: confirm with the client before publishing.
+    team: {
+      eyebrow: 'THE PEOPLE BEHIND THE SYSTEMS',
+      title: "You're not hiring a vendor. You're hiring these engineers.",
+      text: 'Growth exposes the plant. The companies that get through it are the ones with senior engineering judgement in the room — not a support ticket. Every RCL project is led by a named engineer with the credentials and the plant hours to own the outcome.',
+      hint: 'Read the bio',
+      hintBack: 'Back to photo',
+      button: 'Meet the full team',
+      trust: [
+        ['75+', 'Years of combined plant experience'],
+        ['P.Eng.', 'Licensed engineers leading the work'],
+        ['5', 'Engineering disciplines in-house'],
+        ['1', 'Named lead engineer per project'],
+      ],
+    },
     industries: {
       eyebrow: 'INDUSTRIES',
       title: 'Built for the industries that keep operations moving.',
@@ -111,6 +127,20 @@ export const content = {
     method: { eyebrow: 'LE SYSTÈME RCL', title: 'Des machines aux décisions.', text: "Une architecture d’ingénierie connectée qui fait passer l’usine d’équipements isolés à une performance mesurable et optimisable.", steps: [['01', 'Machines', 'Capteurs, variateurs, équipements et dispositifs terrain'], ['02', 'Contrôle', 'PLC, IHM et contrôle de procédé'], ['03', 'Connexion', 'SCADA, IIoT et intégration industrielle'], ['04', 'Comprendre', 'Données, analytique et visibilité opérationnelle'], ['05', 'Optimiser', 'Contrôle avancé, apprentissage automatique et IA']] },
     solutions: { eyebrow: 'SOLUTIONS', title: 'Des disciplines d’ingénierie qui fonctionnent comme un seul système.', text: 'La valeur ne réside pas dans une simple liste de technologies, mais dans la capacité à les combiner autour du problème opérationnel.', items: [['CONTRÔLE', 'PLC · SCADA · IHM · Automatisation', 'Concevoir, moderniser et dépanner les systèmes de contrôle en fonction des réalités du procédé.'], ['CONNECTER', 'IIoT · Données industrielles · Intégration', 'Connecter les équipements, systèmes et sources de données dans une couche opérationnelle utile.'], ['INGÉNIERIE', 'Ingénierie industrielle · Dépannage', 'Résoudre des problèmes industriels complexes grâce à une expertise multidisciplinaire.'], ['DÉVELOPPER', 'Logiciels industriels · Systèmes sur mesure', 'Développer des logiciels et outils numériques adaptés à votre opération.'], ['OPTIMISER', 'Contrôle avancé · ML · IA', 'Transformer les données de procédés et d’équipements en opportunités d’optimisation concrètes.']] },
     human: { eyebrow: 'LA DIFFÉRENCE EST HUMAINE', title: "La technologie évolue vite. Le jugement d’ingénierie dure plus longtemps.", text: 'RCL réunit des talents techniques multidisciplinaires en ingénierie, automatisation, logiciels, données et optimisation — pour concevoir le système autour de l’usine, pas autour d’un mot à la mode.', button: 'Découvrir l’équipe', quote: 'Conçu par des ingénieurs. Axé sur les résultats.' },
+    team: {
+      eyebrow: 'LES GENS DERRIÈRE LES SYSTÈMES',
+      title: "Vous n'engagez pas un fournisseur. Vous engagez ces ingénieurs.",
+      text: "La croissance met l'usine à l'épreuve. Les entreprises qui la traversent sont celles qui ont un jugement d'ingénierie senior dans la salle — pas un billet de support. Chaque projet RCL est dirigé par un ingénieur nommé, avec les titres et les heures d'usine pour en assumer le résultat.",
+      hint: 'Lire la biographie',
+      hintBack: 'Retour à la photo',
+      button: "Découvrir l'équipe complète",
+      trust: [
+        ['75+', "Années d'expérience combinée en usine"],
+        ['ing.', 'Ingénieurs licenciés à la barre'],
+        ['5', "Disciplines d'ingénierie à l'interne"],
+        ['1', 'Ingénieur responsable nommé par projet'],
+      ],
+    },
     industries: { eyebrow: 'INDUSTRIES', title: 'Pour les secteurs qui font tourner les opérations.', items: ['Manufacturier', 'Chimie', 'Pétrole et gaz', 'Énergie', 'Mines', 'Traitement de l’eau', 'Pharmaceutique', 'Agriculture intelligente', 'Robotique', 'Réfrigération'] },
     results: { eyebrow: 'À QUOI RESSEMBLE LE PROGRÈS', title: "La technologie n’a de valeur que lorsque l’opération s’améliore.", items: [['MOINS', 'Arrêts'], ['MOINS', 'Gaspillage'], ['MOINS', 'Énergie'], ['PLUS', 'Visibilité'], ['PLUS', 'Fiabilité'], ['PLUS', 'Production']] },
     cta: { eyebrow: 'COMMENÇONS PAR LE PROBLÈME', title: 'Dites-nous ce que votre usine doit mieux faire.', text: 'Parlez directement à notre équipe d’ingénierie de modernisation, automatisation, données ou optimisation des procédés.', button: 'Parler à un ingénieur' },
