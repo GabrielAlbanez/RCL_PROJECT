@@ -9,6 +9,9 @@ import type { Locale } from './content';
  * `name`  → leave '' and the card headline falls back to the role (no fake names shown).
  * `photo` → '/team/<slug>.jpg'. Square crop, min 900×900, neutral/plant background,
  *           subject looking at camera. Leave '' for the branded placeholder portrait.
+ * `linkedin` → currently '#' as a PLACEHOLDER so the button can be previewed on the
+ *              cards; swap in each engineer's real profile URL before publishing,
+ *              or delete the field to hide the button for that member.
  *
  * The `/team/*.jpg` files currently wired in are GENERATED generic silhouette
  * placeholders (gradient + abstract shape, see public/team/README.md) — not
@@ -48,6 +51,7 @@ export const team: TeamMember[] = [
       en: ['PLC', 'SCADA', 'Functional safety', 'Live migrations'],
       fr: ['PLC', 'SCADA', 'Sécurité fonctionnelle', 'Migrations en production'],
     },
+    linkedin: '#',
   },
   {
     slug: 'iiot-data-lead',
@@ -64,6 +68,7 @@ export const team: TeamMember[] = [
       en: ['OPC UA', 'Historians', 'Edge computing', 'System integration'],
       fr: ['OPC UA', 'Historiseurs', 'Informatique en périphérie', 'Intégration de systèmes'],
     },
+    linkedin: '#',
   },
   {
     slug: 'industrial-engineering-lead',
@@ -80,6 +85,7 @@ export const team: TeamMember[] = [
       en: ['Process mapping', 'Throughput', 'Reliability', 'Root-cause analysis'],
       fr: ['Cartographie de procédé', 'Cadence', 'Fiabilité', 'Analyse des causes'],
     },
+    linkedin: '#',
   },
   {
     slug: 'industrial-software-lead',
@@ -96,6 +102,7 @@ export const team: TeamMember[] = [
       en: ['Custom systems', 'Operator UX', 'APIs', 'Industrial integration'],
       fr: ['Systèmes sur mesure', 'UX opérateur', 'API', 'Intégration industrielle'],
     },
+    linkedin: '#',
   },
   {
     slug: 'optimization-ai-lead',
@@ -112,6 +119,7 @@ export const team: TeamMember[] = [
       en: ['Advanced control', 'Soft sensors', 'Predictive models', 'Energy optimization'],
       fr: ['Contrôle avancé', 'Capteurs virtuels', 'Modèles prédictifs', 'Optimisation énergétique'],
     },
+    linkedin: '#',
   },
 ];
 
