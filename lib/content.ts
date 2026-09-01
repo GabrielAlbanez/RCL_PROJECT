@@ -68,6 +68,7 @@ export const content = {
       hint: 'Read the bio',
       hintBack: 'Back to photo',
       button: 'Meet the full team',
+      linkedin: 'LinkedIn',
       trust: [
         ['75+', 'Years of combined plant experience'],
         ['P.Eng.', 'Licensed engineers leading the work'],
@@ -134,6 +135,7 @@ export const content = {
       hint: 'Lire la biographie',
       hintBack: 'Retour à la photo',
       button: "Découvrir l'équipe complète",
+      linkedin: 'LinkedIn',
       trust: [
         ['75+', "Années d'expérience combinée en usine"],
         ['ing.', 'Ingénieurs licenciés à la barre'],
