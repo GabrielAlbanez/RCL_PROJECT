@@ -29,5 +29,5 @@ function NetworkCore() {
 }
 
 export default function ThreeScene() {
-  return <div className="three-shell" aria-hidden="true"><Canvas camera={{ position: [0, 0.4, 5.2], fov: 42 }} dpr={[1, 1.5]} gl={{ antialias: true }}><ambientLight intensity={1.1} /><directionalLight position={[3, 4, 5]} intensity={2.4} color="#ffffff" /><pointLight position={[-3, -2, 2]} intensity={18} distance={9} color="#2AA8FF" /><NetworkCore /><OrbitControls enablePan={false} enableZoom={false} autoRotate={false} /></Canvas><div className="scanline" /></div>;
+  return <div className="three-shell" aria-hidden="true"><Canvas camera={{ position: [0, 0.4, 5.2], fov: 42 }} dpr={[1, 1.5]} gl={{ antialias: true }}><ambientLight intensity={1.1} /><directionalLight position={[3, 4, 5]} intensity={2.4} color="#ffffff" /><pointLight position={[-3, -2, 2]} intensity={18} distance={9} color="#2AA8FF" /><NetworkCore /><OrbitControls enablePan={false} enableZoom={false} enableRotate={false} autoRotate={false} /></Canvas><div className="scanline" /></div>;
 }

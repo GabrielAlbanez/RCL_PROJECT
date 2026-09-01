@@ -9,6 +9,12 @@ import type { Locale } from './content';
  * `name`  → leave '' and the card headline falls back to the role (no fake names shown).
  * `photo` → '/team/<slug>.jpg'. Square crop, min 900×900, neutral/plant background,
  *           subject looking at camera. Leave '' for the branded placeholder portrait.
+ *
+ * The `/team/*.jpg` files currently wired in are GENERATED generic silhouette
+ * placeholders (gradient + abstract shape, see public/team/README.md) — not
+ * stock photos, not real people — so the flip-card layout can be previewed
+ * with the photo slot filled before the real photo shoot happens. Swap each
+ * path for the real portrait as soon as it's available.
  */
 
 export type LocalizedText = { en: string; fr: string };
@@ -30,7 +36,7 @@ export const team: TeamMember[] = [
   {
     slug: 'controls-automation-lead',
     name: '',
-    photo: '',
+    photo: '/team/controls-automation-lead.jpg',
     years: '20+ yrs',
     role: { en: 'Lead — Controls & Automation', fr: 'Responsable — Contrôle et automatisation' },
     credentials: { en: 'P.Eng. · B.Eng. Electrical Engineering', fr: 'ing. · B.Ing. génie électrique' },
@@ -46,7 +52,7 @@ export const team: TeamMember[] = [
   {
     slug: 'iiot-data-lead',
     name: '',
-    photo: '',
+    photo: '/team/iiot-data-lead.jpg',
     years: '15+ yrs',
     role: { en: 'Lead — IIoT & Industrial Data', fr: 'Responsable — IIoT et données industrielles' },
     credentials: { en: 'P.Eng. · M.Sc. Systems Engineering', fr: 'ing. · M.Sc. génie des systèmes' },
@@ -62,7 +68,7 @@ export const team: TeamMember[] = [
   {
     slug: 'industrial-engineering-lead',
     name: '',
-    photo: '',
+    photo: '/team/industrial-engineering-lead.jpg',
     years: '18+ yrs',
     role: { en: 'Lead — Industrial & Process Engineering', fr: 'Responsable — Génie industriel et des procédés' },
     credentials: { en: 'P.Eng. · B.Eng. Industrial Engineering', fr: 'ing. · B.Ing. génie industriel' },
@@ -78,7 +84,7 @@ export const team: TeamMember[] = [
   {
     slug: 'industrial-software-lead',
     name: '',
-    photo: '',
+    photo: '/team/industrial-software-lead.jpg',
     years: '12+ yrs',
     role: { en: 'Lead — Industrial Software', fr: 'Responsable — Logiciels industriels' },
     credentials: { en: 'B.Sc. Computer Engineering · Industrial systems', fr: 'B.Sc. génie informatique · systèmes industriels' },
@@ -94,7 +100,7 @@ export const team: TeamMember[] = [
   {
     slug: 'optimization-ai-lead',
     name: '',
-    photo: '',
+    photo: '/team/optimization-ai-lead.jpg',
     years: '10+ yrs',
     role: { en: 'Lead — Optimization, ML & AI', fr: 'Responsable — Optimisation, ML et IA' },
     credentials: { en: 'Ph.D. Process Control · M.Sc. Applied Mathematics', fr: 'Ph.D. contrôle des procédés · M.Sc. mathématiques appliquées' },
