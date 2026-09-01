@@ -2,12 +2,12 @@ import Link from 'next/link';
 import ThreeScene from '@/components/ThreeScene';
 import Reveal from '@/components/Reveal';
 import TeamSection from '@/components/TeamSection';
-import { getContent, locales, type Locale } from '@/lib/content';
+import { getContent, locales } from '@/lib/content';
 
 export async function generateStaticParams(){return locales.map(locale=>({locale}))}
-export async function generateMetadata({params}:{params:Promise<{locale:string}>}){const {locale}=await params;const t=getContent(locale);return {title:t.hero.title,description:t.hero.text,alternates:{canonical:`/${locale}`}}}
+export async function generateMetadata({params}:{params:Promise<{locale:string}>}){const {locale}=await params;const t=getContent(locale);return {title:t.hero.title,description:t.hero.text,alternates:{canonical:`/${locale}`,languages:{en:'/en',fr:'/fr'}}}}
 
-export default async function Home({params}:{params:Promise<{locale:string}>}){const {locale}=await params; const L=locale as Locale; const t=getContent(locale); return <>
+export default async function Home({params}:{params:Promise<{locale:string}>}){const {locale}=await params; const t=getContent(locale); return <>
 <section className="hero"><div className="container hero-grid"><Reveal><div><div className="eyebrow">{t.hero.eyebrow}</div><h1>{t.hero.title}</h1><p className="hero-copy">{t.hero.text}</p><div className="hero-cta"><Link className="button" href={`/${locale}/contact`}>{t.hero.primary}<span>↗</span></Link><Link className="button button-outline" href={`/${locale}/solutions`}>{t.hero.secondary}<span>↓</span></Link></div><div className="hero-meta">{t.stats.map(([a,b])=><div className="meta-item" key={a}><strong>{a}</strong><span>{b}</span></div>)}</div></div></Reveal><Reveal><ThreeScene/></Reveal></div></section>
 <section className="section"><div className="container"><div className="section-head"><div><div className="eyebrow">{t.problem.eyebrow}</div><h2>{t.problem.title}</h2></div><p>{t.problem.text}</p></div><div className="problem-grid">{t.problem.cards.map(([n,h,p])=><Reveal key={n}><article className="problem-card"><span className="card-num">{n}</span><div><h3>{h}</h3><p>{p}</p></div></article></Reveal>)}</div></div></section>
 <section className="section section-dark"><div className="container"><div className="section-head"><div><div className="eyebrow">{t.method.eyebrow}</div><h2>{t.method.title}</h2></div><p>{t.method.text}</p></div><div className="method-grid">{t.method.steps.map(([n,h,p])=><div className="method-step" key={n}><span>{n}</span><h3>{h}</h3><p>{p}</p></div>)}</div></div></section>
