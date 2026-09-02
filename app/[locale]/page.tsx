@@ -3,9 +3,10 @@ import HeroExperience from '@/components/HeroExperience';
 import Reveal from '@/components/Reveal';
 import TeamSection from '@/components/TeamSection';
 import { getContent, locales, type Locale } from '@/lib/content';
+import { localeAlternates } from '@/lib/seo';
 
 export async function generateStaticParams(){return locales.map(locale=>({locale}))}
-export async function generateMetadata({params}:{params:Promise<{locale:string}>}){const {locale}=await params;const t=getContent(locale);return {title:t.hero.title,description:t.hero.text,alternates:{canonical:`/${locale}`,languages:{en:'/en',fr:'/fr'}}}}
+export async function generateMetadata({params}:{params:Promise<{locale:string}>}){const {locale}=await params;const t=getContent(locale);return {title:t.hero.title,description:t.hero.text,alternates:localeAlternates(locale)}}
 
 export default async function Home({params}:{params:Promise<{locale:string}>}){const {locale}=await params; const L=locale as Locale; const t=getContent(locale); return <>
 <HeroExperience locale={L} hero={t.hero}/>

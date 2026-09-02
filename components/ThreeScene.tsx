@@ -640,7 +640,7 @@ function PumpMotor({ textures, scrollProgress }: { textures: IndustrialTextures;
             <meshStandardMaterial color="#8699A6" metalness={0.9} roughness={0.28} />
           </mesh>
         </group>
-      ))}
+      )))}
     </group>
   );
 }
