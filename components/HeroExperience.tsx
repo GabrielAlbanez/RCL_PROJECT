@@ -54,6 +54,7 @@ export default function HeroExperience({ locale, hero }: { locale: Locale; hero:
   const section = useRef<HTMLElement>(null);
   const scrollProgress = useRef(0);
   const frame = useRef<number | null>(null);
+  const stageIndex = useRef(0);
   const [activeStage, setActiveStage] = useState(0);
   const prefersReducedMotion = useReducedMotion();
   const storyStages = stages[locale];
@@ -67,7 +68,8 @@ export default function HeroExperience({ locale, hero }: { locale: Locale; hero:
       const isCompact = window.matchMedia('(max-width: 700px)').matches;
       if (isCompact || prefersReducedMotion) {
         scrollProgress.current = 1;
-        setActiveStage(storyStages.length - 1);
+        stageIndex.current = storyStages.length - 1;
+        setActiveStage(stageIndex.current);
         return;
       }
 
@@ -75,7 +77,16 @@ export default function HeroExperience({ locale, hero }: { locale: Locale; hero:
       const distance = Math.max(element.offsetHeight - window.innerHeight, 1);
       const progress = clamp(-rect.top / distance, 0, 1);
       scrollProgress.current = progress;
-      setActiveStage(Math.min(storyStages.length - 1, Math.floor(progress * storyStages.length)));
+
+      const boundaries = [0.2, 0.4, 0.6, 0.8];
+      const hysteresis = 0.018;
+      let nextStage = stageIndex.current;
+      while (nextStage < storyStages.length - 1 && progress > boundaries[nextStage] + hysteresis) nextStage += 1;
+      while (nextStage > 0 && progress < boundaries[nextStage - 1] - hysteresis) nextStage -= 1;
+      if (nextStage !== stageIndex.current) {
+        stageIndex.current = nextStage;
+        setActiveStage(nextStage);
+      }
     };
 
     const requestUpdate = () => {
