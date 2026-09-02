@@ -30,6 +30,6 @@ npm start
 
 ## Notes
 - The 3D hero is implemented with React Three Fiber + Drei.
-- The contact form is intentionally frontend-only in this prototype. Connect an API route, CRM, Formspree, Resend, or other endpoint before production deployment.
+- The contact form is functional: a Server Action validates every field server-side, rate limits per IP, screens a honeypot, and delivers the lead. Delivery is pluggable — set `CONTACT_WEBHOOK_URL` (any webhook/CRM) or `RESEND_API_KEY` + `CONTACT_TO_EMAIL` (email) to go live; see `.env.example`. With nothing configured it runs in local prototype mode: leads are logged and appended to `.data/leads.jsonl`, and the confirmation panel says so.
 - Logo artwork is represented as a lightweight responsive recreation using the supplied brand palette; replace with the official vector logo asset when provided.
 - Add real project photography/case-study metrics only when approved for publication.
