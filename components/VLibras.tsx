@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 declare global {
   interface Window {
@@ -10,6 +10,8 @@ declare global {
 
 // VLibras plugin uses custom HTML attributes that aren't in standard React types
 declare module 'react' {
+  // The generic name must match React's declaration for module augmentation.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface HTMLAttributes<T> {
     vw?: string;
     'access-button'?: string;
@@ -29,26 +31,56 @@ declare module 'react' {
  * clica para abrir o avatar, que sinaliza o texto do elemento sob o cursor.
  */
 export default function VLibras() {
-  const initialized = useRef(false);
-
   useEffect(() => {
-    if (initialized.current) return;
-    initialized.current = true;
-
     const src = 'https://vlibras.gov.br/app/vlibras-plugin.js';
+    const mobileQuery = window.matchMedia('(max-width: 700px)');
+    let positionTimers: number[] = [];
 
-    // Evita duplicar o script em navegações client-side.
-    if (document.querySelector(`script[src="${src}"]`)) return;
+    const positionAccessButton = () => {
+      const wrapper = document.querySelector<HTMLElement>('#vlibras-access-wrapper');
+      const access = wrapper?.shadowRoot?.querySelector<HTMLElement>('#vlibras-access');
+      if (!access) return;
 
-    const script = document.createElement('script');
-    script.src = src;
-    script.async = true;
-    script.onload = () => {
-      if (window.VLibras?.Widget) {
-        new window.VLibras.Widget('https://vlibras.gov.br/app');
+      if (mobileQuery.matches) {
+        access.style.top = 'auto';
+        access.style.right = '12px';
+        access.style.bottom = 'max(16px, env(safe-area-inset-bottom))';
+      } else {
+        access.style.removeProperty('top');
+        access.style.removeProperty('right');
+        access.style.removeProperty('bottom');
       }
     };
-    document.body.appendChild(script);
+
+    const schedulePositioning = () => {
+      positionTimers.forEach(window.clearTimeout);
+      positionTimers = [0, 250, 1000].map((delay) => window.setTimeout(positionAccessButton, delay));
+    };
+
+    const initialize = () => {
+      if (window.VLibras?.Widget && !document.querySelector('#vlibras-access-wrapper')) {
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+      }
+      schedulePositioning();
+    };
+
+    let script = document.querySelector<HTMLScriptElement>(`script[src="${src}"]`);
+    if (!script) {
+      script = document.createElement('script');
+      script.src = src;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+
+    if (window.VLibras?.Widget) initialize();
+    else script.addEventListener('load', initialize, { once: true });
+
+    window.addEventListener('resize', positionAccessButton, { passive: true });
+    return () => {
+      script.removeEventListener('load', initialize);
+      window.removeEventListener('resize', positionAccessButton);
+      positionTimers.forEach(window.clearTimeout);
+    };
   }, []);
 
   return (
