@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-
+  allowedDevOrigins: ['54.232.189.113'],
   reactStrictMode: true,
   typedRoutes: true,
   images: {

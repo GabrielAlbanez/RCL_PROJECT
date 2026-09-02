@@ -1,4 +1,5 @@
 import '../globals.css';
+import '../three-scene.css';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { locales, type Locale } from '@/lib/content';

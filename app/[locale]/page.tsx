@@ -1,14 +1,14 @@
 import Link from 'next/link';
-import ThreeScene from '@/components/ThreeScene';
+import HeroExperience from '@/components/HeroExperience';
 import Reveal from '@/components/Reveal';
 import TeamSection from '@/components/TeamSection';
-import { getContent, locales } from '@/lib/content';
+import { getContent, locales, type Locale } from '@/lib/content';
 
 export async function generateStaticParams(){return locales.map(locale=>({locale}))}
 export async function generateMetadata({params}:{params:Promise<{locale:string}>}){const {locale}=await params;const t=getContent(locale);return {title:t.hero.title,description:t.hero.text,alternates:{canonical:`/${locale}`,languages:{en:'/en',fr:'/fr'}}}}
 
-export default async function Home({params}:{params:Promise<{locale:string}>}){const {locale}=await params; const t=getContent(locale); return <>
-<section className="hero"><div className="container hero-grid"><Reveal><div><div className="eyebrow">{t.hero.eyebrow}</div><h1>{t.hero.title}</h1><p className="hero-copy">{t.hero.text}</p><div className="hero-cta"><Link className="button" href={`/${locale}/contact`}>{t.hero.primary}<span>↗</span></Link><Link className="button button-outline" href={`/${locale}/solutions`}>{t.hero.secondary}<span>↓</span></Link></div><div className="hero-meta">{t.stats.map(([a,b])=><div className="meta-item" key={a}><strong>{a}</strong><span>{b}</span></div>)}</div></div></Reveal><Reveal><ThreeScene/></Reveal></div></section>
+export default async function Home({params}:{params:Promise<{locale:string}>}){const {locale}=await params; const L=locale as Locale; const t=getContent(locale); return <>
+<HeroExperience locale={L} hero={t.hero}/>
 <section className="section"><div className="container human"><Reveal><div className="human-visual"><div className="eyebrow" style={{color:'#fff'}}>{t.human.eyebrow}</div><div className="quote">{t.human.quote}</div></div></Reveal><Reveal><div className="human-copy"><div className="eyebrow">{t.human.eyebrow}</div><h2>{t.human.title}</h2><p>{t.human.text}</p><Link className="button" href={`/${locale}/about`}>{t.human.button}<span>↗</span></Link></div></Reveal></div></section>
 <TeamSection locale={locale} variant="teaser"/>
 <section className="section"><div className="container"><div className="section-head"><div><div className="eyebrow">{t.problem.eyebrow}</div><h2>{t.problem.title}</h2></div><p>{t.problem.text}</p></div><div className="problem-grid">{t.problem.cards.map(([n,h,p])=><Reveal key={n}><article className="problem-card"><span className="card-num">{n}</span><div><h3>{h}</h3><p>{p}</p></div></article></Reveal>)}</div></div></section>
