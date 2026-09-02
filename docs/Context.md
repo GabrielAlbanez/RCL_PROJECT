@@ -59,10 +59,14 @@ RCL_PROJECT/
 │   └── ...
 ├── lib/
 │   ├── content.ts                # Conteúdo traduzido (en/fr)
-│   └── team.ts                   # Dados da equipe
+│   ├── team.ts                   # Dados da equipe + COMPANY_LINKEDIN
+│   ├── lead-form.ts              # Contrato do formulário (client + server)
+│   ├── leads.ts                  # Validação/anti-spam/entrega (SERVER ONLY)
+│   └── actions/contact.ts        # Server Action do formulário
 ├── public/
 ├── docs/
 │   └── VLibras-Context.md        # Este arquivo
+├── .env.example                  # Variáveis de entrega do formulário
 ├── proxy.ts                      # Redireciona / → /en ou /fr
 ├── next.config.ts                # Next 16 config
 ├── package.json                  # Dependências
@@ -181,8 +185,8 @@ Portanto, no site atual (`en` e `fr` apenas), o widget VLibras aparece mas não 
 |------------|-------------------|--------|
 | `Header` | Nav + logo + toggle de idioma | ✅ OK |
 | `Footer` | Links de contato + direitos | ✅ OK |
-| `ContactForm` | Formulário (frontend-only, sem API) | ⚠️ Prototipado |
-| `TeamCard` | Card de membro com foto (placeholder) | ⚠️ Fotos placeholder |
+| `ContactForm` | Formulário funcional (Server Action + validação + entrega plugável) | ✅ Funcionando |
+| `TeamCard` | Card de membro com foto (placeholder) + botão LinkedIn | ⚠️ Fotos placeholder |
 | `TeamSection` | Grid de membros | ✅ OK |
 | `ThreeScene` | Hero 3D (React Three Fiber + Drei) | ✅ OK |
 | `Logo` | Logo SVG recreado com CSS (brand palette) | ⚠️ Substituir por vetor oficial |
@@ -217,6 +221,8 @@ Add data-scroll-behavior="smooth" to disable smooth scrolling during route trans
 
 **Impacto:** Apenas informativa. Não quebra a página.
 
+**✅ Corrigido:** `data-scroll-behavior="smooth"` adicionado ao `<html>` em `app/[locale]/layout.tsx`.
+
 ---
 
 ## 11. DECISÕES PENDENTES (DO USUÁRIO)
@@ -247,10 +253,40 @@ A resposta é **não**. O VLibras é exclusivamente para Libras (português bras
 - O logo atual é uma **recriação leve em CSS** usando a paleta de marca.
 - Substituir por vetor oficial quando fornecido.
 
-### 11.4 Formulário de contato
+### 11.4 Formulário de contato — ✅ IMPLEMENTADO
 
-- `ContactForm.tsx` é **frontend-only**.
-- Precisa conectar a uma API, CRM, Formspree, Resend ou endpoint antes de ir para produção.
+O formulário deixou de ser mock. Arquitetura:
+
+| Arquivo | Responsabilidade |
+|---------|------------------|
+| `lib/lead-form.ts` | Contrato compartilhado client/server (tipos, valores do select, limites de tamanho). Sem APIs de Node — é bundlado para o browser. |
+| `lib/leads.ts` | **Server only**: validação, rate limit e entrega. Importar isso de um Client Component quebra o build. |
+| `lib/actions/contact.ts` | Server Action (`'use server'`) — único export assíncrono. |
+| `components/ContactForm.tsx` | `useActionState` + `useFormStatus`: erros inline por campo, estado "enviando", painel de sucesso. |
+| `.env.example` | Documenta as variáveis de entrega. |
+
+Comportamento:
+
+- **Validação server-side** de todos os campos (o `required`/`type=email` do browser é só conveniência). O select usa valores independentes de idioma (`downtime`, `legacy`, …) validados contra uma allow-list — valor adulterado é rejeitado.
+- **Anti-spam**: honeypot (campo oculto `website`) + rate limit de 5 envios / 10 min por IP (em memória; trocar por Redis/KV se escalar horizontalmente).
+- **Erros preservam o que foi digitado** e são anunciados via `aria-invalid` / `aria-describedby`; mensagens traduzidas em `lib/content.ts` (en/fr).
+- **Funciona sem JavaScript** (progressive enhancement do Server Action).
+
+Entrega plugável, por ordem de prioridade:
+
+1. `CONTACT_WEBHOOK_URL` → POST JSON do lead (Zapier, Make, n8n, Slack, CRM).
+2. `RESEND_API_KEY` + `CONTACT_TO_EMAIL` → email via API REST do Resend (sem SDK).
+3. Nada configurado → **modo protótipo local**: loga e grava em `.data/leads.jsonl`; o painel de sucesso mostra uma nota de desenvolvedor dizendo que nenhum endpoint está configurado (não finge que enviou email).
+
+**Pendência restante:** escolher webhook ou Resend com o cliente e definir a variável em `.env.local`. Nada de código é necessário.
+
+⚠️ **Armadilha encontrada e corrigida** (não reintroduzir): passar argumento via `submitLead.bind(null, locale)` faz o React serializar a ação como payload `$ACTION_REF`, que **travava indefinidamente** o POST sem JavaScript e derrubava o servidor inteiro. O locale agora vai por `<input type="hidden" name="locale">` e é sanitizado no servidor.
+
+### 11.5 LinkedIn dos colaboradores
+
+- Botão discreto abaixo de cada card da equipe (`components/TeamSection.tsx`, estilo `.team-linkedin`).
+- Como não há perfis pessoais ainda, `getTeam()` cai no fallback `COMPANY_LINKEDIN` (`lib/team.ts`) — antes era `#`, que abria uma página aleatória do site em nova aba.
+- ⚠️ **A URL da empresa não pôde ser verificada** (o site atual não expõe LinkedIn). Confirmar `COMPANY_LINKEDIN` com o cliente: slug errado = 404 do LinkedIn. Ao receber os perfis reais, basta preencher `linkedin` em cada membro.
 
 ---
 
