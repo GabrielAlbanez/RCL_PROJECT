@@ -56,7 +56,9 @@ export default function HeroExperience({ locale, hero }: { locale: Locale; hero:
   const scrollProgress = useRef(0);
   const frame = useRef<number | null>(null);
   const stageIndex = useRef(0);
+  const emphasisState = useRef(false);
   const [activeStage, setActiveStage] = useState(0);
+  const [storyEmphasized, setStoryEmphasized] = useState(false);
   const prefersReducedMotion = useReducedMotion();
   const storyStages = stages[locale];
 
@@ -71,6 +73,10 @@ export default function HeroExperience({ locale, hero }: { locale: Locale; hero:
         scrollProgress.current = 1;
         stageIndex.current = storyStages.length - 1;
         setActiveStage(stageIndex.current);
+        if (emphasisState.current) {
+          emphasisState.current = false;
+          setStoryEmphasized(false);
+        }
         return;
       }
 
@@ -78,6 +84,14 @@ export default function HeroExperience({ locale, hero }: { locale: Locale; hero:
       const distance = Math.max(element.offsetHeight - window.innerHeight, 1);
       const progress = clamp(-rect.top / distance, 0, 1);
       scrollProgress.current = progress;
+
+      const emphasisEnter = 0.055;
+      const emphasisExit = 0.035;
+      const nextEmphasis = emphasisState.current ? progress > emphasisExit : progress > emphasisEnter;
+      if (nextEmphasis !== emphasisState.current) {
+        emphasisState.current = nextEmphasis;
+        setStoryEmphasized(nextEmphasis);
+      }
 
       const boundaries = [0.2, 0.4, 0.6, 0.8];
       const hysteresis = 0.018;
@@ -106,30 +120,41 @@ export default function HeroExperience({ locale, hero }: { locale: Locale; hero:
   }, [prefersReducedMotion, storyStages.length]);
 
   return (
-    <section ref={section} className={`hero hero-scroll story-stage-${activeStage}`}>
+    <section
+      ref={section}
+      className={`hero hero-scroll story-stage-${activeStage}${storyEmphasized ? ' is-story-emphasized' : ''}`}
+    >
       <div className="container hero-grid hero-grid-scroll">
         <div className="hero-story-copy">
-          {/* The eyebrow already reads "CANADIAN…" in both locales — the leaf only marks it, silently. */}
-          <div className="eyebrow eyebrow-canada"><MapleLeaf />{hero.eyebrow}</div>
-          <h1>{hero.title}</h1>
-          <p className="hero-copy">{hero.text}</p>
-          <div className="hero-cta">
-            <Link className="button" href={`/${locale}/contact`}>
-              {hero.primary}<span>↗</span>
-            </Link>
-            <Link className="button button-outline" href={`/${locale}/solutions`}>
-              {hero.secondary}<span>↓</span>
-            </Link>
+          <div className="hero-intro">
+            <div className="hero-intro-inner">
+              {/* The eyebrow already reads "CANADIAN…" in both locales — the leaf only marks it, silently. */}
+              <div className="eyebrow eyebrow-canada"><MapleLeaf />{hero.eyebrow}</div>
+              <h1>{hero.title}</h1>
+              <p className="hero-copy">{hero.text}</p>
+              <div className="hero-cta">
+                <Link className="button" href={`/${locale}/contact`}>
+                  {hero.primary}<span>↗</span>
+                </Link>
+                <Link className="button button-outline" href={`/${locale}/solutions`}>
+                  {hero.secondary}<span>↓</span>
+                </Link>
+              </div>
+            </div>
           </div>
 
           <div className="story-stage-list" aria-label={processLabel[locale]}>
             {storyStages.map((stage, index) => (
               <article className={`story-stage${index === activeStage ? ' is-active' : ''}`} key={stage.label}>
                 <span>{String(index + 1).padStart(2, '0')}</span>
-                <div>
+                <div className="story-stage-copy">
                   <b>{stage.label}</b>
-                  <h2>{stage.title}</h2>
-                  <p>{stage.text}</p>
+                  <div className="story-stage-detail">
+                    <div>
+                      <h2>{stage.title}</h2>
+                      <p>{stage.text}</p>
+                    </div>
+                  </div>
                 </div>
               </article>
             ))}

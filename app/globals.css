@@ -76,8 +76,10 @@ select {
 }
 
 .brand-mark {
-   width: 42px;
-   height: 32px;
+   width: 36px;
+   height: 36px;
+   flex: 0 0 36px;
+   aspect-ratio: 1;
    border-radius: 50%;
    display: grid;
    place-items: center;
