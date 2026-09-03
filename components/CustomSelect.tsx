@@ -72,19 +72,13 @@ export default function CustomSelect({
   useEffect(() => {
     if (!open) return;
     const handleClickOutside = (event: MouseEvent) => {
-      if (!containerRef.current?.contains(event.target as Node)) setOpen(false);
+      if (!containerRef.current?.contains(event.target as Node)) {
+        setOpen(false);
+        setActiveIndex(-1);
+      }
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [open]);
-
-  // Focus the first option when the listbox opens.
-  useEffect(() => {
-    if (open) {
-      setActiveIndex((index) => (index >= 0 ? index : 0));
-    } else {
-      setActiveIndex(-1);
-    }
   }, [open]);
 
   // Keep the highlighted option visible inside the scrollable listbox.
@@ -97,38 +91,39 @@ export default function CustomSelect({
   const commit = (optionValue: string) => {
     onChange(optionValue);
     setOpen(false);
+    setActiveIndex(-1);
     // Return focus to the trigger so screen readers announce the change.
     requestAnimationFrame(() => buttonRef.current?.focus());
   };
 
   const handleTriggerKey = (event: React.KeyboardEvent<HTMLButtonElement>) => {
-    if (event.key === 'ArrowDown' || event.key === 'ArrowUp' || event.key === 'Enter' || event.key === ' ') {
+    if (!open && (event.key === 'ArrowDown' || event.key === 'ArrowUp' || event.key === 'Enter' || event.key === ' ')) {
       event.preventDefault();
+      const selectedIndex = options.findIndex((option) => normalizeOption(option).value === value);
+      setActiveIndex(selectedIndex >= 0 ? selectedIndex : 0);
       setOpen(true);
-    }
-  };
-
-  const handleListKey = (event: React.KeyboardEvent<HTMLUListElement>) => {
-    if (event.key === 'ArrowDown') {
+    } else if (open && event.key === 'ArrowDown') {
       event.preventDefault();
       setActiveIndex((index) => (options.length === 0 ? -1 : (index + 1) % options.length));
-    } else if (event.key === 'ArrowUp') {
+    } else if (open && event.key === 'ArrowUp') {
       event.preventDefault();
       setActiveIndex((index) => (options.length === 0 ? -1 : (index - 1 + options.length) % options.length));
-    } else if (event.key === 'Home') {
+    } else if (open && event.key === 'Home') {
       event.preventDefault();
       setActiveIndex(0);
-    } else if (event.key === 'End') {
+    } else if (open && event.key === 'End') {
       event.preventDefault();
       setActiveIndex(options.length - 1);
-    } else if (event.key === 'Enter') {
+    } else if (open && (event.key === 'Enter' || event.key === ' ')) {
       event.preventDefault();
       if (activeIndex >= 0 && activeIndex < options.length) commit(normalizeOption(options[activeIndex]).value);
-    } else if (event.key === 'Escape') {
+    } else if (open && event.key === 'Escape') {
       event.preventDefault();
       setOpen(false);
-    } else if (event.key === 'Tab') {
+      setActiveIndex(-1);
+    } else if (open && event.key === 'Tab') {
       setOpen(false);
+      setActiveIndex(-1);
     }
   };
 
@@ -144,14 +139,25 @@ export default function CustomSelect({
       <button
         ref={buttonRef}
         type="button"
+        role="combobox"
         id={id}
         className="custom-select-trigger"
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-controls={listboxId}
+        aria-activedescendant={open && activeIndex >= 0 ? `${listboxId}-${activeIndex}` : undefined}
         aria-invalid={invalid || undefined}
         aria-describedby={describedBy}
-        onClick={() => setOpen((prev) => !prev)}
+        onClick={() => {
+          if (open) {
+            setOpen(false);
+            setActiveIndex(-1);
+            return;
+          }
+          const selectedIndex = options.findIndex((option) => normalizeOption(option).value === value);
+          setActiveIndex(selectedIndex >= 0 ? selectedIndex : 0);
+          setOpen(true);
+        }}
         onKeyDown={handleTriggerKey}
       >
         <span className={`custom-select-value${selectedOption ? '' : ' is-placeholder'}`}>
@@ -183,10 +189,9 @@ export default function CustomSelect({
           role="listbox"
           className="custom-select-list"
           aria-label={placeholder}
-          onKeyDown={handleListKey}
         >
           {options.length === 0 ? (
-            <li key="no-results" className="custom-select-empty" role="option" aria-label="No results found">
+            <li key="no-results" className="custom-select-empty" role="option" aria-selected={false} aria-label="No results found">
               No options
             </li>
           ) : (

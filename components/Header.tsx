@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import type { Route } from 'next';
 import Link from 'next/link';
 import Logo from './Logo';
 import LanguageToggle from './LanguageToggle';
@@ -42,12 +43,12 @@ export default function Header({ locale }: { locale: 'en' | 'fr' }) {
     return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
 
-  const navLinks = [
-    { href: `/${locale}/solutions`, label: t.nav.solutions },
-    { href: `/${locale}/industries`, label: t.nav.industries },
-    { href: `/${locale}/approach`, label: t.nav.approach },
-    { href: `/${locale}/about`, label: t.nav.about },
-    { href: `/${locale}/projects`, label: t.nav.projects },
+  const navLinks: Array<{ href: Route; label: string }> = [
+    { href: `/${locale}/solutions` as Route, label: t.nav.solutions },
+    { href: `/${locale}/industries` as Route, label: t.nav.industries },
+    { href: `/${locale}/approach` as Route, label: t.nav.approach },
+    { href: `/${locale}/about` as Route, label: t.nav.about },
+    { href: `/${locale}/projects` as Route, label: t.nav.projects },
   ];
 
   return (

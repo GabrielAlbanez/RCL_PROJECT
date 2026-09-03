@@ -104,7 +104,7 @@ export default function ContactForm({ locale }: { locale: Locale }) {
         <CustomSelect
           name="challenge"
           id="challenge"
-          options={t.challengeOptions}
+          options={t.challengeOptions.map(([value, label]) => ({ value, label }))}
           placeholder={t.forms.selectOne}
           value={challengeValue}
           onChange={setChallengeValue}
