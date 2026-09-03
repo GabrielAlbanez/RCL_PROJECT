@@ -196,7 +196,6 @@ select {
 }
 
 .button-outline {
-   background: transparent;
    color: var(--primary);
    border-color: rgba(4, 45, 123, .3);
    box-shadow: none;
@@ -728,9 +727,9 @@ select {
 }
 
 .cta .button {
-   background: #fff;
-   color: var(--primary);
-   box-shadow: 0 8px 24px rgba(0, 0, 0, .15);
+   background: var(--primary);
+   color: #fff !important;
+   box-shadow: 0 8px 24px rgba(4, 45, 123, .2);
    transition: all .4s cubic-bezier(.16, 1, .3, 1)
 }
 
