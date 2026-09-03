@@ -11,6 +11,7 @@ export default function Header({ locale }: { locale: 'en' | 'fr' }) {
   const t = getContent(locale);
   const [mobileOpen, setMobileOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
 
   // Close menu on resize to desktop
   useEffect(() => {
@@ -25,9 +26,10 @@ export default function Header({ locale }: { locale: 'en' | 'fr' }) {
   useEffect(() => {
     if (!mobileOpen) return;
     const handleClickOutside = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setMobileOpen(false);
-      }
+      const target = e.target as Node;
+      const inMenu = menuRef.current?.contains(target);
+      const onButton = btnRef.current?.contains(target);
+      if (!inMenu && !onButton) setMobileOpen(false);
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
@@ -68,21 +70,27 @@ export default function Header({ locale }: { locale: 'en' | 'fr' }) {
             {t.headerCta}<span>↗</span>
           </Link>
         </div>
-
-        {/* Mobile hamburger */}
-        <button
-          className={`mobile-menu-btn${mobileOpen ? ' is-active' : ''}`}
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={mobileOpen}
-        >
-          <span /><span /><span />
-        </button>
       </header>
+
+      {/* Mobile hamburger. Deliberately a sibling of <header>, not a child: the header
+          is position: fixed with a z-index, so it forms a stacking context and nothing
+          inside it can paint above the menu panel. It is pinned by CSS to the exact
+          coordinates it occupied as a header flex item. */}
+      <button
+        ref={btnRef}
+        className={`mobile-menu-btn${mobileOpen ? ' is-active' : ''}`}
+        onClick={() => setMobileOpen(open => !open)}
+        aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+        aria-expanded={mobileOpen}
+        aria-controls="mobile-menu"
+      >
+        <span /><span /><span />
+      </button>
 
       {/* Mobile menu overlay */}
       <div
         ref={menuRef}
+        id="mobile-menu"
         className={`mobile-menu${mobileOpen ? ' is-open' : ''}`}
         aria-hidden={!mobileOpen}
       >
