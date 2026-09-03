@@ -385,10 +385,6 @@ select {
    margin: 0;
 }
 
-.section-dark h2 {
-   color: #fff
-}
-
 .section-head p {
    max-width: 420px;
    font-size: 17px;
@@ -1078,8 +1074,8 @@ select {
    }
 
    .site-header {
-      margin-top: 8px;
-      padding: 8px 9px 8px 12px
+      margin: 12px auto 0;
+      padding: 8px 14px 8px 16px
    }
 
    .brand-name {
@@ -1907,7 +1903,7 @@ select {
    width: 40px;
    height: 40px;
    background: none;
-   border: 5px;
+   border: 0;
    cursor: pointer;
    padding: 8px;
    border-radius: 8px;
@@ -1964,6 +1960,7 @@ select {
    right: 0;
    width: min(320px, 85vw);
    height: 100vh;
+   height: 100dvh;
    background: #fff;
    z-index: 200;
    transform: translateX(100%);
@@ -1998,23 +1995,25 @@ select {
    padding-left: 8px
 }
 
-.mobile-nav-cta {
+.mobile-nav a.mobile-nav-cta {
    display: block;
    margin-top: 20px;
    padding: 16px 24px;
    color: #fff;
+   background: var(--primary);
    font: 700 14px "Saira", Arial, sans-serif;
    text-align: center;
    border-radius: 999px;
-   border: 30px;
-   border-color: var(--primary);
+   border: 1px solid var(--primary);
    cursor: pointer;
    text-decoration: none;
    transition: transform .2s ease, box-shadow .2s ease
 }
 
-.mobile-nav-cta:hover {
-   color : #fff;
+.mobile-nav a.mobile-nav-cta:hover,
+.mobile-nav a.mobile-nav-cta:focus-visible {
+   color: #fff;
+   padding-left: 24px;
    transform: translateY(-2px);
    box-shadow: 0 10px 30px rgba(4, 45, 123, .25)
 }
@@ -2037,14 +2036,8 @@ select {
    }
 
    .site-header {
-      justify-content: space-between
-   }
-}
-
-@media (max-width:700px) {
-   .site-header {
-      margin: 12px auto 0;
-      padding: 8px 14px 8px 16px
+      justify-content: space-between;
+      z-index: 201
    }
 }
 
@@ -2106,7 +2099,31 @@ select {
    transform: rotate(180deg)
 }
 
-.custom-select-dropdown {
+.custom-select-clear {
+   position: absolute;
+   top: 50%;
+   right: 42px;
+   z-index: 2;
+   width: 28px;
+   height: 28px;
+   padding: 0;
+   border: 0;
+   border-radius: 50%;
+   background: transparent;
+   color: var(--sub);
+   cursor: pointer;
+   transform: translateY(-50%);
+   transition: color .2s ease, background .2s ease
+}
+
+.custom-select-clear:hover,
+.custom-select-clear:focus-visible {
+   outline: none;
+   color: var(--primary);
+   background: rgba(4, 45, 123, .06)
+}
+
+.custom-select-popover {
    position: absolute;
    top: calc(100% + 6px);
    left: 0;
