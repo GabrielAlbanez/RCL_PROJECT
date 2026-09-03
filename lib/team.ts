@@ -47,7 +47,7 @@ export const team: TeamMember[] = [
   {
     slug: 'controls-automation-lead',
     name: '',
-    photo: '/team/controls-automation-lead.jpg',
+    photo: 'https://images.pexels.com/photos/19570689/pexels-photo-19570689.jpeg',
     years: '20+ yrs',
     role: { en: 'Lead — Controls & Automation', fr: 'Responsable — Contrôle et automatisation' },
     credentials: { en: 'P.Eng. · B.Eng. Electrical Engineering', fr: 'ing. · B.Ing. génie électrique' },
@@ -63,7 +63,7 @@ export const team: TeamMember[] = [
   {
     slug: 'iiot-data-lead',
     name: '',
-    photo: '/team/iiot-data-lead.jpg',
+    photo: 'https://images.pexels.com/photos/17582358/pexels-photo-17582358.jpeg',
     years: '15+ yrs',
     role: { en: 'Lead — IIoT & Industrial Data', fr: 'Responsable — IIoT et données industrielles' },
     credentials: { en: 'P.Eng. · M.Sc. Systems Engineering', fr: 'ing. · M.Sc. génie des systèmes' },
@@ -79,7 +79,7 @@ export const team: TeamMember[] = [
   {
     slug: 'industrial-engineering-lead',
     name: '',
-    photo: '/team/industrial-engineering-lead.jpg',
+    photo: 'https://images.pexels.com/photos/27086768/pexels-photo-27086768.jpeg',
     years: '18+ yrs',
     role: { en: 'Lead — Industrial & Process Engineering', fr: 'Responsable — Génie industriel et des procédés' },
     credentials: { en: 'P.Eng. · B.Eng. Industrial Engineering', fr: 'ing. · B.Ing. génie industriel' },
@@ -95,7 +95,7 @@ export const team: TeamMember[] = [
   {
     slug: 'industrial-software-lead',
     name: '',
-    photo: '/team/industrial-software-lead.jpg',
+    photo: 'https://images.pexels.com/photos/37789266/pexels-photo-37789266.jpeg',
     years: '12+ yrs',
     role: { en: 'Lead — Industrial Software', fr: 'Responsable — Logiciels industriels' },
     credentials: { en: 'B.Sc. Computer Engineering · Industrial systems', fr: 'B.Sc. génie informatique · systèmes industriels' },
@@ -111,7 +111,7 @@ export const team: TeamMember[] = [
   {
     slug: 'optimization-ai-lead',
     name: '',
-    photo: '/team/optimization-ai-lead.jpg',
+    photo: 'https://images.pexels.com/photos/31094985/pexels-photo-31094985.jpeg',
     years: '10+ yrs',
     role: { en: 'Lead — Optimization, ML & AI', fr: 'Responsable — Optimisation, ML et IA' },
     credentials: { en: 'Ph.D. Process Control · M.Sc. Applied Mathematics', fr: 'Ph.D. contrôle des procédés · M.Sc. mathématiques appliquées' },
