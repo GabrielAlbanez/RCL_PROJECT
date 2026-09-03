@@ -9,6 +9,38 @@ import type { Locale } from '@/lib/content';
 
 type Point3 = [number, number, number];
 type SurfaceStyle = 'steel' | 'paint' | 'rubber';
+type SceneTransform = {
+  position: Point3;
+  rotation: Point3;
+  scale: number;
+};
+
+const ROOT_HOME_TRANSFORMS = {
+  chassisRoot: { position: [0, 0, 0], rotation: [0, 0, 0], scale: 1 },
+  processRoot: { position: [0, 0, 0], rotation: [0, 0, 0], scale: 1 },
+  driveRoot: { position: [-0.36, 0, 0.06], rotation: [0, 0, 0], scale: 1 },
+  controlRoot: { position: [0, 0, 0], rotation: [0, 0, 0], scale: 1 },
+  digitalRoot: { position: [0, 0, 0], rotation: [0, 0, 0], scale: 1 },
+  optimizationRoot: { position: [0, 0, 0], rotation: [0, 0, 0.35], scale: 0.001 },
+} satisfies Record<string, SceneTransform>;
+
+const ASSEMBLY_TRANSFORMS = {
+  homeTransform: { position: [0, 0, 0], rotation: [-0.015, 0.18, 0], scale: 0.95 },
+  inspectionTransform: { position: [0, 0, 0], rotation: [0.015, 0.08, 0], scale: 0.945 },
+  focusTransform: { position: [0, 0, 0], rotation: [0.02, -0.06, 0], scale: 0.95 },
+  digitalTransform: { position: [0, 0, 0], rotation: [-0.01, 0.12, 0], scale: 0.955 },
+  optimizedTransform: { position: [0, 0, 0], rotation: [-0.025, 0.22, 0], scale: 0.96 },
+} satisfies Record<string, SceneTransform>;
+
+const NARRATIVE_TRANSFORMS = [
+  ASSEMBLY_TRANSFORMS.homeTransform,
+  ASSEMBLY_TRANSFORMS.inspectionTransform,
+  ASSEMBLY_TRANSFORMS.focusTransform,
+  ASSEMBLY_TRANSFORMS.digitalTransform,
+  ASSEMBLY_TRANSFORMS.optimizedTransform,
+];
+
+const NARRATIVE_ANCHORS = [0, 0.2, 0.42, 0.76, 1];
 
 function smoothstep(value: number, start: number, end: number) {
   const normalized = THREE.MathUtils.clamp((value - start) / (end - start), 0, 1);
@@ -19,15 +51,25 @@ function progressWindow(value: number, start: number, end: number) {
   return smoothstep(value, start, end);
 }
 
-function dampPosition(group: THREE.Object3D, target: Point3, lambda: number, delta: number) {
-  group.position.x = THREE.MathUtils.damp(group.position.x, target[0], lambda, delta);
-  group.position.y = THREE.MathUtils.damp(group.position.y, target[1], lambda, delta);
-  group.position.z = THREE.MathUtils.damp(group.position.z, target[2], lambda, delta);
-}
-
 function dampScale(group: THREE.Object3D, target: number, lambda: number, delta: number) {
   const scale = THREE.MathUtils.damp(group.scale.x, target, lambda, delta);
   group.scale.setScalar(scale);
+}
+
+function sampleNarrativeTransform(progress: number, target: SceneTransform) {
+  let index = 0;
+  while (index < NARRATIVE_ANCHORS.length - 2 && progress > NARRATIVE_ANCHORS[index + 1]) index += 1;
+  const start = NARRATIVE_ANCHORS[index];
+  const end = NARRATIVE_ANCHORS[index + 1];
+  const mix = smoothstep(progress, start, end);
+  const from = NARRATIVE_TRANSFORMS[index];
+  const to = NARRATIVE_TRANSFORMS[index + 1];
+
+  for (let axis = 0; axis < 3; axis += 1) {
+    target.position[axis] = THREE.MathUtils.lerp(from.position[axis], to.position[axis], mix);
+    target.rotation[axis] = THREE.MathUtils.lerp(from.rotation[axis], to.rotation[axis], mix);
+  }
+  target.scale = THREE.MathUtils.lerp(from.scale, to.scale, mix);
 }
 
 const sensorNodes: Point3[] = [
@@ -380,6 +422,70 @@ function ValveWheel({ textures, scrollProgress }: { textures: IndustrialTextures
   );
 }
 
+function ProcessFlowParticles({ scrollProgress }: { scrollProgress: MutableRefObject<number> }) {
+  const cyan = useRef<THREE.InstancedMesh>(null);
+  const orange = useRef<THREE.InstancedMesh>(null);
+  const dummy = useMemo(() => new THREE.Object3D(), []);
+  const count = 8;
+
+  useFrame(({ clock }) => {
+    const progress = scrollProgress.current;
+    const automated = progressWindow(progress, 0.34, 0.62);
+    const optimized = progressWindow(progress, 0.78, 0.98);
+    const time = clock.getElapsedTime();
+
+    [cyan.current, orange.current].forEach((mesh, lane) => {
+      if (!mesh) return;
+      for (let index = 0; index < count; index += 1) {
+        const phase = (time * (0.07 + optimized * 0.035) + index / count + lane * 0.16) % 1;
+        const angle = phase * Math.PI * 3.2 + lane * Math.PI;
+        const radius = 0.2 + Math.sin(phase * Math.PI) * 0.08;
+        dummy.position.set(Math.cos(angle) * radius, -0.74 + phase * 1.48, Math.sin(angle) * radius);
+        dummy.scale.setScalar(Math.max(0.001, automated) * (0.62 + Math.sin(phase * Math.PI) * 0.28));
+        dummy.updateMatrix();
+        mesh.setMatrixAt(index, dummy.matrix);
+      }
+      mesh.instanceMatrix.needsUpdate = true;
+    });
+  });
+
+  return (
+    <group position={[0, 0.06, 0]}>
+      <instancedMesh ref={cyan} args={[undefined, undefined, count]}>
+        <sphereGeometry args={[0.032, 8, 8]} />
+        <meshBasicMaterial color="#54CBFF" transparent opacity={0.86} toneMapped={false} />
+      </instancedMesh>
+      <instancedMesh ref={orange} args={[undefined, undefined, count]}>
+        <sphereGeometry args={[0.027, 8, 8]} />
+        <meshBasicMaterial color="#FF8B3D" transparent opacity={0.78} toneMapped={false} />
+      </instancedMesh>
+    </group>
+  );
+}
+
+function AuditScanner({ scrollProgress }: { scrollProgress: MutableRefObject<number> }) {
+  const ring = useRef<THREE.Mesh>(null);
+  const material = useRef<THREE.MeshBasicMaterial>(null);
+
+  useFrame(({ clock }, delta) => {
+    if (!ring.current || !material.current) return;
+    const audit = 1 - progressWindow(scrollProgress.current, 0.14, 0.34);
+    const sweep = (Math.sin(clock.getElapsedTime() * 0.72) + 1) * 0.5;
+    ring.current.position.y = THREE.MathUtils.lerp(-1.04, 1.04, sweep);
+    ring.current.rotation.z += delta * 0.08 * audit;
+    material.current.opacity = THREE.MathUtils.damp(material.current.opacity, audit * 0.48, 6, delta);
+  });
+
+  return (
+    <group position={[0.08, 0.12, 0]}>
+      <mesh ref={ring} position={[0, -1.04, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[0.78, 0.012, 8, 64]} />
+        <meshBasicMaterial ref={material} color="#55C8FF" transparent opacity={0.48} depthWrite={false} toneMapped={false} />
+      </mesh>
+    </group>
+  );
+}
+
 function ProcessVessel({ textures, scrollProgress }: { textures: IndustrialTextures; scrollProgress: MutableRefObject<number> }) {
   const pulse = useRef<THREE.Mesh>(null);
   const coreMaterial = useRef<THREE.MeshPhysicalMaterial>(null);
@@ -433,6 +539,7 @@ function ProcessVessel({ textures, scrollProgress }: { textures: IndustrialTextu
       </mesh>
 
       <Impeller textures={textures} scrollProgress={scrollProgress} />
+      <ProcessFlowParticles scrollProgress={scrollProgress} />
       <BoltRing y={-1.18} radius={0.75} textures={textures} />
       <BoltRing y={1.18} radius={0.75} textures={textures} />
 
@@ -640,7 +747,7 @@ function PumpMotor({ textures, scrollProgress }: { textures: IndustrialTextures;
             <meshStandardMaterial color="#8699A6" metalness={0.9} roughness={0.28} />
           </mesh>
         </group>
-      ))}
+      )))}
     </group>
   );
 }
@@ -655,7 +762,7 @@ function ControlCabinet({ textures, scrollProgress }: { textures: IndustrialText
   });
 
   return (
-    <group position={[0.93, -1.02, 0.82]} rotation={[-0.04, -0.17, 0]}>
+    <group position={[1.05, -1.02, 0.96]} rotation={[-0.04, 0.24, 0]}>
       <RoundedBox args={[1.12, 0.94, 0.34]} radius={0.07} smoothness={4}>
         <meshPhysicalMaterial
           color="#092C5A"
@@ -783,10 +890,10 @@ function ControlBase({ textures }: { textures: IndustrialTextures }) {
 
 function SupportFrame({ textures }: { textures: IndustrialTextures }) {
   const posts: Point3[] = [
-    [-0.92, -0.12, -0.82],
-    [0.92, -0.12, -0.82],
-    [-0.92, -0.12, 0.82],
-    [0.92, -0.12, 0.82],
+    [-1.02, -0.12, -0.78],
+    [1.02, -0.12, -0.78],
+    [-1.18, -0.12, 0.72],
+    [1.18, -0.12, 0.72],
   ];
 
   return (
@@ -820,18 +927,6 @@ function SupportFrame({ textures }: { textures: IndustrialTextures }) {
         <meshStandardMaterial color="#6E8391" metalness={0.86} roughness={0.3} />
         {posts.map(([x, , z]) => <Instance key={`foot-${x}-${z}`} position={[x, -1.5, z]} />)}
       </Instances>
-      {[-0.92, 0.92].map((x) => (
-        <group key={`brace-${x}`} position={[x, 0, 0]}>
-          <mesh rotation={[Math.PI / 4, 0, 0]}>
-            <boxGeometry args={[0.055, 2.25, 0.055]} />
-            <meshStandardMaterial color="#627B8D" metalness={0.88} roughness={0.28} />
-          </mesh>
-          <mesh rotation={[-Math.PI / 4, 0, 0]}>
-            <boxGeometry args={[0.055, 2.25, 0.055]} />
-            <meshStandardMaterial color="#627B8D" metalness={0.88} roughness={0.28} />
-          </mesh>
-        </group>
-      ))}
     </group>
   );
 }
@@ -844,17 +939,19 @@ function SignalParticles({ scrollProgress }: { scrollProgress: MutableRefObject<
   const point = useMemo(() => new THREE.Vector3(), []);
   const fieldRoute = useMemo(() => new THREE.CatmullRomCurve3([
     new THREE.Vector3(-1.42, -0.48, 0.28),
-    new THREE.Vector3(-0.72, -0.92, 0.42),
-    new THREE.Vector3(0.12, -1.25, 0.55),
-    new THREE.Vector3(0.92, -1.02, 0.82),
+    new THREE.Vector3(-1.08, -0.82, 0.36),
+    new THREE.Vector3(-0.28, -1.18, 0.56),
+    new THREE.Vector3(0.72, -1.16, 0.88),
+    new THREE.Vector3(1.05, -1.02, 0.96),
   ]), []);
   const supervisoryRoute = useMemo(() => new THREE.CatmullRomCurve3([
-    new THREE.Vector3(0.92, -0.8, 0.82),
-    new THREE.Vector3(1.45, -0.15, 0.55),
-    new THREE.Vector3(1.35, 0.88, 0.18),
-    new THREE.Vector3(0.58, 1.18, 0.42),
+    new THREE.Vector3(1.05, -0.9, 0.96),
+    new THREE.Vector3(0.98, -0.42, 0.82),
+    new THREE.Vector3(1.05, 0.12, 0.55),
+    new THREE.Vector3(1.12, 0.58, 0.1),
+    new THREE.Vector3(1.18, 0.92, -0.32),
   ]), []);
-  const count = 9;
+  const count = 7;
 
   useFrame(({ clock }, delta) => {
     const time = clock.getElapsedTime();
@@ -867,7 +964,7 @@ function SignalParticles({ scrollProgress }: { scrollProgress: MutableRefObject<
         const routeProgress = (time * (0.12 + lane * 0.025) + index / count) % 1;
         route.getPointAt(routeProgress, point);
         dummy.position.copy(point);
-        dummy.scale.setScalar(0.72 + Math.sin(routeProgress * Math.PI) * 0.22);
+        dummy.scale.setScalar(0.58 + Math.sin(routeProgress * Math.PI) * 0.18);
         dummy.updateMatrix();
         mesh.setMatrixAt(index, dummy.matrix);
       }
@@ -878,28 +975,34 @@ function SignalParticles({ scrollProgress }: { scrollProgress: MutableRefObject<
   return (
     <group ref={group} scale={0.001}>
       <instancedMesh ref={cyan} args={[undefined, undefined, count]}>
-        <sphereGeometry args={[0.045, 10, 10]} />
-        <meshBasicMaterial color="#45C3FF" toneMapped={false} />
+        <sphereGeometry args={[0.032, 8, 8]} />
+        <meshBasicMaterial color="#45C3FF" transparent opacity={0.84} toneMapped={false} />
       </instancedMesh>
       <instancedMesh ref={orange} args={[undefined, undefined, count]}>
-        <sphereGeometry args={[0.038, 10, 10]} />
-        <meshBasicMaterial color="#FF7B27" toneMapped={false} />
+        <sphereGeometry args={[0.027, 8, 8]} />
+        <meshBasicMaterial color="#FF7B27" transparent opacity={0.78} toneMapped={false} />
       </instancedMesh>
     </group>
   );
 }
 
 function SensorNetwork({ textures, scrollProgress }: { textures: IndustrialTextures; scrollProgress: MutableRefObject<number> }) {
-  const group = useRef<THREE.Group>(null);
+  const digitalOverlay = useRef<THREE.Group>(null);
+  const gatewayLight = useRef<THREE.MeshStandardMaterial>(null);
+  const sensorLights = useRef<THREE.MeshStandardMaterial[]>([]);
 
   useFrame((_, delta) => {
-    if (!group.current) return;
-    const enabled = progressWindow(scrollProgress.current, 0.42, 0.68);
-    dampScale(group.current, THREE.MathUtils.lerp(0.88, 1, enabled), 6, delta);
+    const automated = progressWindow(scrollProgress.current, 0.36, 0.62);
+    const connected = progressWindow(scrollProgress.current, 0.57, 0.82);
+    if (digitalOverlay.current) dampScale(digitalOverlay.current, Math.max(0.001, connected), 6, delta);
+    if (gatewayLight.current) gatewayLight.current.emissiveIntensity = THREE.MathUtils.damp(gatewayLight.current.emissiveIntensity, connected * 1.1, 6, delta);
+    sensorLights.current.forEach((material) => {
+      material.emissiveIntensity = THREE.MathUtils.damp(material.emissiveIntensity, 0.08 + automated * 0.64, 6, delta);
+    });
   });
 
   return (
-    <group ref={group}>
+    <group>
       {sensorNodes.map((point, index) => (
         <group key={point.join('-')} position={point}>
           <mesh position={[0, -0.13, 0]}>
@@ -910,12 +1013,15 @@ function SensorNetwork({ textures, scrollProgress }: { textures: IndustrialTextu
             <mesh>
               <boxGeometry args={[0.18, 0.18, 0.18]} />
               <meshPhysicalMaterial
+                ref={(material) => {
+                  if (material) sensorLights.current[index] = material;
+                }}
                 color={index === 4 ? '#E96B1B' : '#BFE8FF'}
                 map={index === 4 ? textures.paint : textures.steel}
                 bumpMap={index === 4 ? textures.paintHeight : textures.steelHeight}
                 bumpScale={0.012}
                 emissive={index === 4 ? '#722000' : '#075584'}
-                emissiveIntensity={0.72}
+                emissiveIntensity={0.08}
                 metalness={0.72}
                 roughness={0.2}
                 clearcoat={0.6}
@@ -924,20 +1030,42 @@ function SensorNetwork({ textures, scrollProgress }: { textures: IndustrialTextu
           </group>
           <mesh position={[0, 0, 0.105]}>
             <circleGeometry args={[0.045, 16]} />
-            <meshBasicMaterial color={index === 4 ? '#FF7B27' : '#4BC2FF'} toneMapped={false} />
+            <meshStandardMaterial color={index === 4 ? '#6F3525' : '#476A7C'} roughness={0.3} metalness={0.28} />
           </mesh>
         </group>
       ))}
-      {sensorNodes.map((point, index) => (
-        <Line
-          key={`line-${point.join('-')}`}
-          points={[point, [0.92, -0.82 + index * 0.08, 0.72]]}
-          color={index === 4 ? '#F27B2A' : '#2AA8FF'}
-          transparent
-          opacity={0.34}
-          lineWidth={0.65}
-        />
-      ))}
+      <group ref={digitalOverlay} scale={0.001}>
+        <group position={[1.18, 0.92, -0.42]} rotation={[0, -0.18, 0]}>
+          <RoundedBox args={[0.46, 0.58, 0.18]} radius={0.035} smoothness={3}>
+            <meshStandardMaterial color="#173B5C" map={textures.paint} bumpMap={textures.paintHeight} bumpScale={0.012} metalness={0.58} roughness={0.35} />
+          </RoundedBox>
+          <mesh position={[0, 0.1, 0.095]}>
+            <planeGeometry args={[0.28, 0.16]} />
+            <meshStandardMaterial color="#16364B" emissive="#1897D1" emissiveIntensity={0.28} roughness={0.4} />
+          </mesh>
+          <mesh position={[0, -0.14, 0.105]}>
+            <circleGeometry args={[0.035, 16]} />
+            <meshStandardMaterial ref={gatewayLight} color="#8CDFFF" emissive="#24B9FF" emissiveIntensity={0} toneMapped={false} />
+          </mesh>
+          {[-0.14, 0, 0.14].map((x) => (
+            <mesh key={`gateway-gland-${x}`} position={[x, -0.34, 0]}>
+              <cylinderGeometry args={[0.035, 0.045, 0.1, 12]} />
+              <meshStandardMaterial color="#202C33" map={textures.rubber} roughness={0.76} metalness={0.12} />
+            </mesh>
+          ))}
+        </group>
+        {sensorNodes.map((point, index) => (
+          <Line
+            key={`line-${point.join('-')}`}
+            points={[point, [0.92, -0.82 + index * 0.08, 0.72]]}
+            color={index === 4 ? '#F27B2A' : '#2AA8FF'}
+            transparent
+            opacity={0.34}
+            lineWidth={0.65}
+          />
+        ))}
+        <Line points={[[0.92, -0.42, 0.72], [1.18, 0.3, 0.12], [1.18, 0.92, -0.32]]} color="#2AA8FF" transparent opacity={0.42} lineWidth={0.7} />
+      </group>
     </group>
   );
 }
@@ -953,10 +1081,11 @@ function DiagnosticHotspots({ scrollProgress }: { scrollProgress: MutableRefObje
   useFrame(({ clock }) => {
     if (!group.current) return;
     const progress = scrollProgress.current;
-    const reveal = smoothstep(progress, 0, 0.18);
+    const audit = 1 - smoothstep(progress, 0.16, 0.34);
+    const diagnose = Math.sin(progressWindow(progress, 0.08, 0.44) * Math.PI);
     const resolve = smoothstep(progress, 0.36, 0.52);
     const pulse = 0.9 + Math.sin(clock.getElapsedTime() * 3.4) * 0.08;
-    const scale = Math.max(0.001, (0.35 + reveal * 0.65) * (1 - resolve) * pulse);
+    const scale = Math.max(0.001, Math.max(audit * 0.5, diagnose) * (1 - resolve) * pulse);
     group.current.scale.setScalar(scale);
     group.current.rotation.y = 0;
   });
@@ -975,13 +1104,13 @@ function DiagnosticHotspots({ scrollProgress }: { scrollProgress: MutableRefObje
           </mesh>
         </group>
       ))}
-      {hotspots.slice(1).map((point, index) => (
+      {hotspots.map((point, index) => (
         <Line
-          key={`diagnostic-${index}`}
-          points={[hotspots[0], point]}
+          key={`inspection-guide-${index}`}
+          points={[point, [point[0] + 0.22, point[1] + 0.12, point[2]]]}
           color="#FF6330"
           transparent
-          opacity={0.38}
+          opacity={0.32}
           lineWidth={0.7}
           dashed
           dashSize={0.06}
@@ -1023,100 +1152,65 @@ function NarrativeLighting({ scrollProgress, staticPresentation }: { scrollProgr
 function DetailedProcessUnit({
   scrollProgress,
   layoutOffset,
+  layoutScale,
   reducedMotion,
   pointerEnabled,
 }: {
   scrollProgress: MutableRefObject<number>;
   layoutOffset: number;
+  layoutScale: number;
   reducedMotion: boolean;
   pointerEnabled: boolean;
 }) {
   const textures = useIndustrialTextures();
   const visualProgress = useRef(reducedMotion ? 1 : scrollProgress.current);
   const assembly = useRef<THREE.Group>(null);
-  const machineLayer = useRef<THREE.Group>(null);
-  const baseLayer = useRef<THREE.Group>(null);
-  const frameLayer = useRef<THREE.Group>(null);
-  const vesselLayer = useRef<THREE.Group>(null);
-  const motorLayer = useRef<THREE.Group>(null);
-  const controlLayer = useRef<THREE.Group>(null);
-  const networkLayer = useRef<THREE.Group>(null);
   const optimizationLayer = useRef<THREE.Group>(null);
   const ringA = useRef<THREE.Mesh>(null);
   const ringB = useRef<THREE.Mesh>(null);
-  const cameraLook = useMemo(() => new THREE.Vector3(0, -0.08, 0), []);
-  const rearPipe: Point3[] = useMemo(() => [[-0.78, 0.7, -0.48], [-1.3, 0.7, -0.55], [-1.55, 0.2, -0.55], [-1.55, -0.35, -0.2]], []);
-  const topPipe: Point3[] = useMemo(() => [[0.08, 1.62, -0.05], [0.08, 2.05, -0.05], [0.85, 2.05, -0.05], [1.15, 1.64, -0.05]], []);
-  const cableOne: Point3[] = useMemo(() => [[0.7, -1.15, 0.65], [0.2, -1.28, 0.65], [-0.5, -1.22, 0.5], [-0.92, -0.7, 0.25]], []);
-  const cableTwo: Point3[] = useMemo(() => [[1.05, -1.15, 0.62], [0.75, -1.42, 0.35], [0.1, -1.38, 0.28], [-0.4, -1.16, 0.18]], []);
+  const cameraLook = useRef(new THREE.Vector3(0, -0.08, 0));
+  const narrativeTarget = useRef<SceneTransform>({
+    position: [...ASSEMBLY_TRANSFORMS.homeTransform.position],
+    rotation: [...ASSEMBLY_TRANSFORMS.homeTransform.rotation],
+    scale: ASSEMBLY_TRANSFORMS.homeTransform.scale,
+  });
+  const pumpPipe: Point3[] = useMemo(() => [[-0.64, -0.72, 0.11], [-0.56, -0.72, 0.11], [-0.53, -0.58, 0.06], [-0.58, -0.48, 0]], []);
+  const topPipe: Point3[] = useMemo(() => [[0.08, 1.62, -0.05], [0.08, 2.05, -0.05], [1.18, 2.05, -0.05], [1.24, 0.48, 0.02]], []);
+  const cableOne: Point3[] = useMemo(() => [[0.78, -1.18, 0.92], [0.22, -1.3, 0.72], [-0.62, -1.12, 0.48], [-1.25, -0.72, 0.25]], []);
+  const cableTwo: Point3[] = useMemo(() => [[1.08, -1.18, 0.92], [0.78, -1.42, 0.52], [0.1, -1.38, 0.28], [-0.62, -1.18, 0.18]], []);
+  const initialAssemblyTransform = reducedMotion
+    ? ASSEMBLY_TRANSFORMS.optimizedTransform
+    : ASSEMBLY_TRANSFORMS.homeTransform;
 
   useFrame(({ camera, pointer }, delta) => {
     const progress = reducedMotion
       ? 1
       : THREE.MathUtils.damp(visualProgress.current, scrollProgress.current, 7.5, delta);
     visualProgress.current = progress;
-    const assemblyProgress = smoothstep(progress, 0.04, 0.62);
-    const exploded = 1 - assemblyProgress;
-    const diagnostic = Math.sin(smoothstep(progress, 0.1, 0.42) * Math.PI);
     const retrofit = smoothstep(progress, 0.34, 0.63);
-    const connect = smoothstep(progress, 0.57, 0.82);
     const optimize = smoothstep(progress, 0.78, 0.98);
     const pointerX = pointerEnabled ? pointer.x : 0;
     const pointerY = pointerEnabled ? pointer.y : 0;
 
     if (assembly.current) {
+      sampleNarrativeTransform(progress, narrativeTarget.current);
       assembly.current.rotation.x = THREE.MathUtils.damp(
         assembly.current.rotation.x,
-        THREE.MathUtils.lerp(0.08, -0.025, progress) + pointerY * 0.025,
+        narrativeTarget.current.rotation[0] + pointerY * 0.018,
         5,
         delta,
       );
       assembly.current.rotation.y = THREE.MathUtils.damp(
         assembly.current.rotation.y,
-        THREE.MathUtils.lerp(-0.48, 0.22, progress) + pointerX * 0.04,
+        narrativeTarget.current.rotation[1] + pointerX * 0.03,
         4.5,
         delta,
       );
-      const assemblyScale = THREE.MathUtils.lerp(0.84, 0.96, assemblyProgress);
-      dampScale(assembly.current, assemblyScale, 5, delta);
-      assembly.current.position.x = THREE.MathUtils.damp(assembly.current.position.x, layoutOffset, 5, delta);
-    }
-
-    if (machineLayer.current) {
-      machineLayer.current.position.y = THREE.MathUtils.damp(machineLayer.current.position.y, exploded * 0.1, 6, delta);
-      machineLayer.current.rotation.z = THREE.MathUtils.damp(machineLayer.current.rotation.z, exploded * -0.035, 6, delta);
-    }
-    if (baseLayer.current) {
-      baseLayer.current.position.y = THREE.MathUtils.damp(baseLayer.current.position.y, exploded * -0.34, 6, delta);
-    }
-    if (frameLayer.current) {
-      frameLayer.current.position.y = THREE.MathUtils.damp(frameLayer.current.position.y, exploded * 0.38, 6, delta);
-      frameLayer.current.rotation.y = THREE.MathUtils.damp(frameLayer.current.rotation.y, exploded * 0.08, 6, delta);
-    }
-    if (vesselLayer.current) {
-      vesselLayer.current.position.x = THREE.MathUtils.damp(vesselLayer.current.position.x, exploded * 0.58 + diagnostic * 0.08, 6.5, delta);
-      vesselLayer.current.position.y = THREE.MathUtils.damp(vesselLayer.current.position.y, exploded * 0.5 + diagnostic * 0.04, 6.5, delta);
-      vesselLayer.current.position.z = THREE.MathUtils.damp(vesselLayer.current.position.z, exploded * 0.26, 6.5, delta);
-      vesselLayer.current.rotation.z = THREE.MathUtils.damp(vesselLayer.current.rotation.z, exploded * 0.09 - diagnostic * 0.025, 6.5, delta);
-    }
-    if (motorLayer.current) {
-      motorLayer.current.position.x = THREE.MathUtils.damp(motorLayer.current.position.x, exploded * -0.72 - diagnostic * 0.16, 6.5, delta);
-      motorLayer.current.position.y = THREE.MathUtils.damp(motorLayer.current.position.y, exploded * 0.54 + diagnostic * 0.06, 6.5, delta);
-      motorLayer.current.position.z = THREE.MathUtils.damp(motorLayer.current.position.z, exploded * -0.3, 6.5, delta);
-      motorLayer.current.rotation.y = THREE.MathUtils.damp(motorLayer.current.rotation.y, exploded * -0.28 + diagnostic * 0.1, 6.5, delta);
-    }
-    if (controlLayer.current) {
-      dampScale(controlLayer.current, THREE.MathUtils.lerp(0.9, 1, retrofit), 6, delta);
-      controlLayer.current.position.x = THREE.MathUtils.damp(controlLayer.current.position.x, (1 - retrofit) * 1.35, 6, delta);
-      controlLayer.current.position.y = THREE.MathUtils.damp(controlLayer.current.position.y, (1 - retrofit) * 0.48, 6, delta);
-      controlLayer.current.position.z = THREE.MathUtils.damp(controlLayer.current.position.z, (1 - retrofit) * 0.7, 6, delta);
-      controlLayer.current.rotation.y = THREE.MathUtils.damp(controlLayer.current.rotation.y, (1 - retrofit) * -0.34, 6, delta);
-    }
-    if (networkLayer.current) {
-      dampScale(networkLayer.current, Math.max(0.001, connect), 6, delta);
-      networkLayer.current.position.y = THREE.MathUtils.damp(networkLayer.current.position.y, (1 - connect) * 0.22, 6, delta);
-      networkLayer.current.position.z = THREE.MathUtils.damp(networkLayer.current.position.z, (1 - connect) * -0.12, 6, delta);
-      networkLayer.current.rotation.y = THREE.MathUtils.damp(networkLayer.current.rotation.y, (1 - connect) * -0.18, 6, delta);
+      assembly.current.rotation.z = THREE.MathUtils.damp(assembly.current.rotation.z, narrativeTarget.current.rotation[2], 5, delta);
+      dampScale(assembly.current, narrativeTarget.current.scale * layoutScale, 5, delta);
+      assembly.current.position.x = THREE.MathUtils.damp(assembly.current.position.x, narrativeTarget.current.position[0] + layoutOffset, 5, delta);
+      assembly.current.position.y = THREE.MathUtils.damp(assembly.current.position.y, narrativeTarget.current.position[1], 5, delta);
+      assembly.current.position.z = THREE.MathUtils.damp(assembly.current.position.z, narrativeTarget.current.position[2], 5, delta);
     }
     if (optimizationLayer.current) {
       dampScale(optimizationLayer.current, Math.max(0.001, optimize), 5, delta);
@@ -1127,60 +1221,59 @@ function DetailedProcessUnit({
 
     const diagnoseCamera = Math.sin(progressWindow(progress, 0.12, 0.42) * Math.PI);
     const connectCamera = progressWindow(progress, 0.58, 0.82);
-    const targetCameraX = 4.75 - diagnoseCamera * 0.42 + connectCamera * 0.18;
-    const targetCameraY = 2.45 + retrofit * 0.12 - connectCamera * 0.08;
-    const targetCameraZ = 6.7 - diagnoseCamera * 0.46 + connectCamera * 0.28;
+    const targetCameraX = 4.72 - diagnoseCamera * 0.28 + connectCamera * 0.18;
+    const targetCameraY = 2.42 + retrofit * 0.08 - connectCamera * 0.05;
+    const targetCameraZ = 6.78 - diagnoseCamera * 0.32 + connectCamera * 0.22;
     camera.position.x = THREE.MathUtils.damp(camera.position.x, targetCameraX, 4.2, delta);
     camera.position.y = THREE.MathUtils.damp(camera.position.y, targetCameraY, 4.2, delta);
     camera.position.z = THREE.MathUtils.damp(camera.position.z, targetCameraZ, 4.2, delta);
-    cameraLook.x = THREE.MathUtils.damp(cameraLook.x, retrofit * 0.12, 4.2, delta);
-    cameraLook.y = THREE.MathUtils.damp(cameraLook.y, -0.08 + retrofit * 0.05, 4.2, delta);
-    camera.lookAt(cameraLook);
+    cameraLook.current.x = THREE.MathUtils.damp(cameraLook.current.x, retrofit * 0.12, 4.2, delta);
+    cameraLook.current.y = THREE.MathUtils.damp(cameraLook.current.y, -0.08 + retrofit * 0.05, 4.2, delta);
+    camera.lookAt(cameraLook.current);
   });
 
   return (
-    <group ref={assembly} rotation={reducedMotion ? [-0.025, 0.22, 0] : [0.08, -0.48, 0]} scale={reducedMotion ? 0.96 : 0.84}>
-        <group ref={machineLayer} position={reducedMotion ? [0, 0, 0] : [0, 0.12, 0]} rotation={reducedMotion ? [0, 0, 0] : [0, 0, -0.05]}>
-          <group ref={baseLayer} position={reducedMotion ? [0, 0, 0] : [0, -0.34, 0]}>
-            <ControlBase textures={textures} />
-          </group>
-          <group ref={frameLayer} position={reducedMotion ? [0, 0, 0] : [0, 0.38, 0]} rotation={reducedMotion ? [0, 0, 0] : [0, 0.08, 0]}>
-            <SupportFrame textures={textures} />
-          </group>
-          <PipeRun points={rearPipe} radius={0.075} textures={textures} />
-          <group position={[-1.5, 0.18, -0.55]}>
-            <mesh rotation={[Math.PI / 2, 0, 0]}>
-              <torusGeometry args={[0.095, 0.018, 8, 28]} />
-              <meshStandardMaterial color="#6F8593" metalness={0.88} roughness={0.3} />
-            </mesh>
-            <mesh position={[0, -0.28, 0]}>
-              <boxGeometry args={[0.045, 0.48, 0.08]} />
-              <meshStandardMaterial color="#667E8E" metalness={0.86} roughness={0.32} />
-            </mesh>
-          </group>
-          <group ref={vesselLayer} position={reducedMotion ? [0, 0, 0] : [0.58, 0.5, 0.26]} rotation={reducedMotion ? [0, 0, 0] : [0, 0, 0.09]}>
-            <ProcessVessel textures={textures} scrollProgress={visualProgress} />
-          </group>
-          <group ref={motorLayer} position={reducedMotion ? [0, 0, 0] : [-0.72, 0.54, -0.3]} rotation={reducedMotion ? [0, 0, 0] : [0, -0.28, 0]}>
-            <PumpMotor textures={textures} scrollProgress={visualProgress} />
-          </group>
+    <group
+      ref={assembly}
+      position={[initialAssemblyTransform.position[0] + layoutOffset, initialAssemblyTransform.position[1], initialAssemblyTransform.position[2]]}
+      rotation={initialAssemblyTransform.rotation}
+      scale={initialAssemblyTransform.scale * layoutScale}
+    >
+        <group {...ROOT_HOME_TRANSFORMS.chassisRoot}>
+          <ControlBase textures={textures} />
+          <SupportFrame textures={textures} />
         </group>
 
-        <DiagnosticHotspots scrollProgress={visualProgress} />
-
-        <group ref={controlLayer} scale={reducedMotion ? 1 : 0.9} position={reducedMotion ? [0, 0, 0] : [1.35, 0.48, 0.7]} rotation={reducedMotion ? [0, 0, 0] : [0, -0.34, 0]}>
-          <ControlCabinet textures={textures} scrollProgress={visualProgress} />
+        <group {...ROOT_HOME_TRANSFORMS.processRoot}>
+          <ProcessVessel textures={textures} scrollProgress={visualProgress} />
+          <AuditScanner scrollProgress={visualProgress} />
+          <PipeRun points={pumpPipe} radius={0.075} textures={textures} />
           <PipeRun points={topPipe} radius={0.07} textures={textures} accent />
+        </group>
+
+        <group {...ROOT_HOME_TRANSFORMS.driveRoot}>
+          <PumpMotor textures={textures} scrollProgress={visualProgress} />
+        </group>
+
+        <group {...ROOT_HOME_TRANSFORMS.controlRoot}>
+          <ControlCabinet textures={textures} scrollProgress={visualProgress} />
           <PipeRun points={cableOne} radius={0.025} textures={textures} />
           <PipeRun points={cableTwo} radius={0.021} textures={textures} accent />
         </group>
 
-        <group ref={networkLayer} scale={reducedMotion ? 1 : 0.001} position={reducedMotion ? [0, 0, 0] : [0, 0.22, -0.12]} rotation={reducedMotion ? [0, 0, 0] : [0, -0.18, 0]}>
+        <DiagnosticHotspots scrollProgress={visualProgress} />
+
+        <group {...ROOT_HOME_TRANSFORMS.digitalRoot}>
           <SensorNetwork textures={textures} scrollProgress={visualProgress} />
           <SignalParticles scrollProgress={visualProgress} />
         </group>
 
-        <group ref={optimizationLayer} scale={reducedMotion ? 1 : 0.001} rotation={reducedMotion ? [0, 0, 0] : [0, 0.35, 0]}>
+        <group
+          ref={optimizationLayer}
+          position={ROOT_HOME_TRANSFORMS.optimizationRoot.position}
+          rotation={reducedMotion ? [0, 0, 0] : ROOT_HOME_TRANSFORMS.optimizationRoot.rotation}
+          scale={reducedMotion ? 1 : ROOT_HOME_TRANSFORMS.optimizationRoot.scale}
+        >
           <mesh ref={ringA} rotation={[1.18, 0.24, 0.12]}>
             <torusGeometry args={[1.78, 0.01, 8, 72]} />
             <meshBasicMaterial color="#2AA8FF" transparent opacity={0.14} toneMapped={false} />
@@ -1256,7 +1349,7 @@ export default function ThreeScene({
       aria-label={labels.description}
     >
       <Canvas
-        camera={{ position: [4.85, 2.55, 6.75], fov: 38 }}
+        camera={{ position: [4.72, 2.42, 6.78], fov: 38 }}
         dpr={isCompact ? 1 : [1, 1.4]}
         frameloop={staticPresentation || !isVisible ? 'demand' : 'always'}
         gl={{ antialias: true, alpha: true, powerPreference: 'high-performance', stencil: false }}
@@ -1265,7 +1358,8 @@ export default function ThreeScene({
         <NarrativeLighting scrollProgress={scrollProgress} staticPresentation={staticPresentation} />
         <DetailedProcessUnit
           scrollProgress={scrollProgress}
-          layoutOffset={overlayLayout ? 0.72 : 0}
+          layoutOffset={overlayLayout ? 1.05 : 0}
+          layoutScale={overlayLayout ? 0.82 : isCompact ? 0.9 : 1}
           reducedMotion={staticPresentation}
           pointerEnabled={!staticPresentation && !overlayLayout}
         />
