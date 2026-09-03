@@ -1,0 +1,30 @@
+/* Reset, document defaults and inherited form typography. */
+
+* {
+   box-sizing: border-box
+}
+
+html {
+   scroll-behavior: smooth
+}
+
+body {
+   margin: 0;
+   background: var(--paper);
+   color: #2a3a47;
+   font-family: var(--font-sans);
+   overflow-x: hidden;
+   font-weight: 450
+}
+
+a {
+   color: inherit;
+   text-decoration: none
+}
+
+button,
+input,
+textarea,
+select {
+   font: inherit
+}

@@ -1,0 +1,160 @@
+/* /about — bilingual proof panel, position pillars and presence. */
+
+/* ===== /ABOUT — bilingual proof panel · position pillars · presence ===== */
+.canada-grid-3 {
+   grid-template-columns: repeat(3, 1fr)
+}
+
+.lang-split {
+   display: grid;
+   grid-template-columns: .95fr 1.05fr;
+   gap: 22px;
+   align-items: start
+}
+
+.lang-cards {
+   grid-template-columns: 1fr
+}
+
+.lang-panel {
+   position: relative;
+   overflow: hidden;
+   padding: 22px;
+   border-radius: 26px;
+   background: linear-gradient(155deg, var(--primary), #0a468f 62%, #0d5aa8);
+   box-shadow: 0 26px 70px rgba(4, 45, 123, .2)
+}
+
+.lang-panel:after {
+   content: "";
+   position: absolute;
+   inset: 0;
+   background-image: linear-gradient(rgba(255, 255, 255, .05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .05) 1px, transparent 1px);
+   background-size: 30px 30px;
+   pointer-events: none
+}
+
+.lang-panel-head {
+   position: relative;
+   z-index: 1;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   gap: 14px;
+   padding-bottom: 16px;
+   margin-bottom: 16px;
+   border-bottom: 1px solid rgba(255, 255, 255, .16);
+   font: 600 10px var(--font-ui);
+   letter-spacing: .16em;
+   text-transform: uppercase
+}
+
+.lang-panel-head span {
+   color: rgba(255, 255, 255, .62)
+}
+
+.lang-panel-head b {
+   color: var(--cyan)
+}
+
+.lang-row {
+   position: relative;
+   z-index: 1;
+   display: grid;
+   grid-template-columns: 42px 1fr;
+   gap: 14px;
+   align-items: center;
+   padding: 15px 16px;
+   border: 1px solid rgba(255, 255, 255, .16);
+   border-radius: 16px;
+   background: rgba(255, 255, 255, .06)
+}
+
+.lang-row+.lang-row {
+   margin-top: 10px
+}
+
+.lang-row b {
+   display: grid;
+   place-items: center;
+   height: 26px;
+   border-radius: 999px;
+   background: var(--maple);
+   color: #fff;
+   font: 700 10px var(--font-ui);
+   letter-spacing: .12em
+}
+
+.lang-row span {
+   color: #fff;
+   font: 600 15px/1.35 var(--font-ui);
+   letter-spacing: .01em
+}
+
+.lang-panel-foot {
+   position: relative;
+   z-index: 1;
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   margin-top: 16px;
+   font: 600 10px var(--font-ui);
+   letter-spacing: .14em;
+   text-transform: uppercase;
+   color: rgba(255, 255, 255, .5)
+}
+
+.lang-panel-foot i {
+   font-style: normal;
+   font-size: 8px;
+   color: var(--orange)
+}
+
+.section-dark .canada-item {
+   background: rgba(255, 255, 255, .05);
+   border-color: rgba(255, 255, 255, .16);
+   box-shadow: none
+}
+
+.section-dark .canada-item:hover {
+   background: rgba(255, 255, 255, .09);
+   border-color: rgba(200, 16, 46, .5)
+}
+
+.section-dark .canada-item strong {
+   color: #fff
+}
+
+.section-dark .canada-item span {
+   color: rgba(255, 255, 255, .7)
+}
+
+.presence {
+   margin-top: 70px;
+   padding-top: 44px;
+   border-top: 1px solid rgba(255, 255, 255, .15)
+}
+
+.presence h3 {
+   font: 700 clamp(26px, 3vw, 36px)/1.05 var(--font-display);
+   color: #fff;
+   letter-spacing: -.03em;
+   margin: 0 0 12px
+}
+
+.presence p {
+   color: rgba(255, 255, 255, .7);
+   line-height: 1.6;
+   margin: 0;
+   max-width: 560px
+}
+
+.presence .industry-list {
+   grid-template-columns: repeat(6, 1fr);
+   margin-top: 26px
+}
+
+.presence .industry-pill {
+   text-align: center;
+   cursor: default
+}

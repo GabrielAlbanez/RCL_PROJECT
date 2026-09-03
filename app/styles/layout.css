@@ -1,0 +1,6 @@
+/* Shared page gutter. */
+
+.container {
+   width: min(1180px, calc(100% - 40px));
+   margin: 0 auto
+}

@@ -1,0 +1,148 @@
+/* Phone overrides for everything declared above. Same cascade caveat as responsive-1100. */
+
+@media (max-width:700px) {
+   .container {
+      width: min(100% - 28px, 1180px)
+   }
+
+   .site-header {
+      margin: 12px auto 0;
+      padding: 8px 14px 8px 16px
+   }
+
+   .brand-name {
+      display: none
+   }
+
+   .language-toggle {
+      display: none
+   }
+
+   .header-actions {
+      margin-left: auto
+   }
+
+   .button-small {
+      font-size: 10px;
+      padding: 9px 11px
+   }
+
+   .hero {
+      padding-top: 110px
+   }
+
+   .hero h1,
+   .page-hero h1 {
+      font-size: 36px
+   }
+
+   .hero-copy {
+      font-size: 17px
+   }
+
+   .hero-meta {
+      gap: 16px;
+      overflow: auto
+   }
+
+   .three-shell {
+      height: 360px;
+      border-radius: 28px
+   }
+
+   .three-shell:after {
+      right: 40px;
+      top: 50px
+   }
+
+   .section {
+      padding: 85px 0
+   }
+
+   .section-head {
+      display: block;
+      margin-bottom: 38px
+   }
+
+   .section-head p {
+      margin-top: 18px
+   }
+
+   .problem-grid,
+   .solution-grid,
+   .listing-grid {
+      grid-template-columns: 1fr
+   }
+
+   .problem-card {
+      min-height: 220px
+   }
+
+   .method-grid {
+      grid-template-columns: 1fr
+   }
+
+   .method-step {
+      border-right: 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .15);
+      min-height: 180px
+   }
+
+   .method-step:last-child {
+      border-bottom: 0
+   }
+
+   .method-step:after {
+      content: "↓";
+      right: 20px;
+      top: 35px
+   }
+
+   .industry-list {
+      grid-template-columns: 1fr 1fr
+   }
+
+   .results {
+      grid-template-columns: 1fr 1fr
+   }
+
+   .cta-grid {
+      display: block
+   }
+
+   .cta p {
+      margin: 22px 0 28px
+   }
+
+   .site-footer {
+      grid-template-columns: 1fr;
+      padding-left: 20px;
+      padding-right: 20px
+   }
+
+   .footer-bottom {
+      flex-direction: column;
+      gap: 7px
+   }
+
+   .form-row {
+      grid-template-columns: 1fr
+   }
+
+   .page-hero {
+      padding-top: 140px
+   }
+
+   .human-visual {
+      min-height: 340px
+   }
+
+   .human-visual .quote {
+      font-size: 38px;
+      margin-top: 110px
+   }
+
+   .hero .button {
+      width: 100%
+   }
+}

@@ -1,0 +1,363 @@
+/* People / credibility — trust strip and the flip card (photo front, bio back). */
+
+/* ===== PEOPLE / CREDIBILITY (photo front · bio back) ===== */
+.team-section {
+   background: linear-gradient(180deg, var(--paper), #eef3f9)
+}
+
+.trust-strip {
+   display: grid;
+   grid-template-columns: repeat(4, 1fr);
+   gap: 18px;
+   border-top: 1px solid var(--line);
+   border-bottom: 1px solid var(--line);
+   padding: 24px 0;
+   margin: 0 0 46px
+}
+
+.trust-item {
+   display: flex;
+   flex-direction: column;
+   gap: 8px
+}
+
+.trust-item strong {
+   font: 700 clamp(30px, 3.4vw, 42px)/1 var(--font-display);
+   color: var(--primary);
+   letter-spacing: -.03em
+}
+
+.trust-item span {
+   font: 600 11px/1.45 var(--font-ui);
+   letter-spacing: .13em;
+   text-transform: uppercase;
+   color: #7c8b9a;
+   max-width: 210px
+}
+
+.team-grid {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 16px
+}
+
+.team-grid>div {
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   gap: 14px
+}
+
+.team-linkedin {
+   align-self: center;
+   display: inline-flex;
+   align-items: center;
+   gap: 7px;
+   padding: 9px 16px;
+   border-radius: 999px;
+   border: 1px solid var(--line);
+   color: #5c7086;
+   font: 600 11px var(--font-ui);
+   letter-spacing: .1em;
+   text-transform: uppercase;
+   transition: .3s cubic-bezier(.16, 1, .3, 1)
+}
+
+.team-linkedin svg {
+   width: 13px;
+   height: 13px;
+   fill: currentColor
+}
+
+.team-linkedin:hover {
+   border-color: var(--primary);
+   color: var(--primary);
+   background: #fff;
+   transform: translateY(-2px)
+}
+
+.team-card {
+   display: block;
+   width: 100%;
+   padding: 0;
+   border: 0;
+   margin: 0;
+   background: none;
+   text-align: left;
+   font: inherit;
+   color: inherit;
+   cursor: pointer;
+   -webkit-appearance: none;
+   appearance: none;
+   perspective: 1600px
+}
+
+.team-card:focus-visible {
+   outline: 2px solid var(--cyan);
+   outline-offset: 5px;
+   border-radius: 32px
+}
+
+.team-card-inner {
+   display: block;
+   position: relative;
+   height: 490px;
+   border-radius: 28px;
+   transform-style: preserve-3d;
+   -webkit-transform-style: preserve-3d;
+   transition: transform .75s cubic-bezier(.16, 1, .3, 1), box-shadow .3s ease
+}
+
+.team-card:hover .team-card-inner {
+   box-shadow: 0 30px 80px rgba(4, 45, 123, .2)
+}
+
+.team-card.is-flipped .team-card-inner {
+   transform: rotateY(180deg)
+}
+
+.team-face {
+   display: flex;
+   flex-direction: column;
+   position: absolute;
+   inset: 0;
+   border-radius: 28px;
+   overflow: hidden;
+   backface-visibility: hidden;
+   -webkit-backface-visibility: hidden
+}
+
+.team-face-front {
+   border: 1px solid var(--line);
+   background: linear-gradient(165deg, #f0f5fb, #dde8f3)
+}
+
+.team-photo {
+   position: absolute;
+   inset: 0;
+   overflow: hidden
+}
+
+.team-photo img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   display: block
+}
+
+.team-photo:after {
+   content: "";
+   position: absolute;
+   inset: 0;
+   background: linear-gradient(to top, rgba(4, 45, 123, .95) 4%, rgba(4, 45, 123, .55) 34%, rgba(4, 45, 123, .05) 66%, rgba(4, 45, 123, .12) 100%)
+}
+
+.team-portrait-empty {
+   position: absolute;
+   inset: 0;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   gap: 14px;
+   background-image: linear-gradient(rgba(4, 45, 123, .05) 1px, transparent 1px), linear-gradient(90deg, rgba(4, 45, 123, .05) 1px, transparent 1px);
+   background-size: 34px 34px
+}
+
+.team-portrait-empty svg {
+   width: 126px;
+   height: 126px;
+   fill: none;
+   stroke: rgba(4, 45, 123, .3);
+   stroke-width: 4;
+   stroke-linecap: round;
+   overflow: visible
+}
+
+.team-portrait-empty>span {
+   font: 700 10px var(--font-ui);
+   letter-spacing: .28em;
+   color: rgba(4, 45, 123, .42)
+}
+
+.team-front-copy {
+   position: relative;
+   z-index: 2;
+   margin-top: auto;
+   display: flex;
+   flex-direction: column;
+   gap: 7px;
+   padding: 26px 24px 24px
+}
+
+.team-years {
+   align-self: flex-start;
+   font: 700 10px var(--font-ui);
+   letter-spacing: .18em;
+   color: #fff;
+   background: var(--orange);
+   padding: 6px 10px;
+   border-radius: 999px;
+   margin-bottom: 6px
+}
+
+.team-name {
+   font: 700 30px/.98 var(--font-display);
+   color: #fff;
+   letter-spacing: -.025em
+}
+
+.team-role {
+   font: 700 18px/1.15 var(--font-display);
+   color: #fff;
+   letter-spacing: -.01em
+}
+
+.team-name+.team-role {
+   font: 600 13px/1.35 var(--font-ui);
+   color: rgba(255, 255, 255, .82);
+   letter-spacing: .02em
+}
+
+.team-creds {
+   font: 600 12px/1.45 var(--font-ui);
+   color: var(--cyan);
+   letter-spacing: .04em
+}
+
+.team-flip-hint {
+   position: absolute;
+   z-index: 3;
+   top: 18px;
+   right: 18px;
+   display: inline-flex;
+   align-items: center;
+   gap: 7px;
+   font: 700 10px var(--font-ui);
+   letter-spacing: .14em;
+   text-transform: uppercase;
+   color: #fff;
+   background: rgba(4, 45, 123, .42);
+   border: 1px solid rgba(255, 255, 255, .3);
+   backdrop-filter: blur(8px);
+   padding: 8px 12px;
+   border-radius: 999px;
+   transition: background .25s ease
+}
+
+.team-flip-hint i {
+   font-style: normal;
+   font-size: 13px
+}
+
+.team-card:hover .team-flip-hint {
+   background: var(--orange);
+   border-color: transparent
+}
+
+.team-face-back {
+   transform: rotateY(180deg);
+   background: linear-gradient(155deg, var(--primary), #0a468f 58%, #0d5aa8);
+   color: #fff;
+   padding: 30px 26px 26px;
+   gap: 16px
+}
+
+.team-face-back:before {
+   content: "RCL";
+   position: absolute;
+   right: -26px;
+   bottom: -46px;
+   font: 700 150px/1 var(--font-display);
+   color: rgba(255, 255, 255, .05);
+   pointer-events: none
+}
+
+.team-back-head {
+   display: flex;
+   flex-direction: column;
+   gap: 6px;
+   padding-right: 150px
+}
+
+.team-bio {
+   position: relative;
+   z-index: 1;
+   font-size: 14.5px;
+   line-height: 1.55;
+   color: rgba(255, 255, 255, .82)
+}
+
+.team-tags {
+   position: relative;
+   z-index: 1;
+   display: flex;
+   flex-wrap: wrap;
+   gap: 7px;
+   margin-top: auto
+}
+
+.team-tag {
+   font: 600 11px var(--font-ui);
+   letter-spacing: .06em;
+   color: #fff;
+   background: rgba(255, 255, 255, .08);
+   border: 1px solid rgba(255, 255, 255, .2);
+   padding: 7px 11px;
+   border-radius: 999px
+}
+
+.team-flip-hint-back {
+   background: rgba(255, 255, 255, .12)
+}
+
+.team-actions {
+   margin-top: 38px;
+   display: flex
+}
+
+@media (max-width:1100px) {
+   .trust-strip {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 26px
+   }
+
+   .team-grid {
+      grid-template-columns: repeat(2, 1fr)
+   }
+}
+
+@media (max-width:700px) {
+   .trust-strip {
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 34px
+   }
+
+   .trust-item span {
+      font-size: 10px;
+      letter-spacing: .1em
+   }
+
+   .team-grid {
+      grid-template-columns: 1fr
+   }
+
+   .team-card-inner {
+      height: 460px
+   }
+
+   .team-name {
+      font-size: 26px
+   }
+
+   .team-actions .button {
+      width: 100%
+   }
+}
+
+@media (prefers-reduced-motion:reduce) {
+   .team-card-inner {
+      transition: none
+   }
+}

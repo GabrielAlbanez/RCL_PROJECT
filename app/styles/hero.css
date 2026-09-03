@@ -1,0 +1,93 @@
+/* Home hero: eyebrow, headline, lede, CTAs and meta strip. */
+
+.hero {
+   min-height: 100svh;
+   display: grid;
+   align-items: center;
+   padding-top: 120px;
+   position: relative;
+   overflow: hidden;
+   background: radial-gradient(circle at 80% 18%, rgba(42, 168, 255, .18), transparent 30%), linear-gradient(120deg, #fff 0%, #f4f7fb 62%, #eaf3fa 100%)
+}
+
+.hero:before {
+   content: "";
+   position: absolute;
+   inset: 0;
+   background-image: linear-gradient(rgba(4, 45, 123, .04) 1px, transparent 1px), linear-gradient(90deg, rgba(4, 45, 123, .04) 1px, transparent 1px);
+   background-size: 46px 46px;
+   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, .9), transparent 82%)
+}
+
+.hero-grid {
+   position: relative;
+   display: grid;
+   grid-template-columns: 1.05fr .95fr;
+   gap: 20px;
+   align-items: center
+}
+
+.eyebrow {
+   font: 700 11px var(--font-ui);
+   letter-spacing: .2em;
+   color: var(--primary);
+   margin-bottom: 18px;
+   text-transform: uppercase
+}
+
+/* Display scale is deliberately capped: the headline reads as the loudest thing on the
+   page without out-shouting the nav, the lede and the CTAs. Ratio to body copy stays
+   near 3x — past that the h1 stops being a heading and becomes a wall. */
+.hero h1,
+.page-hero h1 {
+   font: 700 clamp(34px, 4.2vw, 60px)/1 var(--font-display);
+   letter-spacing: -.03em;
+   color: var(--primary);
+   margin: 0;
+   max-width: 760px
+}
+
+.hero h1 span,
+.page-hero h1 span {
+   color: var(--orange)
+}
+
+.hero-copy {
+   font-size: 20px;
+   line-height: 1.6;
+   max-width: 680px;
+   color: #465a6f;
+   margin: 25px 0 28px;
+   font-weight: 450
+}
+
+.hero-cta {
+   display: flex;
+   gap: 12px;
+   flex-wrap: wrap
+}
+
+.hero-meta {
+   display: flex;
+   gap: 26px;
+   margin-top: 48px;
+   border-top: 1px solid var(--line);
+   padding-top: 18px
+}
+
+.meta-item {
+   display: flex;
+   flex-direction: column;
+   gap: 5px
+}
+
+.meta-item strong {
+   font: 700 11px var(--font-ui);
+   color: var(--primary);
+   letter-spacing: .12em
+}
+
+.meta-item span {
+   font-size: 12px;
+   color: var(--sub)
+}

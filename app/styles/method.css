@@ -1,0 +1,58 @@
+/* The RCL system — numbered method steps. */
+
+.method-grid {
+   display: grid;
+   grid-template-columns: repeat(5, 1fr);
+   gap: 0;
+   border-top: 1px solid rgba(255, 255, 255, .15);
+   border-bottom: 1px solid rgba(255, 255, 255, .15)
+}
+
+.method-step {
+   padding: 34px 20px 40px;
+   border-right: 1px solid rgba(255, 255, 255, .15);
+   min-height: 240px;
+   position: relative;
+   transition: .4s cubic-bezier(.16, 1, .3, 1);
+   background: linear-gradient(135deg, transparent, rgba(255, 255, 255, .02))
+}
+
+.method-step:hover {
+   background: rgba(255, 255, 255, .1);
+   transform: translateY(-4px)
+}
+
+.method-step:last-child {
+   border-right: 0
+}
+
+.method-step:after {
+   content: "→";
+   position: absolute;
+   right: 14px;
+   top: 34px;
+   color: var(--orange);
+   font-size: 20px
+}
+
+.method-step:last-child:after {
+   content: ""
+}
+
+.method-step span {
+   font: 700 11px var(--font-ui);
+   color: #9db0c2;
+   letter-spacing: .18em;
+   text-transform: uppercase
+}
+
+.method-step h3 {
+   font: 700 25px/1 var(--font-display);
+   margin: 40px 0 10px
+}
+
+.method-step p {
+   color: rgba(255, 255, 255, .68);
+   font-size: 14px;
+   line-height: 1.5
+}

@@ -1,0 +1,168 @@
+/* Accessible custom select used by the contact form. */
+
+.custom-select {
+   position: relative;
+   display: block;
+   width: 100%
+}
+
+.custom-select-trigger {
+   width: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 16px 20px;
+   border: 1.5px solid var(--line);
+   border-radius: 14px;
+   background: #fff;
+   font-size: 15px;
+   font-weight: 500;
+   color: var(--ink);
+   cursor: pointer;
+   transition: border-color .25s ease, box-shadow .25s ease;
+   gap: 12px
+}
+
+.custom-select-trigger:hover {
+   border-color: var(--primary)
+}
+
+.custom-select.is-open .custom-select-trigger,
+.custom-select-trigger:focus {
+   outline: none;
+   border-color: var(--primary);
+   box-shadow: 0 0 0 3px rgba(4, 45, 123, .1)
+}
+
+.custom-select.is-invalid .custom-select-trigger {
+   border-color: var(--maple);
+   box-shadow: 0 0 0 3px rgba(200, 16, 46, .1)
+}
+
+.custom-select-value {
+   flex: 1;
+   text-align: left
+}
+
+.custom-select-value.is-placeholder {
+   color: var(--sub)
+}
+
+.custom-select-caret {
+   flex-shrink: 0;
+   color: var(--sub);
+   transition: transform .25s ease
+}
+
+.custom-select.is-open .custom-select-caret {
+   transform: rotate(180deg)
+}
+
+.custom-select-clear {
+   position: absolute;
+   top: 50%;
+   right: 42px;
+   z-index: 2;
+   width: 28px;
+   height: 28px;
+   padding: 0;
+   border: 0;
+   border-radius: 50%;
+   background: transparent;
+   color: var(--sub);
+   cursor: pointer;
+   transform: translateY(-50%);
+   transition: color .2s ease, background .2s ease
+}
+
+.custom-select-clear:hover,
+.custom-select-clear:focus-visible {
+   outline: none;
+   color: var(--primary);
+   background: rgba(4, 45, 123, .06)
+}
+
+.custom-select-popover {
+   position: absolute;
+   top: calc(100% + 6px);
+   left: 0;
+   right: 0;
+   background: #fff;
+   border: 1.5px solid var(--line);
+   border-radius: 16px;
+   box-shadow: 0 20px 60px rgba(4, 45, 123, .14);
+   z-index: 100;
+   overflow: hidden;
+   animation: dropdownFade .2s ease
+}
+
+@keyframes dropdownFade {
+   from {
+      opacity: 0;
+      transform: translateY(-8px)
+   }
+
+   to {
+      opacity: 1;
+      transform: translateY(0)
+   }
+}
+
+.custom-select-list {
+   max-height: 260px;
+   overflow-y: auto;
+   padding: 8px 0
+}
+
+.custom-select-list::-webkit-scrollbar {
+   width: 6px
+}
+
+.custom-select-list::-webkit-scrollbar-track {
+   background: transparent
+}
+
+.custom-select-list::-webkit-scrollbar-thumb {
+   background: var(--line);
+   border-radius: 3px
+}
+
+.custom-select-option {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 12px 20px;
+   font-size: 14px;
+   color: var(--ink);
+   cursor: pointer;
+   transition: background .15s ease
+}
+
+.custom-select-option:hover,
+.custom-select-option.is-active {
+   background: rgba(4, 45, 123, .04)
+}
+
+.custom-select-option.is-selected {
+   color: var(--primary);
+   font-weight: 600
+}
+
+.custom-select-check {
+   color: var(--primary);
+   font-size: 14px
+}
+
+.custom-select-empty {
+   padding: 24px 20px;
+   text-align: center;
+   font-size: 14px;
+   color: var(--sub)
+}
+
+@media (max-width:700px) {
+   .custom-select-trigger {
+      padding: 14px 16px;
+      font-size: 14px
+   }
+}

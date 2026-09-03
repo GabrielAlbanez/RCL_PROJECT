@@ -1,0 +1,43 @@
+/* Tablet overrides for everything declared above.
+   Must stay at this point in the cascade: rules below this file are
+   authored after it and intentionally win. */
+
+@media (max-width:1100px) {
+   .main-nav {
+      display: none
+   }
+
+   .site-header {
+      width: calc(100% - 24px)
+   }
+
+   .hero-grid,
+   .human,
+   .contact-grid {
+      grid-template-columns: 1fr
+   }
+
+   .three-shell {
+      height: 500px
+   }
+
+   .problem-grid {
+      grid-template-columns: repeat(2, 1fr)
+   }
+
+   .solution-grid {
+      grid-template-columns: repeat(2, 1fr)
+   }
+
+   .industry-list {
+      grid-template-columns: repeat(2, 1fr)
+   }
+
+   .results {
+      grid-template-columns: repeat(3, 1fr)
+   }
+
+   .site-footer {
+      grid-template-columns: 1fr 1fr
+   }
+}

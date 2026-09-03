@@ -1,0 +1,49 @@
+/* Section shells, dark variant and the shared section heading scale. */
+
+.section {
+   padding: 140px 0
+}
+
+.section-dark {
+   background: var(--primary);
+   color: #fff
+}
+
+.section-dark .eyebrow {
+   color: #fff
+}
+
+.section-dark h2 {
+   color: #fff
+}
+
+.section-head {
+   display: flex;
+   justify-content: space-between;
+   gap: 30px;
+   align-items: end;
+   margin-bottom: 70px
+}
+
+/* One step below the h1 clamp above, so section headings never out-weigh the page title. */
+.section h2,
+.page-hero h2 {
+   font: 700 clamp(30px, 3.3vw, 46px)/1.02 var(--font-display);
+   letter-spacing: -.025em;
+   color: var(--primary);
+   max-width: 820px;
+   margin: 0;
+}
+
+.section-head p {
+   max-width: 420px;
+   font-size: 17px;
+   line-height: 1.6;
+   color: #6b7d94;
+   margin: 0;
+   font-weight: 450
+}
+
+.section-dark .section-head p {
+   color: rgba(255, 255, 255, .75)
+}

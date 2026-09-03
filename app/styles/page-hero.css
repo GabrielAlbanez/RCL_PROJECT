@@ -1,0 +1,28 @@
+/* Inner-page hero band. */
+
+.page-hero {
+   padding: 180px 0 95px;
+   background: linear-gradient(135deg, #fff, #edf4fa);
+   position: relative;
+   overflow: hidden
+}
+
+.page-hero:after {
+   content: "";
+   position: absolute;
+   right: -120px;
+   top: 100px;
+   width: 480px;
+   height: 480px;
+   border-radius: 50%;
+   border: 1px solid rgba(42, 168, 255, .2);
+   box-shadow: 0 0 0 70px rgba(42, 168, 255, .035), 0 0 0 140px rgba(42, 168, 255, .02)
+}
+
+.page-hero p {
+   font-size: 20px;
+   line-height: 1.5;
+   max-width: 720px;
+   color: #607286;
+   margin: 26px 0 0
+}

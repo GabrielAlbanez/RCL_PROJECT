@@ -1,0 +1,23 @@
+/* Design tokens — the single source of truth for colour, radius and hairlines. */
+
+:root {
+   --primary: #042D7B;
+   --orange: #D95F0F;
+   --cyan: #2AA8FF;
+   --sub: #A7B0BA;
+   --ink: #2F4357;
+   --paper: #F5F7FA;
+   --white: #FFFFFF;
+   --line: rgba(4, 45, 123, .12);
+   --radius: 26px;
+   /* Maple red — a deliberately rationed accent (leaf mark, one hairline, hover borders).
+   Deeper than flag red so it sits with #042D7B instead of fighting it. Never a surface. */
+   --maple: #C8102E;
+
+   /* Type stacks. The families come from next/font (see app/fonts.ts), which sets
+      --font-barlow/--font-exo2/--font-saira on <html>. The literal name is kept as a
+      var() fallback so the sheet still resolves if the font module is ever detached. */
+   --font-sans: var(--font-barlow, "Barlow"), Arial, sans-serif;
+   --font-display: var(--font-exo2, "Exo 2"), Arial, sans-serif;
+   --font-ui: var(--font-saira, "Saira"), Arial, sans-serif;
+}

@@ -7,6 +7,7 @@ import { hreflang, organizationSchema } from '@/lib/seo';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import VLibras from '@/components/VLibras';
+import { fontVariables } from '../fonts';
 
 export const metadata: Metadata = { title: { default: 'Royal City Labs — Industrial Engineering & Automation', template: '%s | Royal City Labs' }, description: 'Canadian industrial engineering, automation, process control, IIoT, industrial software and optimization.', metadataBase: new URL('https://royalcitylabs.ca'), robots: { index: true, follow: true } };
 
@@ -17,5 +18,5 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   // Region-qualified lang: `en-CA`/`fr-CA` instead of `en`/`fr`, so assistive tech and search
   // engines get the Canadian variant (Quebec French, not France French).
   const jsonLd = organizationSchema(L, getContent(L).pages.about.intro);
-  return <html lang={hreflang[L]} data-scroll-behavior="smooth"><body><script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd).replace(/</g,'\\u003c')}} /><Header locale={L}/><main>{children}</main><Footer locale={L}/><VLibras /></body></html>
+  return <html lang={hreflang[L]} className={fontVariables} data-scroll-behavior="smooth"><body><script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd).replace(/</g,'\\u003c')}} /><Header locale={L}/><main>{children}</main><Footer locale={L}/><VLibras /></body></html>
 }
