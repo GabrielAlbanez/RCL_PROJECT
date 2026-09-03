@@ -5,6 +5,7 @@ import { submitLead } from '@/lib/actions/contact';
 import { MAX_LENGTH, initialLeadState, type FieldErrorCode, type LeadField, type LeadFormState } from '@/lib/lead-form';
 import type { Locale } from '@/lib/content';
 import { getContent } from '@/lib/content';
+import CustomSelect from '@/components/CustomSelect';
 
 /** Submit button lives in its own component so `useFormStatus` can read the pending state. */
 function SubmitButton({ idle, busy }: { idle: string; busy: string }) {
@@ -31,9 +32,10 @@ export default function ContactForm({ locale }: { locale: Locale }) {
   // back. We remember *which* result was dismissed, so the next submission —
   // a new state object — shows its own confirmation without needing an effect.
   const [dismissedState, setDismissedState] = useState<LeadFormState | null>(null);
+  const values = state.values ?? {};
+  const [challengeValue, setChallengeValue] = useState(values.challenge ?? '');
 
   const errors = state.errors ?? {};
-  const values = state.values ?? {};
   const errorFor = (field: LeadField): FieldErrorCode | undefined => errors[field];
   const messageFor = (field: LeadField): string | undefined => {
     const code = errorFor(field);
@@ -98,11 +100,17 @@ export default function ContactForm({ locale }: { locale: Locale }) {
       </div>
 
       <div className={cls('challenge')}>
-        <label htmlFor="challenge">{t.forms.challenge}</label>
-        <select {...fieldProps('challenge')} required defaultValue={values.challenge ?? ''}>
-          <option value="" disabled>{t.forms.selectOne}</option>
-          {t.challengeOptions.map(([value, label]) => <option key={value} value={value}>{label}</option>)}
-        </select>
+        <label>{t.forms.challenge}</label>
+        <CustomSelect
+          name="challenge"
+          id="challenge"
+          options={t.challengeOptions}
+          placeholder={t.forms.selectOne}
+          value={challengeValue}
+          onChange={setChallengeValue}
+          invalid={errorFor('challenge') ? true : undefined}
+          describedBy={`challenge-error`}
+        />
         <FieldError field="challenge" message={messageFor('challenge')} />
       </div>
 
