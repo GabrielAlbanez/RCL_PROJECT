@@ -21,8 +21,7 @@ function PlaceholderPortrait({ label }: { label: string }) {
 export default function TeamCard({ member, labels }: { member: ResolvedMember; labels: TeamCardLabels }) {
   const [flipped, setFlipped] = useState(false);
   const headline = member.name || member.role;
-const stringImg =
-  'https://images.pexels.com/photos/36088133/pexels-photo-36088133.jpeg';  return (
+  return (
     <button
       type="button"
       className={`team-card${flipped ? ' is-flipped' : ''}`}
@@ -35,9 +34,11 @@ const stringImg =
       <span className="team-card-inner">
         <span className="team-face team-face-front" aria-hidden={flipped}>
           <span className="team-photo">
-
-              <Image src={stringImg} alt={headline} fill sizes="(max-width:700px) 100vw, 380px" style={{ objectFit: 'cover' }} />
-
+            {member.photo ? (
+              <Image src={member.photo} alt={headline} fill sizes="(max-width:700px) 100vw, 380px" style={{ objectFit: 'cover' }} />
+            ) : (
+              <PlaceholderPortrait label={headline} />
+            )}
           </span>
           <span className="team-front-copy">
             <span className="team-years">{member.years}</span>
