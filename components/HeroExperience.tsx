@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useReducedMotion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
+import MapleLeaf from '@/components/MapleLeaf';
 import ThreeScene from '@/components/ThreeScene';
 import type { Locale } from '@/lib/content';
 
@@ -108,7 +109,8 @@ export default function HeroExperience({ locale, hero }: { locale: Locale; hero:
     <section ref={section} className={`hero hero-scroll story-stage-${activeStage}`}>
       <div className="container hero-grid hero-grid-scroll">
         <div className="hero-story-copy">
-          <div className="eyebrow">{hero.eyebrow}</div>
+          {/* The eyebrow already reads "CANADIAN…" in both locales — the leaf only marks it, silently. */}
+          <div className="eyebrow eyebrow-canada"><MapleLeaf />{hero.eyebrow}</div>
           <h1>{hero.title}</h1>
           <p className="hero-copy">{hero.text}</p>
           <div className="hero-cta">

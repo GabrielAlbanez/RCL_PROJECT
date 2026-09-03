@@ -9,9 +9,10 @@ import type { Locale } from './content';
  * `name`  → leave '' and the card headline falls back to the role (no fake names shown).
  * `photo` → '/team/<slug>.jpg'. Square crop, min 900×900, neutral/plant background,
  *           subject looking at camera. Leave '' for the branded placeholder portrait.
- * `linkedin` → currently '#' as a PLACEHOLDER so the button can be previewed on the
- *              cards; swap in each engineer's real profile URL before publishing,
- *              or delete the field to hide the button for that member.
+ * `linkedin` → each engineer's personal profile URL. While those are unknown,
+ *              leave it unset: `getTeam()` falls back to COMPANY_LINKEDIN below,
+ *              so every card links to the company page instead of a dead '#'.
+ *              Fill the field per member as the real profiles arrive.
  *
  * The `/team/*.jpg` files currently wired in are GENERATED generic silhouette
  * placeholders (gradient + abstract shape, see public/team/README.md) — not
@@ -19,6 +20,13 @@ import type { Locale } from './content';
  * with the photo slot filled before the real photo shoot happens. Swap each
  * path for the real portrait as soon as it's available.
  */
+
+/**
+ * Company LinkedIn page — used for every card until the engineers' personal
+ * profiles are supplied. ⚠️ CONFIRM this URL with the client: it could not be
+ * verified, and a wrong slug lands on a LinkedIn 404.
+ */
+export const COMPANY_LINKEDIN = 'https://www.linkedin.com/company/royal-city-labs/';
 
 export type LocalizedText = { en: string; fr: string };
 export type LocalizedList = { en: string[]; fr: string[] };
@@ -39,7 +47,7 @@ export const team: TeamMember[] = [
   {
     slug: 'controls-automation-lead',
     name: '',
-    photo: '/team/controls-automation-lead.jpg',
+    photo: 'https://images.pexels.com/photos/19570689/pexels-photo-19570689.jpeg',
     years: '20+ yrs',
     role: { en: 'Lead — Controls & Automation', fr: 'Responsable — Contrôle et automatisation' },
     credentials: { en: 'P.Eng. · B.Eng. Electrical Engineering', fr: 'ing. · B.Ing. génie électrique' },
@@ -51,12 +59,11 @@ export const team: TeamMember[] = [
       en: ['PLC', 'SCADA', 'Functional safety', 'Live migrations'],
       fr: ['PLC', 'SCADA', 'Sécurité fonctionnelle', 'Migrations en production'],
     },
-    linkedin: '#',
   },
   {
     slug: 'iiot-data-lead',
     name: '',
-    photo: '/team/iiot-data-lead.jpg',
+    photo: 'https://images.pexels.com/photos/17582358/pexels-photo-17582358.jpeg',
     years: '15+ yrs',
     role: { en: 'Lead — IIoT & Industrial Data', fr: 'Responsable — IIoT et données industrielles' },
     credentials: { en: 'P.Eng. · M.Sc. Systems Engineering', fr: 'ing. · M.Sc. génie des systèmes' },
@@ -68,12 +75,11 @@ export const team: TeamMember[] = [
       en: ['OPC UA', 'Historians', 'Edge computing', 'System integration'],
       fr: ['OPC UA', 'Historiseurs', 'Informatique en périphérie', 'Intégration de systèmes'],
     },
-    linkedin: '#',
   },
   {
     slug: 'industrial-engineering-lead',
     name: '',
-    photo: '/team/industrial-engineering-lead.jpg',
+    photo: 'https://images.pexels.com/photos/27086768/pexels-photo-27086768.jpeg',
     years: '18+ yrs',
     role: { en: 'Lead — Industrial & Process Engineering', fr: 'Responsable — Génie industriel et des procédés' },
     credentials: { en: 'P.Eng. · B.Eng. Industrial Engineering', fr: 'ing. · B.Ing. génie industriel' },
@@ -85,12 +91,11 @@ export const team: TeamMember[] = [
       en: ['Process mapping', 'Throughput', 'Reliability', 'Root-cause analysis'],
       fr: ['Cartographie de procédé', 'Cadence', 'Fiabilité', 'Analyse des causes'],
     },
-    linkedin: '#',
   },
   {
     slug: 'industrial-software-lead',
     name: '',
-    photo: '/team/industrial-software-lead.jpg',
+    photo: 'https://images.pexels.com/photos/37789266/pexels-photo-37789266.jpeg',
     years: '12+ yrs',
     role: { en: 'Lead — Industrial Software', fr: 'Responsable — Logiciels industriels' },
     credentials: { en: 'B.Sc. Computer Engineering · Industrial systems', fr: 'B.Sc. génie informatique · systèmes industriels' },
@@ -102,12 +107,11 @@ export const team: TeamMember[] = [
       en: ['Custom systems', 'Operator UX', 'APIs', 'Industrial integration'],
       fr: ['Systèmes sur mesure', 'UX opérateur', 'API', 'Intégration industrielle'],
     },
-    linkedin: '#',
   },
   {
     slug: 'optimization-ai-lead',
     name: '',
-    photo: '/team/optimization-ai-lead.jpg',
+    photo: 'https://images.pexels.com/photos/31094985/pexels-photo-31094985.jpeg',
     years: '10+ yrs',
     role: { en: 'Lead — Optimization, ML & AI', fr: 'Responsable — Optimisation, ML et IA' },
     credentials: { en: 'Ph.D. Process Control · M.Sc. Applied Mathematics', fr: 'Ph.D. contrôle des procédés · M.Sc. mathématiques appliquées' },
@@ -119,7 +123,6 @@ export const team: TeamMember[] = [
       en: ['Advanced control', 'Soft sensors', 'Predictive models', 'Energy optimization'],
       fr: ['Contrôle avancé', 'Capteurs virtuels', 'Modèles prédictifs', 'Optimisation énergétique'],
     },
-    linkedin: '#',
   },
 ];
 
@@ -148,7 +151,7 @@ export function getTeam(locale: string | Locale): ResolvedMember[] {
     credentials: m.credentials[l],
     bio: m.bio[l],
     tags: m.tags[l],
-    linkedin: m.linkedin,
+    linkedin: m.linkedin || COMPANY_LINKEDIN,
   }));
 }
 

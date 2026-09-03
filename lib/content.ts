@@ -71,7 +71,7 @@ export const content = {
       linkedin: 'LinkedIn',
       trust: [
         ['75+', 'Years of combined plant experience'],
-        ['P.Eng.', 'Licensed engineers leading the work'],
+        ['P.Eng.', 'Canadian-licensed engineers leading the work'],
         ['5', 'Engineering disciplines in-house'],
         ['1', 'Named lead engineer per project'],
       ],
@@ -93,6 +93,64 @@ export const content = {
       button: 'Talk to an Engineer',
     },
     footer: { line: 'Canadian engineering for smarter industrial operations.', rights: 'Royal City Process Control Labs.' },
+    // CANADIAN IDENTITY — deliberately restrained: the home page only carries the leaf mark
+    // (hero eyebrow) and the footer badge. The argument lives on /about, so the landing page
+    // stays about the plant, not about the flag.
+    canada: {
+      badge: 'Proudly engineered in Canada',
+      eyebrow: 'ROOTED IN CANADA',
+      title: 'Canadian engineering, held to Canadian standards.',
+      text: 'Being Canadian here is not a sticker. It is who is legally accountable for the drawings, which codes the design answers to, and the fact that your operators and your regulators can read the same documentation in their own language.',
+      // ⚠️ PLACEHOLDER: "Royal City" is Guelph, Ontario's nickname — confirm the company's
+      // registered city with the client before publishing, or drop this single line.
+      originNote: 'The name comes from Guelph, Ontario — The Royal City.',
+      points: [
+        ['P.Eng.', 'Work led and sealed by engineers licensed by a Canadian provincial regulator — accountability that stays in the country.'],
+        ['CSA · ISO', 'Designs built against the codes and standards your plant is actually audited to, not a foreign equivalent.'],
+        ['EN · FR', 'Engineering delivered in both official languages: documentation, HMI screens and operator training included.'],
+        ['On the floor', 'Engineers in Canadian time zones who can stand in front of the machine when it matters.'],
+      ],
+    },
+    // /about page body. Metadata for the same route lives in `pages.about`.
+    about: {
+      eyebrow: 'ABOUT',
+      title: 'Built by engineers.',
+      titleAccent: 'Focused on outcomes.',
+      human: { eyebrow: 'THE DIFFERENCE IS HUMAN', title: 'Multidisciplinary technical talent.' },
+      bilingual: {
+        eyebrow: 'TWO OFFICIAL LANGUAGES · ONE PLANT',
+        title: 'The screen your operator reads is the screen your operator understands.',
+        text: 'Canada runs plants in English and in French — often inside the same corporate group, sometimes inside the same building. We author the engineering package in both languages from the start: HMI screens, alarm text, drawings, procedures and floor training. Nothing critical gets discovered in translation after commissioning.',
+        sampleLabel: 'Same alarm · two languages',
+        sampleTag: 'P-101 · BEARING TEMP',
+        sample: [['EN', 'Pump P-101 — bearing temperature high'], ['FR', 'Pompe P-101 — température de palier élevée']],
+        items: [
+          ['HMI & SCADA', 'Screens, tag descriptions and alarm text written bilingually from day one — not patched in after the plant is running.'],
+          ['Documentation', 'Drawings, functional specifications and O&M manuals issued in the language the site actually works in.'],
+          ['Training', 'Commissioning support and operator training delivered on site, in English or in French.'],
+        ],
+      },
+      // ⚠️ PLACEHOLDER: confirm the regions actually served before publishing.
+      presence: {
+        eyebrow: 'WHERE WE WORK',
+        title: 'Canadian plants, Canadian hours.',
+        text: 'Engineering that travels to the plant floor, in the time zone the plant runs in.',
+        regions: ['Ontario', 'Québec', 'Manitoba', 'Alberta', 'British Columbia', 'Atlantic Canada'],
+      },
+      position: {
+        eyebrow: 'OUR POSITION',
+        title: 'A bridge between traditional industry and Industry 4.0.',
+        text: 'Most plants do not need a greenfield digital twin. They need the equipment they already own to run better — measured against the standards their own auditors recognize.',
+        // ⚠️ Phrased as design references, not certifications. Do not upgrade this to a
+        // certification claim (ISO 9001 registered, etc.) without documentation from the client.
+        pillars: [
+          ['Standards first', 'Designs referenced to CSA, IEC and ISO practice, so the result survives an audit and not just a commissioning day.'],
+          ['Own the outcome', 'A named lead engineer carries the project from diagnosis to production — accountability with a licence attached.'],
+          ['Modernize, not replace', 'Retrofit and integrate what already works before proposing anything with a capital request behind it.'],
+          ['Data with a purpose', 'Instrumentation and IIoT chosen against a decision the plant needs to make, never against a dashboard.'],
+        ],
+      },
+    },
     pages: {
       solutions: { title: 'Industrial Solutions', intro: 'Integrated engineering for control, connectivity, software and optimization.' },
       industries: { title: 'Industries', intro: 'Industrial engineering expertise adapted to the realities of each sector.' },
@@ -101,8 +159,37 @@ export const content = {
       projects: { title: 'Projects', intro: 'A structure for future case studies: problem, diagnosis, engineering, implementation and outcome.' },
       contact: { title: 'Talk to an Engineer', intro: 'Tell us what needs to work better.' },
     },
-    forms: { company: 'Company', industry: 'Industry', challenge: 'What are you trying to improve?', name: 'Name', email: 'Email', message: 'Message', send: 'Send request' },
-    challengeOptions: ['Reduce downtime', 'Modernize legacy systems', 'Improve automation', 'Connect industrial data', 'Reduce energy consumption', 'Optimize production', 'Other'],
+    forms: {
+      company: 'Company', industry: 'Industry', challenge: 'What are you trying to improve?',
+      name: 'Name', email: 'Email', message: 'Message',
+      send: 'Send request', sending: 'Sending…',
+      selectOne: 'Select one', optional: 'optional',
+      note: 'Accessible form · keyboard friendly · labelled fields · works without JavaScript.',
+      successEyebrow: 'THANK YOU',
+      successTitle: 'Request received.',
+      successText: 'Your request is in. An engineer will review it and reply to the address you provided.',
+      successAgain: 'Send another request',
+      // Developer-facing note, shown only while no delivery endpoint is configured.
+      localNote: 'Prototype delivery mode — the submission was validated and recorded on the server, but no delivery endpoint is configured yet. Set CONTACT_WEBHOOK_URL or RESEND_API_KEY to route leads to the real inbox or CRM.',
+      errors: {
+        required: 'This field is required.',
+        email: 'Enter a valid email address.',
+        tooLong: 'This answer is too long.',
+        invalidChoice: 'Choose one of the listed options.',
+        generic: 'Something went wrong sending your request. Please try again, or email us directly.',
+        rate: 'Too many requests from this connection. Please try again in a few minutes.',
+      },
+    },
+    // [value, label] — `value` is locale-independent and validated server-side (lib/leads.ts).
+    challengeOptions: [
+      ['downtime', 'Reduce downtime'],
+      ['legacy', 'Modernize legacy systems'],
+      ['automation', 'Improve automation'],
+      ['data', 'Connect industrial data'],
+      ['energy', 'Reduce energy consumption'],
+      ['production', 'Optimize production'],
+      ['other', 'Other'],
+    ],
   },
   fr: {
     nav: { solutions: 'Solutions', industries: 'Industries', approach: 'Approche', about: 'À propos', projects: 'Projets', contact: 'Contact' },
@@ -138,7 +225,7 @@ export const content = {
       linkedin: 'LinkedIn',
       trust: [
         ['75+', "Années d'expérience combinée en usine"],
-        ['ing.', 'Ingénieurs licenciés à la barre'],
+        ['ing.', 'Ingénieurs licenciés au Canada à la barre'],
         ['5', "Disciplines d'ingénierie à l'interne"],
         ['1', 'Ingénieur responsable nommé par projet'],
       ],
@@ -147,9 +234,85 @@ export const content = {
     results: { eyebrow: 'À QUOI RESSEMBLE LE PROGRÈS', title: "La technologie n’a de valeur que lorsque l’opération s’améliore.", items: [['MOINS', 'Arrêts'], ['MOINS', 'Gaspillage'], ['MOINS', 'Énergie'], ['PLUS', 'Visibilité'], ['PLUS', 'Fiabilité'], ['PLUS', 'Production']] },
     cta: { eyebrow: 'COMMENÇONS PAR LE PROBLÈME', title: 'Dites-nous ce que votre usine doit mieux faire.', text: 'Parlez directement à notre équipe d’ingénierie de modernisation, automatisation, données ou optimisation des procédés.', button: 'Parler à un ingénieur' },
     footer: { line: 'Ingénierie canadienne pour des opérations industrielles plus intelligentes.', rights: 'Royal City Process Control Labs.' },
+    canada: {
+      badge: 'Fièrement conçu au Canada',
+      eyebrow: 'ENRACINÉ AU CANADA',
+      title: 'Une ingénierie canadienne, aux normes canadiennes.',
+      text: "Être canadien, ici, n'est pas un autocollant. C'est savoir qui est légalement responsable des plans, à quels codes la conception répond, et que vos opérateurs comme vos autorités peuvent lire la même documentation dans leur langue.",
+      originNote: 'Le nom vient de Guelph, en Ontario — la « Royal City ».',
+      points: [
+        ['ing. / P.Eng.', "Des travaux dirigés et scellés par des ingénieurs licenciés par un ordre provincial canadien — une responsabilité qui reste au pays."],
+        ['CSA · ISO', "Des conceptions fondées sur les codes et normes selon lesquels votre usine est réellement auditée, pas un équivalent étranger."],
+        ['EN · FR', "Une ingénierie livrée dans les deux langues officielles : documentation, écrans IHM et formation des opérateurs inclus."],
+        ['Sur le plancher', "Des ingénieurs dans les fuseaux horaires canadiens, capables de se tenir devant la machine au bon moment."],
+      ],
+    },
+    about: {
+      eyebrow: 'À PROPOS',
+      title: 'Conçu par des ingénieurs.',
+      titleAccent: 'Axé sur les résultats.',
+      human: { eyebrow: 'LA DIFFÉRENCE EST HUMAINE', title: 'Un talent technique multidisciplinaire.' },
+      bilingual: {
+        eyebrow: 'DEUX LANGUES OFFICIELLES · UNE USINE',
+        title: "L'écran que lit votre opérateur est l'écran qu'il comprend.",
+        text: "Au Canada, les usines fonctionnent en anglais et en français — souvent dans le même groupe, parfois dans le même bâtiment. Nous rédigeons le dossier d'ingénierie dans les deux langues dès le départ : écrans IHM, textes d'alarme, plans, procédures et formation sur le plancher. Rien de critique ne se découvre en traduction après la mise en service.",
+        sampleLabel: 'Même alarme · deux langues',
+        sampleTag: 'P-101 · TEMP. DE PALIER',
+        sample: [['EN', 'Pump P-101 — bearing temperature high'], ['FR', 'Pompe P-101 — température de palier élevée']],
+        items: [
+          ['IHM et SCADA', "Écrans, descriptions de points et textes d'alarme rédigés dans les deux langues dès le premier jour — pas corrigés après le démarrage."],
+          ['Documentation', "Plans, spécifications fonctionnelles et manuels d'exploitation émis dans la langue de travail du site."],
+          ['Formation', 'Soutien à la mise en service et formation des opérateurs sur place, en anglais ou en français.'],
+        ],
+      },
+      presence: {
+        eyebrow: 'OÙ NOUS TRAVAILLONS',
+        title: 'Des usines canadiennes, aux heures canadiennes.',
+        text: "Une ingénierie qui se déplace jusqu'au plancher d'usine, dans le fuseau horaire où l'usine opère.",
+        regions: ['Ontario', 'Québec', 'Manitoba', 'Alberta', 'Colombie-Britannique', 'Canada atlantique'],
+      },
+      position: {
+        eyebrow: 'NOTRE POSITION',
+        title: "Un pont entre l'industrie traditionnelle et l'Industrie 4.0.",
+        text: "La plupart des usines n'ont pas besoin d'un jumeau numérique en terrain vierge. Elles ont besoin que les équipements déjà en place fonctionnent mieux — selon les normes que leurs propres auditeurs reconnaissent.",
+        pillars: [
+          ['Les normes d’abord', 'Des conceptions appuyées sur les pratiques CSA, IEC et ISO, pour un résultat qui passe un audit et pas seulement une journée de mise en service.'],
+          ['Assumer le résultat', "Un ingénieur responsable nommé porte le projet du diagnostic à la production — une responsabilité assortie d'un permis d'exercice."],
+          ['Moderniser, pas remplacer', 'Moderniser et intégrer ce qui fonctionne déjà avant de proposer quoi que ce soit qui exige une demande de capital.'],
+          ['Des données utiles', "Instrumentation et IIoT choisis en fonction d'une décision à prendre, jamais en fonction d'un tableau de bord."],
+        ],
+      },
+    },
     pages: { solutions: { title: 'Solutions industrielles', intro: 'Une ingénierie intégrée pour le contrôle, la connectivité, les logiciels et l’optimisation.' }, industries: { title: 'Industries', intro: 'Une expertise adaptée aux réalités de chaque secteur industriel.' }, approach: { title: 'Notre approche', intro: 'Évaluer. Connecter. Concevoir. Optimiser. Soutenir.' }, about: { title: 'À propos de Royal City Labs', intro: 'Une entreprise canadienne d’ingénierie et d’automatisation qui relie l’expertise industrielle à l’Industrie 4.0.' }, projects: { title: 'Projets', intro: 'Une structure pour les études de cas futures : problème, diagnostic, ingénierie, mise en œuvre et résultat.' }, contact: { title: 'Parler à un ingénieur', intro: 'Dites-nous ce qui doit mieux fonctionner.' } },
-    forms: { company: 'Entreprise', industry: 'Industrie', challenge: 'Que souhaitez-vous améliorer ?', name: 'Nom', email: 'Courriel', message: 'Message', send: 'Envoyer la demande' },
-    challengeOptions: ['Réduire les arrêts', 'Moderniser les systèmes existants', 'Améliorer l’automatisation', 'Connecter les données industrielles', 'Réduire la consommation d’énergie', 'Optimiser la production', 'Autre'],
+    forms: {
+      company: 'Entreprise', industry: 'Industrie', challenge: 'Que souhaitez-vous améliorer ?',
+      name: 'Nom', email: 'Courriel', message: 'Message',
+      send: 'Envoyer la demande', sending: 'Envoi en cours…',
+      selectOne: 'Choisir une option', optional: 'facultatif',
+      note: 'Formulaire accessible · navigation au clavier · champs étiquetés · fonctionne sans JavaScript.',
+      successEyebrow: 'MERCI',
+      successTitle: 'Demande reçue.',
+      successText: 'Votre demande est enregistrée. Un ingénieur l’examinera et vous répondra à l’adresse fournie.',
+      successAgain: 'Envoyer une autre demande',
+      localNote: "Mode prototype — la soumission a été validée et enregistrée sur le serveur, mais aucun point de livraison n'est encore configuré. Définissez CONTACT_WEBHOOK_URL ou RESEND_API_KEY pour acheminer les demandes vers la boîte de réception ou le CRM.",
+      errors: {
+        required: 'Ce champ est obligatoire.',
+        email: 'Saisissez une adresse courriel valide.',
+        tooLong: 'Cette réponse est trop longue.',
+        invalidChoice: 'Choisissez une des options proposées.',
+        generic: "Une erreur est survenue lors de l'envoi. Veuillez réessayer ou nous écrire directement.",
+        rate: 'Trop de demandes depuis cette connexion. Veuillez réessayer dans quelques minutes.',
+      },
+    },
+    challengeOptions: [
+      ['downtime', 'Réduire les arrêts'],
+      ['legacy', 'Moderniser les systèmes existants'],
+      ['automation', 'Améliorer l’automatisation'],
+      ['data', 'Connecter les données industrielles'],
+      ['energy', 'Réduire la consommation d’énergie'],
+      ['production', 'Optimiser la production'],
+      ['other', 'Autre'],
+    ],
   },
 };
 
