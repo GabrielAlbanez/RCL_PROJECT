@@ -82,7 +82,14 @@
     "w": 2700,
     "h": 1094
    }
-  ]
+  ],
+  "focus": {
+   "cards": {
+    "file": "008-home-sec2-focus-cards.jpg",
+    "w": 2520,
+    "h": 1770
+   }
+  }
  },
  "home-sec3": {
   "mode": "whole",
@@ -722,7 +729,19 @@
     "w": 2700,
     "h": 1310
    }
-  ]
+  ],
+  "focus": {
+   "top-row": {
+    "file": "167-team-grid-flipped-focus-top-row.jpg",
+    "w": 2560,
+    "h": 1290
+   },
+   "bottom-row": {
+    "file": "167-team-grid-flipped-focus-bottom-row.jpg",
+    "w": 1730,
+    "h": 1280
+   }
+  }
  },
  "form-empty": {
   "mode": "whole",

@@ -129,7 +129,7 @@ shot('home-sec2', '02 · HOME', 'Os engenheiros, não o fornecedor',
      'Faixa de credibilidade sobre cards que viram: retrato, tempo de casa, função e credenciais '
      'na frente; a biografia completa no verso, ao passar o mouse ou tocar. <b>Os números da '
      'faixa são provisórios</b> e dependem de confirmação de vocês.',
-     url='royalcitylabs.ca/en', part=band('home-sec2', 1))
+     url='royalcitylabs.ca/en', part=focus('home-sec2', 'cards'))
 
 shot('home-sec4', '02 · HOME', 'O sistema RCL',
      'Cinco passos, de máquinas a decisões. É o mesmo vocabulário que o modelo 3D do hero '
@@ -178,11 +178,13 @@ shot('about-sec3', '06 · ABOUT', 'Entrega bilíngue, demonstrada',
      'idiomas. É a diferença entre dizer e provar.',
      url='royalcitylabs.ca/en/about')
 
-shot('team-grid-flipped', '06 · ABOUT', 'A equipe completa',
+bands([(72.0, [(focus('team-grid-flipped', 'top-row'), '', 'plain')]),
+       (75.0, [(focus('team-grid-flipped', 'bottom-row'), '', 'plain')])],
+     '06 · ABOUT', 'A equipe completa',
      'O grid de engenheiros com um card virado, como o visitante veria enquanto lê. <b>Os '
      'retratos são substitutos licenciados</b> até as fotos reais serem aprovadas; funções e '
      'credenciais são propostas para revisão de vocês.',
-     url='royalcitylabs.ca/en/about', part=band('team-grid-flipped', 1))
+     D, url='royalcitylabs.ca/en/about')
 
 # 16
 shot('projects-sec1', '07 · PROJECTS', 'A estrutura de documentação',
@@ -197,7 +199,7 @@ shot('form-empty', '08 · CONTACT', 'O formulário não é maquete',
      'Seis campos, dois obrigatórios. Os rótulos são permanentes — nunca placeholders que '
      'desaparecem assim que alguém digita. Todo campo é validado no servidor, o envio tem limite '
      'de taxa e triagem anti-bot, e o formulário funciona com o JavaScript desligado.',
-     url='royalcitylabs.ca/en/contact', toc='Contact')
+     url='royalcitylabs.ca/en/contact', toc='Contact', inset=True)
 
 grid([(one('form-select-open'), 'SELETOR ABERTO'), (one('form-errors'), 'VALIDAÇÃO NO SERVIDOR'),
       (one('form-success-live'), 'CONFIRMAÇÃO')],
@@ -242,16 +244,13 @@ grid([(one('fr-home'), 'ACCUEIL'), (one('fr-solutions'), 'SOLUTIONS'),
      D, cols=2, url='royalcitylabs.ca/fr/…', toc='Français')
 
 # 22 — detalhes
-bands([(20.0, [(one("nav-active-solutions"), 'A NAVEGAÇÃO MARCA A ROTA ATUAL', 'plain')]),
-       (54.0, [(one("footer-desktop"), 'RODAPÉ, ANCORADO NAS TROCAS DE ROTA', 'plain')]),
-       (68.0, [(one("team-card-front"), 'CARD — FRENTE', 'plain'),
-               (one('team-card-back'), 'CARD — VERSO', 'plain')])],
-      '11 · DETALHES', 'As partes que só existem em movimento',
-      'A página atual fica mais forte, com fundo tingido e um ponto laranja sob o rótulo — a mesma '
-      'convenção de laranja do modelo 3D; leitores de tela recebem aria-current="page" no mesmo '
-      'link. O rodapé é ancorado, então não pisca quando o visitante navega. O card de engenheiro '
-      'é um botão de verdade: funciona pelo teclado, e vira para a biografia no mouse ou no toque.',
-      D, toc='Detalhes de interação')
+grid([(one('team-card-front'), 'CARD — FRENTE'),
+      (one('team-card-back'), 'CARD — VERSO')],
+     '11 · DETALHES', 'O card que vira',
+     'Frente e verso em escala legível. O card de engenheiro é um botão de verdade: funciona pelo '
+     'teclado e vira para a biografia completa no mouse ou no toque, sem perder a função, as '
+     'credenciais ou as áreas de especialidade.',
+     D, cols=2, wrapper='plain', toc='Detalhes de interação')
 
 # 23–26 — fechamento
 textpage('RESUMO TÉCNICO', 'Sobre o que foi construído<span class="dot">.</span>', '''

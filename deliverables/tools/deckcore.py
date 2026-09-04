@@ -38,6 +38,10 @@ def band(pid, i):
     """Band i (1-based) of a capture that was cut to fit a sheet."""
     return parts(pid)[i - 1]
 
+def focus(pid, name):
+    """Purpose-made crop that preserves a complete visual subject."""
+    return derived[pid]['focus'][name]
+
 def img(part, cls=''):
     return (f'<img class="{cls}" src="img/{part["file"]}" '
             f'width="{part["w"]}" height="{part["h"]}" alt="">')
@@ -85,12 +89,14 @@ def _sized(part, max_w, max_h, wrapper=None):
     return f'<div class="shotframe">{im}</div>'
 
 # --------------------------------------------------------------- page recipes
-def shot(pid, sec, title, cap, url=None, vp=None, part=None, chip=None, toc=None):
+def shot(pid, sec, title, cap, url=None, vp=None, part=None, chip=None, toc=None,
+         inset=False):
     """One capture, full width. `part` picks a band of a capture that was cut."""
     p = part or parts(pid)[0]
     is_top = manifest.get(pid, {}).get('kind') == 'fold'
     add(head(sec, title, meta_chip(vp or UI['vp_desktop'], url or '')) +
-        f'<div class="stage">{frame(p, url if is_top else None)}</div>' +
+        f'<div class="stage{" stage-inset" if inset else ""}">'
+        f'{frame(p, url if is_top else None)}</div>' +
         caption(cap, chip), section=sec, toc=toc)
 
 def grid(items, sec, title, cap, vp, cols, wrapper=None, toc=None, url=''):
@@ -162,6 +168,8 @@ img{display:block}
  border:.28mm solid var(--line); border-radius:99mm; padding:1.1mm 2.6mm; white-space:nowrap; background:#fcfdfe}
 .stage{height:152mm; display:flex; align-items:center; justify-content:center; margin-top:1mm}
 .stage-col{flex-direction:column; gap:5mm}
+.stage-inset{padding:6mm 8mm}
+.stage-inset .shotframe .shot{max-height:140mm}
 
 .shotframe{position:relative; max-width:100%; max-height:100%; border-radius:2.4mm; overflow:hidden;
  border:.28mm solid var(--line); box-shadow:0 1.4mm 5mm rgba(4,45,123,.10)}

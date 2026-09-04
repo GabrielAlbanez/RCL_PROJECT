@@ -111,7 +111,30 @@ for rec in manifest:
         parts.append({'file': name, 'w': band.width, 'h': band.height})
     derived[rec['id']] = {'mode': 'bands', 'parts': parts}
 
+# Focused crops used by the compact deck when a full section is too tall to
+# remain legible but a normal horizontal band would cut cards in half.
+FOCUS_CROPS = {
+    'home-sec2': {
+        'cards': (340, 650, 2860, 2420),
+    },
+    'team-grid-flipped': {
+        'top-row': (320, 760, 2880, 2050),
+        'bottom-row': (320, 2120, 2050, 3400),
+    },
+}
+records = {rec['id']: rec for rec in manifest}
+for pid, crops in FOCUS_CROPS.items():
+    rec = records[pid]
+    im = Image.open(SHOTS / rec['file'])
+    focus = {}
+    for label, box in crops.items():
+        crop = fit(im.crop(box), FULL_W)
+        name = f'{rec["file"].rsplit(".", 1)[0]}-focus-{label}.jpg'
+        save(crop, IMG / name)
+        focus[label] = {'file': name, 'w': crop.width, 'h': crop.height}
+    derived[pid]['focus'] = focus
+
 (BUILD / 'derived.json').write_text(json.dumps(derived, indent=1))
 total = sum(len(v['parts']) for v in derived.values())
-print(f'images: {len(derived)} captures → {total} JPEG parts, '
+print(f'images: {len(derived)} captures -> {total} JPEG parts, '
       f'{sum(f.stat().st_size for f in IMG.iterdir()) // 1048576} MB')
