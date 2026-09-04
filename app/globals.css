@@ -32,3 +32,6 @@
 @import './styles/about.css';
 @import './styles/mobile-nav.css';
 @import './styles/custom-select.css';
+/* Appended, not inserted: view-transition pseudo-elements collide with nothing
+   above, so this costs the existing cascade nothing. */
+@import './styles/view-transitions.css';

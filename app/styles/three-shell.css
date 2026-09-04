@@ -1,7 +1,15 @@
 /* Frame and scanline for the 3D scene. */
 
+/* Height, >1100px only (701-1100px and <=700px are set in three-scene.css and
+   responsive-700.css). The hero grid centres both columns on one axis, so the
+   box overhangs the copy by (boxHeight - copyHeight)/2. The copy column is
+   ~600px while the h1 is up and ~340px once it collapses, so no single height
+   serves both ends. 480px is a deliberate middle: it leaves ~70px below the
+   collapsed copy rather than the old ~130px, and keeps the box tall enough to
+   carry the object without reading as a letterbox strip. Changing this changes
+   the canvas aspect ratio, so retune FRAMING in ThreeScene.tsx with it. */
 .three-shell {
-   height: 580px;
+   height: 480px;
    position: relative;
    border: 1px solid rgba(4, 45, 123, .12);
    border-radius: 40px;

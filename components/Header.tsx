@@ -3,12 +3,20 @@
 import { useState, useEffect, useRef } from 'react';
 import type { Route } from 'next';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import Logo from './Logo';
 import LanguageToggle from './LanguageToggle';
 import { getContent } from '@/lib/content';
 
+/** True for the route itself and for anything nested under it — so Solutions
+    stays marked current on /solutions/[slug], not just on the listing page. */
+function isActiveRoute(pathname: string, href: string) {
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 export default function Header({ locale }: { locale: 'en' | 'fr' }) {
   const t = getContent(locale);
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
@@ -61,7 +69,13 @@ export default function Header({ locale }: { locale: 'en' | 'fr' }) {
         </Link>
         <nav className="main-nav" aria-label="Primary">
           {navLinks.map(link => (
-            <Link key={link.href} href={link.href}>{link.label}</Link>
+            <Link
+              key={link.href}
+              href={link.href}
+              aria-current={isActiveRoute(pathname, link.href) ? 'page' : undefined}
+            >
+              {link.label}
+            </Link>
           ))}
         </nav>
         <div className="header-actions">
@@ -99,6 +113,7 @@ export default function Header({ locale }: { locale: 'en' | 'fr' }) {
             <Link
               key={link.href}
               href={link.href}
+              aria-current={isActiveRoute(pathname, link.href) ? 'page' : undefined}
               onClick={() => setMobileOpen(false)}
             >
               {link.label}

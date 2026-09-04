@@ -1,0 +1,93 @@
+/* Route transitions — the CSS half of components/PageTransition.tsx.
+
+   Deliberately not a directional slide. Slides need per-link forward/back
+   semantics across a six-page nav, they get it wrong the moment a reader uses
+   the browser's own back button, and positional motion across the viewport is
+   the most common trigger for motion sensitivity. A short cross-fade with a
+   small settle says "this is a new page" without moving the viewport. */
+
+/* The header and footer are the reader's spatial anchor: while the content
+   between them changes they must not move, resize or fade. Set here rather than
+   inline so no component has to know it participates in a transition. */
+.site-header {
+   view-transition-name: site-header;
+}
+
+.site-footer {
+   view-transition-name: site-footer;
+}
+
+::view-transition-group(site-header),
+::view-transition-group(site-footer) {
+   animation: none;
+   z-index: 100
+}
+
+/* Without this the old and new copies are both painted for a frame, which reads
+   as the header flashing. */
+::view-transition-old(site-header),
+::view-transition-old(site-footer) {
+   display: none
+}
+
+::view-transition-new(site-header),
+::view-transition-new(site-footer) {
+   animation: none
+}
+
+/* The root group holds everything that was not named above. Left alone it
+   cross-fades the whole document on top of the page's own animation — two
+   fades for one navigation, which is what makes naive view transitions look
+   muddy. */
+::view-transition-group(root) {
+   animation: none
+}
+
+/* The transition overlay sits above the live page and would swallow any click
+   made while it runs. */
+::view-transition {
+   pointer-events: none
+}
+
+/* Asymmetric on purpose: the outgoing page leaves quickly so it stops competing
+   for attention, and the incoming one arrives a beat later and more gently, so
+   the reader has time to register it. Total 400ms. */
+::view-transition-old(.rcl-page) {
+   animation: 140ms cubic-bezier(.4, 0, 1, 1) both rcl-page-out
+}
+
+::view-transition-new(.rcl-page) {
+   animation: 260ms cubic-bezier(.16, 1, .3, 1) 140ms both rcl-page-in
+}
+
+@keyframes rcl-page-out {
+   to {
+      opacity: 0;
+      transform: translateY(-8px)
+   }
+}
+
+@keyframes rcl-page-in {
+   from {
+      opacity: 0;
+      transform: translateY(12px)
+   }
+
+   to {
+      opacity: 1;
+      transform: translateY(0)
+   }
+}
+
+/* Content swaps instantly, which is the browser's behaviour with no transition
+   at all. The wildcard is required: the named groups above have their own
+   animations and would otherwise keep running. */
+@media (prefers-reduced-motion: reduce) {
+
+   ::view-transition-old(*),
+   ::view-transition-new(*),
+   ::view-transition-group(*) {
+      animation-duration: 0s !important;
+      animation-delay: 0s !important
+   }
+}

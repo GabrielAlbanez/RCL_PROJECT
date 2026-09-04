@@ -70,7 +70,7 @@
 
 .main-nav {
    display: flex;
-   gap: 20px;
+   gap: 4px;
    align-items: center;
    margin-left: auto;
    font-family: var(--font-ui);
@@ -78,25 +78,50 @@
    font-size: 13px
 }
 
+/* Pills rather than the old sweep-in underline: a hover needs to read as
+   temporary and the current route needs to read as a state, and one hairline
+   effect could not carry both. Background does. */
 .main-nav a {
-   padding: 8px 0;
-   position: relative
+   padding: 9px 16px;
+   border-radius: 999px;
+   position: relative;
+   color: var(--ink);
+   background: transparent;
+   transition: color .25s ease, background-color .25s ease
 }
 
-.main-nav a:after {
+.main-nav a:hover:not([aria-current="page"]) {
+   color: var(--primary);
+   background: rgba(4, 45, 123, .06)
+}
+
+/* The current route. Deliberately stable under hover (the selector above
+   excludes it) so moving the mouse across the bar never makes it look like the
+   page you are on stopped being the page you are on. */
+.main-nav a[aria-current="page"] {
+   color: var(--primary);
+   background: rgba(4, 45, 123, .08);
+   font-weight: 700
+}
+
+/* One rationed dot marks "you are here" — the same role orange plays as the
+   sole current-position marker in the hero's 3D scene, reused here so the
+   convention holds across the site rather than resetting per component. */
+.main-nav a[aria-current="page"]:after {
    content: "";
    position: absolute;
-   left: 0;
-   right: 100%;
-   bottom: 3px;
-   height: 1px;
+   left: 50%;
+   bottom: 4px;
+   width: 4px;
+   height: 4px;
+   border-radius: 50%;
    background: var(--orange);
-   transition: right .25s ease
+   transform: translateX(-50%)
 }
 
-.main-nav a:hover:after {
-   right: 0;
-   background: linear-gradient(90deg, var(--orange), #e67e22)
+.main-nav a:focus-visible {
+   outline: 2px solid var(--cyan);
+   outline-offset: 2px
 }
 
 .header-actions {

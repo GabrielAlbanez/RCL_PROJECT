@@ -13,6 +13,12 @@
    gap: 40px
 }
 
+/* The band is dark, so its eyebrow inverts with it. This used to be an inline
+   style repeated on every page that closed with a CTA. */
+.cta .eyebrow {
+   color: #fff
+}
+
 .cta h2 {
    color: #fff;
    font: 700 clamp(31px, 3.35vw, 48px)/1 var(--font-display);

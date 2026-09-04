@@ -76,10 +76,24 @@ export const content = {
         ['1', 'Named lead engineer per project'],
       ],
     },
+    // [sector, what the engineering actually consists of there]. The second
+    // entry used to be one identical English paragraph repeated ten times.
+    // These describe capability, never outcomes — no result is claimed here.
     industries: {
       eyebrow: 'INDUSTRIES',
       title: 'Built for the industries that keep operations moving.',
-      items: ['Manufacturing', 'Chemical', 'Oil & Gas', 'Energy', 'Mining', 'Water Treatment', 'Pharmaceutical', 'Smart Agriculture', 'Robotics', 'Refrigeration'],
+      items: [
+        ['Manufacturing', 'Line automation, machine retrofits and throughput visibility on equipment that has to keep running while it is being upgraded.'],
+        ['Chemical', 'Batch and continuous process control, interlocks and instrumentation for processes where the sequence matters as much as the setpoint.'],
+        ['Oil & Gas', 'Remote telemetry, safety instrumented functions and SCADA for assets spread across sites nobody can visit daily.'],
+        ['Energy', 'Generation and distribution controls, power monitoring and load data turned into something an operator can act on.'],
+        ['Mining', 'Conveyor, crusher and pump control in conditions where dust, vibration and distance defeat ordinary instrumentation.'],
+        ['Water Treatment', 'Dosing, filtration and pumping control, with the reporting a regulator will actually ask for.'],
+        ['Pharmaceutical', 'Validated control, audit trails and data integrity built to survive an inspection, not just a commissioning.'],
+        ['Smart Agriculture', 'Irrigation, climate and post-harvest automation for operations whose process runs outdoors.'],
+        ['Robotics', 'Cell integration, safety circuits and vision, tied into the plant control system instead of left as an island.'],
+        ['Refrigeration', 'Industrial cooling control, defrost strategy and energy monitoring for plants where temperature is the product spec.'],
+      ],
     },
     results: {
       eyebrow: 'WHAT BETTER LOOKS LIKE',
@@ -151,12 +165,66 @@ export const content = {
         ],
       },
     },
+    // `title`/`intro` feed generateMetadata. `eyebrow`/`heading`/`headingAccent`
+    // render the page hero — they used to be hardcoded English in each page.tsx,
+    // which meant /fr served English headings on four of the six routes.
+    // `headingAccent` is the fragment set in orange.
     pages: {
-      solutions: { title: 'Industrial Solutions', intro: 'Integrated engineering for control, connectivity, software and optimization.' },
-      industries: { title: 'Industries', intro: 'Industrial engineering expertise adapted to the realities of each sector.' },
-      approach: { title: 'Our Approach', intro: 'Assess. Connect. Engineer. Optimize. Support.' },
+      solutions: {
+        title: 'Industrial Solutions',
+        intro: 'Integrated engineering for control, connectivity, software and optimization.',
+        eyebrow: 'SOLUTIONS',
+        heading: 'Engineering systems that',
+        headingAccent: 'perform.',
+      },
+      industries: {
+        title: 'Industries',
+        intro: 'Industrial engineering expertise adapted to the realities of each sector.',
+        eyebrow: 'INDUSTRIES',
+        heading: 'Engineering adapted to',
+        headingAccent: 'the plant.',
+      },
+      approach: {
+        title: 'Our Approach',
+        intro: 'Assess. Connect. Engineer. Optimize. Support.',
+        eyebrow: 'APPROACH',
+        heading: 'Assess. Engineer.',
+        headingAccent: 'Optimize.',
+        deliverables: {
+          eyebrow: 'WHAT YOU ARE LEFT WITH',
+          title: 'The system stays yours after we leave.',
+          text: 'Engineering your own team cannot operate, maintain or have audited is not finished. Every engagement ends with the plant able to run without us.',
+          items: [
+            ['Documentation', 'As-built drawings, I/O lists and control narratives that match what is actually installed — reconstructed where the originals are gone.'],
+            ['Operator screens', 'HMI and SCADA screens designed for the people on shift, in the language they work in.'],
+            ['Training', 'Handover to your maintenance and operations staff, on the equipment rather than in a slide deck.'],
+            ['Source and licences', 'Control logic and software you own, so the next change is not a negotiation.'],
+          ],
+        },
+      },
       about: { title: 'About Royal City Labs', intro: 'A Canadian engineering and automation company connecting industrial expertise with Industry 4.0.' },
-      projects: { title: 'Projects', intro: 'A structure for future case studies: problem, diagnosis, engineering, implementation and outcome.' },
+      projects: {
+        title: 'Projects',
+        intro: 'A structure for future case studies: problem, diagnosis, engineering, implementation and outcome.',
+        eyebrow: 'PROJECTS',
+        heading: 'Show the work.',
+        headingAccent: 'Prove the outcome.',
+        // Deliberately the *framework*, not invented case studies: README.md
+        // requires real project metrics to be approved before publication.
+        framework: {
+          eyebrow: 'HOW WE DOCUMENT WORK',
+          title: 'Every project is written up the same way.',
+          text: 'Case studies are published only once the client approves the numbers. Until then this is the structure each one follows — and the questions we expect to answer about your plant.',
+          steps: [
+            ['01', 'The problem', 'What the operation could not do, in the plant’s own terms: capacity, downtime, quality, energy or compliance.'],
+            ['02', 'The diagnosis', 'What the evidence on the floor showed — including what turned out not to be the cause.'],
+            ['03', 'The engineering', 'The disciplines involved, the decisions taken, and the constraints they were taken under.'],
+            ['04', 'The implementation', 'How it was installed and commissioned around a plant that still had to produce.'],
+            ['05', 'The outcome', 'What changed, measured the same way before and after.'],
+          ],
+          note: 'Ask an engineer about comparable work in your sector.',
+        },
+      },
       contact: { title: 'Talk to an Engineer', intro: 'Tell us what needs to work better.' },
     },
     forms: {
@@ -230,7 +298,22 @@ export const content = {
         ['1', 'Ingénieur responsable nommé par projet'],
       ],
     },
-    industries: { eyebrow: 'INDUSTRIES', title: 'Pour les secteurs qui font tourner les opérations.', items: ['Manufacturier', 'Chimie', 'Pétrole et gaz', 'Énergie', 'Mines', 'Traitement de l’eau', 'Pharmaceutique', 'Agriculture intelligente', 'Robotique', 'Réfrigération'] },
+    industries: {
+      eyebrow: 'INDUSTRIES',
+      title: 'Pour les secteurs qui font tourner les opérations.',
+      items: [
+        ['Manufacturier', 'Automatisation de lignes, modernisation de machines et visibilité du débit sur des équipements qui doivent continuer de produire pendant les travaux.'],
+        ['Chimie', 'Contrôle de procédés par lots et en continu, verrouillages et instrumentation là où la séquence compte autant que la consigne.'],
+        ['Pétrole et gaz', 'Télémétrie à distance, fonctions instrumentées de sécurité et SCADA pour des actifs répartis sur des sites qu’on ne visite pas chaque jour.'],
+        ['Énergie', 'Contrôle de production et de distribution, surveillance électrique et données de charge transformées en information exploitable.'],
+        ['Mines', 'Contrôle de convoyeurs, concasseurs et pompes dans des conditions où poussière, vibrations et distances mettent l’instrumentation ordinaire en échec.'],
+        ['Traitement de l’eau', 'Contrôle du dosage, de la filtration et du pompage, avec les rapports que l’autorité réglementaire va réellement demander.'],
+        ['Pharmaceutique', 'Contrôle validé, pistes de vérification et intégrité des données conçus pour passer une inspection, pas seulement une mise en service.'],
+        ['Agriculture intelligente', 'Automatisation de l’irrigation, du climat et de l’après-récolte pour des procédés qui se déroulent à l’extérieur.'],
+        ['Robotique', 'Intégration de cellules, circuits de sécurité et vision, raccordés au système de contrôle de l’usine plutôt que laissés en îlot.'],
+        ['Réfrigération', 'Contrôle du froid industriel, stratégie de dégivrage et suivi énergétique là où la température est la spécification du produit.'],
+      ],
+    },
     results: { eyebrow: 'À QUOI RESSEMBLE LE PROGRÈS', title: "La technologie n’a de valeur que lorsque l’opération s’améliore.", items: [['MOINS', 'Arrêts'], ['MOINS', 'Gaspillage'], ['MOINS', 'Énergie'], ['PLUS', 'Visibilité'], ['PLUS', 'Fiabilité'], ['PLUS', 'Production']] },
     cta: { eyebrow: 'COMMENÇONS PAR LE PROBLÈME', title: 'Dites-nous ce que votre usine doit mieux faire.', text: 'Parlez directement à notre équipe d’ingénierie de modernisation, automatisation, données ou optimisation des procédés.', button: 'Parler à un ingénieur' },
     footer: { line: 'Ingénierie canadienne pour des opérations industrielles plus intelligentes.', rights: 'Royal City Process Control Labs.' },
@@ -283,7 +366,62 @@ export const content = {
         ],
       },
     },
-    pages: { solutions: { title: 'Solutions industrielles', intro: 'Une ingénierie intégrée pour le contrôle, la connectivité, les logiciels et l’optimisation.' }, industries: { title: 'Industries', intro: 'Une expertise adaptée aux réalités de chaque secteur industriel.' }, approach: { title: 'Notre approche', intro: 'Évaluer. Connecter. Concevoir. Optimiser. Soutenir.' }, about: { title: 'À propos de Royal City Labs', intro: 'Une entreprise canadienne d’ingénierie et d’automatisation qui relie l’expertise industrielle à l’Industrie 4.0.' }, projects: { title: 'Projets', intro: 'Une structure pour les études de cas futures : problème, diagnostic, ingénierie, mise en œuvre et résultat.' }, contact: { title: 'Parler à un ingénieur', intro: 'Dites-nous ce qui doit mieux fonctionner.' } },
+    pages: {
+      solutions: {
+        title: 'Solutions industrielles',
+        intro: 'Une ingénierie intégrée pour le contrôle, la connectivité, les logiciels et l’optimisation.',
+        eyebrow: 'SOLUTIONS',
+        heading: 'Des systèmes conçus pour',
+        headingAccent: 'performer.',
+      },
+      industries: {
+        title: 'Industries',
+        intro: 'Une expertise adaptée aux réalités de chaque secteur industriel.',
+        eyebrow: 'INDUSTRIES',
+        heading: 'Une ingénierie adaptée à',
+        headingAccent: 'l’usine.',
+      },
+      approach: {
+        title: 'Notre approche',
+        intro: 'Évaluer. Connecter. Concevoir. Optimiser. Soutenir.',
+        eyebrow: 'NOTRE APPROCHE',
+        heading: 'Évaluer. Concevoir.',
+        headingAccent: 'Optimiser.',
+        deliverables: {
+          eyebrow: 'CE QUI VOUS RESTE',
+          title: 'Le système demeure le vôtre après notre départ.',
+          text: "Une ingénierie que votre équipe ne peut ni exploiter, ni entretenir, ni faire auditer n'est pas terminée. Chaque mandat se termine avec une usine capable de fonctionner sans nous.",
+          items: [
+            ['Documentation', 'Plans tels que construits, listes d’E/S et descriptifs de contrôle conformes à ce qui est réellement installé — reconstitués quand les originaux ont disparu.'],
+            ['Écrans d’opérateur', 'Des écrans IHM et SCADA conçus pour les gens sur le quart, dans la langue dans laquelle ils travaillent.'],
+            ['Formation', 'Transfert à vos équipes d’entretien et d’exploitation, sur l’équipement plutôt que dans une présentation.'],
+            ['Sources et licences', 'Une logique de contrôle et des logiciels qui vous appartiennent, pour que le prochain changement ne soit pas une négociation.'],
+          ],
+        },
+      },
+      about: { title: 'À propos de Royal City Labs', intro: 'Une entreprise canadienne d’ingénierie et d’automatisation qui relie l’expertise industrielle à l’Industrie 4.0.' },
+      projects: {
+        title: 'Projets',
+        intro: 'Une structure pour les études de cas futures : problème, diagnostic, ingénierie, mise en œuvre et résultat.',
+        eyebrow: 'PROJETS',
+        heading: 'Montrer le travail.',
+        headingAccent: 'Prouver le résultat.',
+        framework: {
+          eyebrow: 'COMMENT NOUS DOCUMENTONS',
+          title: 'Chaque projet est consigné de la même façon.',
+          text: "Les études de cas ne sont publiées qu'une fois les chiffres approuvés par le client. D'ici là, voici la structure que chacune suit — et les questions auxquelles nous comptons répondre au sujet de votre usine.",
+          steps: [
+            ['01', 'Le problème', "Ce que l'opération n'arrivait pas à faire, dans les termes de l'usine : capacité, arrêts, qualité, énergie ou conformité."],
+            ['02', 'Le diagnostic', "Ce que les preuves sur le plancher ont montré — y compris ce qui s'est révélé ne pas être la cause."],
+            ['03', 'L’ingénierie', 'Les disciplines mobilisées, les décisions prises et les contraintes sous lesquelles elles l’ont été.'],
+            ['04', 'La mise en œuvre', 'Comment le tout a été installé et mis en service autour d’une usine qui devait continuer de produire.'],
+            ['05', 'Le résultat', 'Ce qui a changé, mesuré de la même manière avant et après.'],
+          ],
+          note: 'Demandez à un ingénieur des travaux comparables dans votre secteur.',
+        },
+      },
+      contact: { title: 'Parler à un ingénieur', intro: 'Dites-nous ce qui doit mieux fonctionner.' },
+    },
     forms: {
       company: 'Entreprise', industry: 'Industrie', challenge: 'Que souhaitez-vous améliorer ?',
       name: 'Nom', email: 'Courriel', message: 'Message',

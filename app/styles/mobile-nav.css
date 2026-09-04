@@ -124,12 +124,39 @@
    font: 600 15px var(--font-ui);
    color: var(--ink);
    border-bottom: 1px solid var(--line);
+   position: relative;
    transition: color .2s ease, padding-left .2s ease
 }
 
-.mobile-nav a:hover {
+.mobile-nav a:hover:not([aria-current="page"]) {
    color: var(--primary);
    padding-left: 8px
+}
+
+/* Mirrors the desktop pill's current-route mark: bold text plus the one
+   rationed orange dot, moved to lead the label since this is a list, not a
+   row. Stays put under hover — see the desktop rule for why. */
+.mobile-nav a[aria-current="page"] {
+   color: var(--primary);
+   font-weight: 700;
+   padding-left: 16px
+}
+
+.mobile-nav a[aria-current="page"]:before {
+   content: "";
+   position: absolute;
+   left: 0;
+   top: 50%;
+   width: 5px;
+   height: 5px;
+   border-radius: 50%;
+   background: var(--orange);
+   transform: translateY(-50%)
+}
+
+.mobile-nav a:focus-visible {
+   outline: 2px solid var(--cyan);
+   outline-offset: 2px
 }
 
 .mobile-nav a.mobile-nav-cta {
