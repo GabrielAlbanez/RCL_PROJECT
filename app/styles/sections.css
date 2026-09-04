@@ -13,10 +13,6 @@
    color: #fff
 }
 
-.section-dark h2 {
-   color: #fff
-}
-
 .section-head {
    display: flex;
    justify-content: space-between;
@@ -33,6 +29,15 @@
    color: var(--primary);
    max-width: 820px;
    margin: 0;
+}
+
+/* Must sit *after* the shared scale above, not with the other .section-dark
+   rules at the top of this file. A dark section carries both classes, so
+   `.section h2` and `.section-dark h2` have identical specificity and the later
+   one wins — declared first, the white was overwritten by --primary and every
+   dark-section heading rendered navy on navy. */
+.section-dark h2 {
+   color: #fff
 }
 
 .section-head p {

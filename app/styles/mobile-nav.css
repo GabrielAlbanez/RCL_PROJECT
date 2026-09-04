@@ -188,6 +188,18 @@
    border-top: 1px solid var(--line)
 }
 
+/* responsive-700.css hides .language-toggle to slim the header pill on phones.
+   That rule also caught the copy inside this panel — which at that width is the
+   only language switch left on a bilingual site, so the footer rendered as an
+   empty rule. Re-shown here: mobile-nav.css is imported after responsive-700.css,
+   so it wins on cascade order without !important. inline-block rather than
+   inline-flex, so the "EN ↔ FR" text nodes keep their spaces. */
+.mobile-menu-footer .language-toggle {
+   display: inline-block;
+   padding: 11px 14px;
+   font-size: 11px
+}
+
 @media (max-width:1100px) {
 
    .main-nav,

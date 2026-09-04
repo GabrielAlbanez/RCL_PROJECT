@@ -84,8 +84,12 @@
 
    .method-step {
       border-right: 0;
-      border-bottom: 1px solid rgba(255, 255, 255, .15);
+      border-bottom: 1px solid var(--line);
       min-height: 180px
+   }
+
+   .section-dark .method-step {
+      border-bottom-color: rgba(255, 255, 255, .15)
    }
 
    .method-step:last-child {

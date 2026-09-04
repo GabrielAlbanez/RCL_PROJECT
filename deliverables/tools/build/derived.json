@@ -1,0 +1,1657 @@
+{
+ "home-hero-intro": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "001-home-hero-intro.jpg",
+    "w": 2700,
+    "h": 1688
+   }
+  ]
+ },
+ "home-hero-s1": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "002-home-hero-s1.jpg",
+    "w": 2700,
+    "h": 1688
+   }
+  ]
+ },
+ "home-hero-s2": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "003-home-hero-s2.jpg",
+    "w": 2700,
+    "h": 1688
+   }
+  ]
+ },
+ "home-hero-s3": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "004-home-hero-s3.jpg",
+    "w": 2700,
+    "h": 1688
+   }
+  ]
+ },
+ "home-hero-s4": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "005-home-hero-s4.jpg",
+    "w": 2700,
+    "h": 1688
+   }
+  ]
+ },
+ "home-hero-s5": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "006-home-hero-s5.jpg",
+    "w": 2700,
+    "h": 1688
+   }
+  ]
+ },
+ "home-sec1": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "007-home-sec1.jpg",
+    "w": 2700,
+    "h": 1232
+   }
+  ]
+ },
+ "home-sec2": {
+  "mode": "bands",
+  "parts": [
+   {
+    "file": "008-home-sec2-b1.jpg",
+    "w": 2700,
+    "h": 1181
+   },
+   {
+    "file": "008-home-sec2-b2.jpg",
+    "w": 2700,
+    "h": 1094
+   }
+  ]
+ },
+ "home-sec3": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "009-home-sec3.jpg",
+    "w": 2700,
+    "h": 1315
+   }
+  ]
+ },
+ "home-sec4": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "010-home-sec4.jpg",
+    "w": 2700,
+    "h": 1137
+   }
+  ]
+ },
+ "home-sec5": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "011-home-sec5.jpg",
+    "w": 2700,
+    "h": 1493
+   }
+  ]
+ },
+ "home-sec6": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "012-home-sec6.jpg",
+    "w": 2700,
+    "h": 994
+   }
+  ]
+ },
+ "home-sec7": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "013-home-sec7.jpg",
+    "w": 2700,
+    "h": 980
+   }
+  ]
+ },
+ "home-sec8": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "014-home-sec8.jpg",
+    "w": 2700,
+    "h": 542
+   }
+  ]
+ },
+ "home-full": {
+  "mode": "strip",
+  "parts": [
+   {
+    "file": "015-home-full-strip.jpg",
+    "w": 420,
+    "h": 2410
+   }
+  ]
+ },
+ "solutions-fold": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "016-solutions-fold.jpg",
+    "w": 2700,
+    "h": 1688
+   }
+  ]
+ },
+ "solutions-sec1": {
+  "mode": "bands",
+  "parts": [
+   {
+    "file": "017-solutions-sec1-b1.jpg",
+    "w": 2700,
+    "h": 1090
+   },
+   {
+    "file": "017-solutions-sec1-b2.jpg",
+    "w": 2700,
+    "h": 1281
+   }
+  ]
+ },
+ "solutions-sec2": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "018-solutions-sec2.jpg",
+    "w": 2700,
+    "h": 994
+   }
+  ]
+ },
+ "solutions-sec3": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "019-solutions-sec3.jpg",
+    "w": 2700,
+    "h": 542
+   }
+  ]
+ },
+ "solutions-full": {
+  "mode": "strip",
+  "parts": [
+   {
+    "file": "020-solutions-full-strip.jpg",
+    "w": 420,
+    "h": 807
+   }
+  ]
+ },
+ "sol-control-fold": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "021-sol-control-fold.jpg",
+    "w": 2700,
+    "h": 1688
+   }
+  ]
+ },
+ "sol-control-sec1": {
+  "mode": "bands",
+  "parts": [
+   {
+    "file": "022-sol-control-sec1-b1.jpg",
+    "w": 2700,
+    "h": 1083
+   },
+   {
+    "file": "022-sol-control-sec1-b2.jpg",
+    "w": 2700,
+    "h": 948
+   }
+  ]
+ },
+ "sol-control-full": {
+  "mode": "strip",
+  "parts": [
+   {
+    "file": "023-sol-control-full-strip.jpg",
+    "w": 420,
+    "h": 502
+   }
+  ]
+ },
+ "sol-connect-fold": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "024-sol-connect-fold.jpg",
+    "w": 2700,
+    "h": 1688
+   }
+  ]
+ },
+ "sol-connect-sec1": {
+  "mode": "bands",
+  "parts": [
+   {
+    "file": "025-sol-connect-sec1-b1.jpg",
+    "w": 2700,
+    "h": 1083
+   },
+   {
+    "file": "025-sol-connect-sec1-b2.jpg",
+    "w": 2700,
+    "h": 948
+   }
+  ]
+ },
+ "sol-connect-full": {
+  "mode": "strip",
+  "parts": [
+   {
+    "file": "026-sol-connect-full-strip.jpg",
+    "w": 420,
+    "h": 502
+   }
+  ]
+ },
+ "sol-eng-fold": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "027-sol-eng-fold.jpg",
+    "w": 2700,
+    "h": 1688
+   }
+  ]
+ },
+ "sol-eng-sec1": {
+  "mode": "bands",
+  "parts": [
+   {
+    "file": "028-sol-eng-sec1-b1.jpg",
+    "w": 2700,
+    "h": 1083
+   },
+   {
+    "file": "028-sol-eng-sec1-b2.jpg",
+    "w": 2700,
+    "h": 948
+   }
+  ]
+ },
+ "sol-eng-full": {
+  "mode": "strip",
+  "parts": [
+   {
+    "file": "029-sol-eng-full-strip.jpg",
+    "w": 420,
+    "h": 502
+   }
+  ]
+ },
+ "sol-dev-fold": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "030-sol-dev-fold.jpg",
+    "w": 2700,
+    "h": 1688
+   }
+  ]
+ },
+ "sol-dev-sec1": {
+  "mode": "bands",
+  "parts": [
+   {
+    "file": "031-sol-dev-sec1-b1.jpg",
+    "w": 2700,
+    "h": 1083
+   },
+   {
+    "file": "031-sol-dev-sec1-b2.jpg",
+    "w": 2700,
+    "h": 948
+   }
+  ]
+ },
+ "sol-dev-full": {
+  "mode": "strip",
+  "parts": [
+   {
+    "file": "032-sol-dev-full-strip.jpg",
+    "w": 420,
+    "h": 502
+   }
+  ]
+ },
+ "sol-opt-fold": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "033-sol-opt-fold.jpg",
+    "w": 2700,
+    "h": 1688
+   }
+  ]
+ },
+ "sol-opt-sec1": {
+  "mode": "bands",
+  "parts": [
+   {
+    "file": "034-sol-opt-sec1-b1.jpg",
+    "w": 2700,
+    "h": 1083
+   },
+   {
+    "file": "034-sol-opt-sec1-b2.jpg",
+    "w": 2700,
+    "h": 948
+   }
+  ]
+ },
+ "sol-opt-full": {
+  "mode": "strip",
+  "parts": [
+   {
+    "file": "035-sol-opt-full-strip.jpg",
+    "w": 420,
+    "h": 502
+   }
+  ]
+ },
+ "industries-fold": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "036-industries-fold.jpg",
+    "w": 2700,
+    "h": 1688
+   }
+  ]
+ },
+ "industries-sec1": {
+  "mode": "bands",
+  "parts": [
+   {
+    "file": "037-industries-sec1-b1.jpg",
+    "w": 2700,
+    "h": 1088
+   },
+   {
+    "file": "037-industries-sec1-b2.jpg",
+    "w": 2700,
+    "h": 1087
+   },
+   {
+    "file": "037-industries-sec1-b3.jpg",
+    "w": 2700,
+    "h": 1279
+   }
+  ]
+ },
+ "industries-sec2": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "038-industries-sec2.jpg",
+    "w": 2700,
+    "h": 1315
+   }
+  ]
+ },
+ "industries-sec3": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "039-industries-sec3.jpg",
+    "w": 2700,
+    "h": 542
+   }
+  ]
+ },
+ "industries-full": {
+  "mode": "strip",
+  "parts": [
+   {
+    "file": "040-industries-full-strip.jpg",
+    "w": 420,
+    "h": 1012
+   }
+  ]
+ },
+ "approach-fold": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "041-approach-fold.jpg",
+    "w": 2700,
+    "h": 1688
+   }
+  ]
+ },
+ "approach-sec1": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "042-approach-sec1.jpg",
+    "w": 2700,
+    "h": 1137
+   }
+  ]
+ },
+ "approach-sec2": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "043-approach-sec2.jpg",
+    "w": 2700,
+    "h": 1112
+   }
+  ]
+ },
+ "approach-sec3": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "044-approach-sec3.jpg",
+    "w": 2700,
+    "h": 543
+   }
+  ]
+ },
+ "approach-full": {
+  "mode": "strip",
+  "parts": [
+   {
+    "file": "045-approach-full-strip.jpg",
+    "w": 420,
+    "h": 632
+   }
+  ]
+ },
+ "about-fold": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "046-about-fold.jpg",
+    "w": 2700,
+    "h": 1688
+   }
+  ]
+ },
+ "about-sec1": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "047-about-sec1.jpg",
+    "w": 2700,
+    "h": 1232
+   }
+  ]
+ },
+ "about-sec2": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "048-about-sec2.jpg",
+    "w": 2700,
+    "h": 1181
+   }
+  ]
+ },
+ "about-sec3": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "049-about-sec3.jpg",
+    "w": 2700,
+    "h": 1583
+   }
+  ]
+ },
+ "about-sec4": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "050-about-sec4.jpg",
+    "w": 2700,
+    "h": 1647
+   }
+  ]
+ },
+ "about-sec5": {
+  "mode": "bands",
+  "parts": [
+   {
+    "file": "051-about-sec5-b1.jpg",
+    "w": 2700,
+    "h": 1695
+   },
+   {
+    "file": "051-about-sec5-b2.jpg",
+    "w": 2700,
+    "h": 1395
+   }
+  ]
+ },
+ "about-sec6": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "052-about-sec6.jpg",
+    "w": 2700,
+    "h": 543
+   }
+  ]
+ },
+ "about-full": {
+  "mode": "strip",
+  "parts": [
+   {
+    "file": "053-about-full-strip.jpg",
+    "w": 420,
+    "h": 1646
+   }
+  ]
+ },
+ "projects-fold": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "054-projects-fold.jpg",
+    "w": 2700,
+    "h": 1688
+   }
+  ]
+ },
+ "projects-sec1": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "055-projects-sec1.jpg",
+    "w": 2700,
+    "h": 1277
+   }
+  ]
+ },
+ "projects-sec2": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "056-projects-sec2.jpg",
+    "w": 2700,
+    "h": 980
+   }
+  ]
+ },
+ "projects-sec3": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "057-projects-sec3.jpg",
+    "w": 2700,
+    "h": 542
+   }
+  ]
+ },
+ "projects-full": {
+  "mode": "strip",
+  "parts": [
+   {
+    "file": "058-projects-full-strip.jpg",
+    "w": 420,
+    "h": 657
+   }
+  ]
+ },
+ "contact-fold": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "059-contact-fold.jpg",
+    "w": 2700,
+    "h": 1688
+   }
+  ]
+ },
+ "contact-sec1": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "060-contact-sec1.jpg",
+    "w": 2700,
+    "h": 1709
+   }
+  ]
+ },
+ "contact-full": {
+  "mode": "strip",
+  "parts": [
+   {
+    "file": "061-contact-full-strip.jpg",
+    "w": 420,
+    "h": 464
+   }
+  ]
+ },
+ "nav-active-solutions": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "162-nav-active-solutions.jpg",
+    "w": 2640,
+    "h": 122
+   }
+  ]
+ },
+ "nav-active-industries": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "163-nav-active-industries.jpg",
+    "w": 2640,
+    "h": 122
+   }
+  ]
+ },
+ "footer-desktop": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "164-footer-desktop.jpg",
+    "w": 2700,
+    "h": 552
+   }
+  ]
+ },
+ "team-card-front": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "165-team-card-front.jpg",
+    "w": 766,
+    "h": 980
+   }
+  ]
+ },
+ "team-card-back": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "166-team-card-back.jpg",
+    "w": 766,
+    "h": 980
+   }
+  ]
+ },
+ "team-grid-flipped": {
+  "mode": "bands",
+  "parts": [
+   {
+    "file": "167-team-grid-flipped-b1.jpg",
+    "w": 2700,
+    "h": 1779
+   },
+   {
+    "file": "167-team-grid-flipped-b2.jpg",
+    "w": 2700,
+    "h": 1310
+   }
+  ]
+ },
+ "form-empty": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "168-form-empty.jpg",
+    "w": 2360,
+    "h": 1466
+   }
+  ]
+ },
+ "form-select-open": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "169-form-select-open.jpg",
+    "w": 1344,
+    "h": 1466
+   }
+  ]
+ },
+ "form-errors": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "170-form-errors.jpg",
+    "w": 1344,
+    "h": 1566
+   }
+  ]
+ },
+ "form-filled": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "171-form-filled.jpg",
+    "w": 1344,
+    "h": 1466
+   }
+  ]
+ },
+ "form-success": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "172-form-success.jpg",
+    "w": 1344,
+    "h": 820
+   }
+  ]
+ },
+ "tab-home": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "173-tab-home.jpg",
+    "w": 1500,
+    "h": 2000
+   }
+  ]
+ },
+ "tab-solutions": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "174-tab-solutions.jpg",
+    "w": 1500,
+    "h": 2000
+   }
+  ]
+ },
+ "tab-about": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "175-tab-about.jpg",
+    "w": 1500,
+    "h": 2000
+   }
+  ]
+ },
+ "tab-contact": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "176-tab-contact.jpg",
+    "w": 1500,
+    "h": 2000
+   }
+  ]
+ },
+ "tab768-approach": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "177-tab768-approach.jpg",
+    "w": 1500,
+    "h": 2104
+   }
+  ]
+ },
+ "tab768-projects": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "178-tab768-projects.jpg",
+    "w": 1500,
+    "h": 2287
+   }
+  ]
+ },
+ "m-home-fold": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "179-m-home-fold.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-home-full": {
+  "mode": "strip",
+  "parts": [
+   {
+    "file": "180-m-home-full-strip.jpg",
+    "w": 420,
+    "h": 11681
+   }
+  ]
+ },
+ "m-solutions-fold": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "181-m-solutions-fold.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-solutions-full": {
+  "mode": "strip",
+  "parts": [
+   {
+    "file": "182-m-solutions-full-strip.jpg",
+    "w": 420,
+    "h": 3865
+   }
+  ]
+ },
+ "m-sol-control-fold": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "183-m-sol-control-fold.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-sol-control-full": {
+  "mode": "strip",
+  "parts": [
+   {
+    "file": "184-m-sol-control-full-strip.jpg",
+    "w": 420,
+    "h": 2505
+   }
+  ]
+ },
+ "m-industries-fold": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "185-m-industries-fold.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-industries-full": {
+  "mode": "strip",
+  "parts": [
+   {
+    "file": "186-m-industries-full-strip.jpg",
+    "w": 420,
+    "h": 5876
+   }
+  ]
+ },
+ "m-approach-fold": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "187-m-approach-fold.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-approach-full": {
+  "mode": "strip",
+  "parts": [
+   {
+    "file": "188-m-approach-full-strip.jpg",
+    "w": 420,
+    "h": 3746
+   }
+  ]
+ },
+ "m-about-fold": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "189-m-about-fold.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-about-full": {
+  "mode": "strip",
+  "parts": [
+   {
+    "file": "190-m-about-full-strip.jpg",
+    "w": 420,
+    "h": 9395
+   }
+  ]
+ },
+ "m-projects-fold": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "191-m-projects-fold.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-projects-full": {
+  "mode": "strip",
+  "parts": [
+   {
+    "file": "192-m-projects-full-strip.jpg",
+    "w": 420,
+    "h": 3615
+   }
+  ]
+ },
+ "m-contact-fold": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "193-m-contact-fold.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-contact-full": {
+  "mode": "strip",
+  "parts": [
+   {
+    "file": "194-m-contact-full-strip.jpg",
+    "w": 420,
+    "h": 2171
+   }
+  ]
+ },
+ "m-menu-open": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "195-m-menu-open.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-team": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "196-m-team.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-form": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "197-m-form.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "fr-home": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "198-fr-home.jpg",
+    "w": 2700,
+    "h": 1688
+   }
+  ]
+ },
+ "fr-solutions": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "199-fr-solutions.jpg",
+    "w": 2700,
+    "h": 1688
+   }
+  ]
+ },
+ "fr-industries": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "200-fr-industries.jpg",
+    "w": 2700,
+    "h": 1688
+   }
+  ]
+ },
+ "fr-approach": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "201-fr-approach.jpg",
+    "w": 2700,
+    "h": 1688
+   }
+  ]
+ },
+ "fr-about": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "202-fr-about.jpg",
+    "w": 2700,
+    "h": 1688
+   }
+  ]
+ },
+ "fr-projects": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "203-fr-projects.jpg",
+    "w": 2700,
+    "h": 1688
+   }
+  ]
+ },
+ "fr-contact": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "204-fr-contact.jpg",
+    "w": 2700,
+    "h": 1688
+   }
+  ]
+ },
+ "fr-m-solutions": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "205-fr-m-solutions.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "form-success-live": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "206-form-success-live.jpg",
+    "w": 1344,
+    "h": 610
+   }
+  ]
+ },
+ "m-home-f1": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "301-m-home-f01.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-home-f2": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "302-m-home-f02.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-home-f3": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "303-m-home-f03.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-home-f4": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "304-m-home-f04.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-home-f5": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "305-m-home-f05.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-home-f6": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "306-m-home-f06.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-home-f7": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "307-m-home-f07.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-home-f8": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "308-m-home-f08.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-home-f9": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "309-m-home-f09.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-home-f10": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "310-m-home-f10.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-home-f11": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "311-m-home-f11.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-home-f12": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "312-m-home-f12.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-home-f13": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "313-m-home-f13.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-home-f14": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "314-m-home-f14.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-solutions-f1": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "315-m-solutions-f01.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-solutions-f2": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "316-m-solutions-f02.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-solutions-f3": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "317-m-solutions-f03.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-solutions-f4": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "318-m-solutions-f04.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-solutions-f5": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "319-m-solutions-f05.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-sol-control-f1": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "320-m-sol-control-f01.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-sol-control-f2": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "321-m-sol-control-f02.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-sol-control-f3": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "322-m-sol-control-f03.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-industries-f1": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "323-m-industries-f01.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-industries-f2": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "324-m-industries-f02.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-industries-f3": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "325-m-industries-f03.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-industries-f4": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "326-m-industries-f04.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-industries-f5": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "327-m-industries-f05.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-industries-f6": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "328-m-industries-f06.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-industries-f7": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "329-m-industries-f07.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-approach-f1": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "330-m-approach-f01.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-approach-f2": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "331-m-approach-f02.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-approach-f3": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "332-m-approach-f03.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-approach-f4": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "333-m-approach-f04.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-approach-f5": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "334-m-approach-f05.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-about-f1": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "335-m-about-f01.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-about-f2": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "336-m-about-f02.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-about-f3": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "337-m-about-f03.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-about-f4": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "338-m-about-f04.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-about-f5": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "339-m-about-f05.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-about-f6": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "340-m-about-f06.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-about-f7": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "341-m-about-f07.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-about-f8": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "342-m-about-f08.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-about-f9": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "343-m-about-f09.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-about-f10": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "344-m-about-f10.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-about-f11": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "345-m-about-f11.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-about-f12": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "346-m-about-f12.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-projects-f1": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "347-m-projects-f01.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-projects-f2": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "348-m-projects-f02.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-projects-f3": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "349-m-projects-f03.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-projects-f4": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "350-m-projects-f04.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-projects-f5": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "351-m-projects-f05.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-contact-f1": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "352-m-contact-f01.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-contact-f2": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "353-m-contact-f02.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ },
+ "m-contact-f3": {
+  "mode": "whole",
+  "parts": [
+   {
+    "file": "354-m-contact-f03.jpg",
+    "w": 1000,
+    "h": 2167
+   }
+  ]
+ }
+}

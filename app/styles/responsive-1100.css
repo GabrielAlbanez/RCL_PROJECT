@@ -33,6 +33,38 @@
       grid-template-columns: repeat(2, 1fr)
    }
 
+   /* Five steps at five columns need ~200px each; this range only offers ~150px,
+      which clipped step 05 off the right edge. Two columns, with the last step
+      spanning the full width so the grid never ends on a half-empty row. */
+   .method-grid {
+      grid-template-columns: repeat(2, 1fr)
+   }
+
+   .method-step {
+      min-height: 200px
+   }
+
+   .method-step:nth-child(2n) {
+      border-right: 0
+   }
+
+   .method-step:not(:last-child) {
+      border-bottom: 1px solid var(--line)
+   }
+
+   .section-dark .method-step:not(:last-child) {
+      border-bottom-color: rgba(255, 255, 255, .15)
+   }
+
+   .method-step:last-child {
+      grid-column: 1 / -1
+   }
+
+   /* End of a row: the next step is below, not to the right. */
+   .method-step:nth-child(2n):after {
+      content: "\2193"
+   }
+
    .results {
       grid-template-columns: repeat(3, 1fr)
    }

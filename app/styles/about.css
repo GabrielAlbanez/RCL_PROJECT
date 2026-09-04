@@ -158,3 +158,35 @@
    text-align: center;
    cursor: default
 }
+
+/* Breakpoints live in this file, not in responsive-*.css. globals.css imports
+   about.css *after* both responsive files, so an override placed there could
+   never win against the multi-column defaults declared above — regardless of
+   specificity. Same reason canada.css carries its own. */
+@media (max-width:1100px) {
+   .canada-grid-3 {
+      grid-template-columns: 1fr 1fr
+   }
+
+   .presence .industry-list {
+      grid-template-columns: repeat(3, 1fr)
+   }
+}
+
+@media (max-width:700px) {
+   /* The two-column split has a min-content floor wider than a phone, so it
+      pushed the bilingual panel and the cards past the right edge. */
+   .lang-split {
+      grid-template-columns: 1fr
+   }
+
+   .canada-grid-3 {
+      grid-template-columns: 1fr
+   }
+
+   /* Six region pills across a phone clipped "British Columbia" /
+      "Colombie-Britannique" off the edge. */
+   .presence .industry-list {
+      grid-template-columns: 1fr 1fr
+   }
+}

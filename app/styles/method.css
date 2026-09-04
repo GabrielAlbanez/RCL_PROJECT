@@ -1,24 +1,31 @@
-/* The RCL system — numbered method steps. */
+/* The RCL system — numbered method steps.
+
+   The pattern appears on three routes and on two different grounds: inside
+   .section-dark on the home page and /approach, and on the plain light section
+   on /projects. It was authored for the dark ground only — white body copy,
+   white hairlines — so on /projects the step descriptions were white on white
+   and the grid had no visible borders. The light ground is now the base and the
+   dark ground is the override, which is the same direction the rest of the
+   sheet takes (see `.section-dark .canada-item` in about.css). */
 
 .method-grid {
    display: grid;
    grid-template-columns: repeat(5, 1fr);
    gap: 0;
-   border-top: 1px solid rgba(255, 255, 255, .15);
-   border-bottom: 1px solid rgba(255, 255, 255, .15)
+   border-top: 1px solid var(--line);
+   border-bottom: 1px solid var(--line)
 }
 
 .method-step {
    padding: 34px 20px 40px;
-   border-right: 1px solid rgba(255, 255, 255, .15);
+   border-right: 1px solid var(--line);
    min-height: 240px;
    position: relative;
-   transition: .4s cubic-bezier(.16, 1, .3, 1);
-   background: linear-gradient(135deg, transparent, rgba(255, 255, 255, .02))
+   transition: .4s cubic-bezier(.16, 1, .3, 1)
 }
 
 .method-step:hover {
-   background: rgba(255, 255, 255, .1);
+   background: rgba(4, 45, 123, .04);
    transform: translateY(-4px)
 }
 
@@ -41,18 +48,47 @@
 
 .method-step span {
    font: 700 11px var(--font-ui);
-   color: #9db0c2;
+   color: #7d90a6;
    letter-spacing: .18em;
    text-transform: uppercase
 }
 
 .method-step h3 {
    font: 700 25px/1 var(--font-display);
+   color: var(--primary);
    margin: 40px 0 10px
 }
 
 .method-step p {
-   color: rgba(255, 255, 255, .68);
+   color: #6d8199;
    font-size: 14px;
    line-height: 1.5
+}
+
+/* ===== On the dark ground (home, /approach) ===== */
+
+.section-dark .method-grid {
+   border-top-color: rgba(255, 255, 255, .15);
+   border-bottom-color: rgba(255, 255, 255, .15)
+}
+
+.section-dark .method-step {
+   border-right-color: rgba(255, 255, 255, .15);
+   background: linear-gradient(135deg, transparent, rgba(255, 255, 255, .02))
+}
+
+.section-dark .method-step:hover {
+   background: rgba(255, 255, 255, .1)
+}
+
+.section-dark .method-step span {
+   color: #9db0c2
+}
+
+.section-dark .method-step h3 {
+   color: #fff
+}
+
+.section-dark .method-step p {
+   color: rgba(255, 255, 255, .68)
 }
