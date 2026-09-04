@@ -7,8 +7,20 @@ const src = process.argv[2];
 const out = process.argv[3];
 if (!src || !out) { console.error('usage: node print.mjs <build/x.html> <out.pdf>'); process.exit(1); }
 
+const chromeCandidates = [
+  process.env.CHROME_PATH,
+  '/usr/bin/google-chrome-stable',
+  'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+  'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+].filter(Boolean);
+const executablePath = chromeCandidates.find(p => fs.existsSync(p));
+if (!executablePath) {
+  console.error('Google Chrome not found. Set CHROME_PATH to its executable.');
+  process.exit(1);
+}
+
 const browser = await puppeteer.launch({
-  executablePath: '/usr/bin/google-chrome-stable', headless: true,
+  executablePath, headless: true,
   args: ['--no-sandbox','--font-render-hinting=none','--force-color-profile=srgb','--allow-file-access-from-files'],
 });
 const page = await browser.newPage();
@@ -25,6 +37,15 @@ const info = await page.evaluate(() => ({
   pages: document.querySelectorAll('.page').length,
   imgs: document.images.length,
   broken: [...document.images].filter(i => !i.naturalWidth).map(i => i.src.split('/').pop()),
+  distorted: [...document.images].map((img, i) => {
+    const b = img.getBoundingClientRect();
+    if (!img.naturalWidth || !b.width || !b.height) return null;
+    const sourceRatio = img.naturalWidth / img.naturalHeight;
+    const renderedRatio = b.width / b.height;
+    const error = Math.abs(renderedRatio / sourceRatio - 1);
+    return error > 0.005 ? { image: i + 1, file: img.src.split('/').pop(),
+      error: `${(error * 100).toFixed(1)}%` } : null;
+  }).filter(Boolean),
   overflow: [...document.querySelectorAll('.page')].map((p, i) => {
     const pb = p.getBoundingClientRect();
     const bad = [...p.querySelectorAll('*')].filter(e => {
@@ -48,6 +69,7 @@ const info = await page.evaluate(() => ({
 
 console.log(`pages ${info.pages} | images ${info.imgs} | broken ${info.broken.length}`,
             info.broken.slice(0, 5));
+console.log('distorted:', info.distorted.length, JSON.stringify(info.distorted.slice(0, 10)));
 console.log('overflowing:', info.overflow.length, JSON.stringify(info.overflow.slice(0, 10)));
 console.log('caption collisions:', info.collisions.length, JSON.stringify(info.collisions.slice(0, 10)));
 

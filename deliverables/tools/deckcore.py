@@ -68,7 +68,13 @@ def _sized(part, max_w, max_h, wrapper=None):
     Absolute units on purpose: a percentage max-height inside a shrink-to-fit
     bezel has no definite parent to resolve against and is silently ignored."""
     pad = PAD.get(wrapper, 0.0)
-    im = img(part).replace('<img ', f'<img style="max-width:{max_w - 2 * pad:.2f}mm;'
+    # The source width/height attributes reserve layout space, but they must not
+    # be clamped independently by max-width/max-height: doing so distorts images
+    # whenever the source aspect ratio differs from the grid cell (notably the
+    # form confirmation and portrait team cards). Explicit auto dimensions make
+    # the browser scale each image uniformly inside its available box.
+    im = img(part).replace('<img ', f'<img style="width:auto;height:auto;'
+                                    f'max-width:{max_w - 2 * pad:.2f}mm;'
                                     f'max-height:{max_h - 2 * pad:.2f}mm" ')
     if wrapper == 'phone':
         return f'<div class="phone">{im}</div>'

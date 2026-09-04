@@ -1486,8 +1486,8 @@ export default function ThreeScene({
         <StackLighting progress={scrollProgress} snap={staticPresentation} />
         <ControlStack
           scrollProgress={scrollProgress}
-          layoutOffset={overlayLayout ? 1.05 : 0}
-          layoutScale={overlayLayout ? 0.82 : isCompact ? 0.92 : 1}
+          layoutOffset={overlayLayout ? 0.78 : 0}
+          layoutScale={overlayLayout ? 0.78 : isCompact ? 0.92 : 1}
           snap={staticPresentation}
           pointerEnabled={!staticPresentation && !overlayLayout}
           simplified={staticPresentation}

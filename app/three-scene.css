@@ -512,6 +512,8 @@
 @media (min-width: 701px) and (max-width: 1100px) {
   .hero-grid-scroll {
     display: block;
+    padding-top: 90px;
+    padding-bottom: 18px;
   }
 
   .hero-story-copy {
@@ -541,9 +543,14 @@
 
   .hero-grid-scroll .three-shell {
     width: 100%;
-    height: calc(100svh - 126px);
-    min-height: 610px;
-    margin-top: 74px;
+    /* Keep the tablet canvas close to the aspect ratio used to frame the 3D
+       scene. On portrait tablets, tying its height directly to 100svh made the
+       shell extremely tall and narrow, pushing the model outside the visible
+       composition. The clamp still fills short landscape screens while capping
+       portrait layouts at a stable, camera-friendly height. */
+    height: clamp(560px, calc(100svh - 160px), 800px);
+    min-height: 0;
+    margin-top: 50px;
   }
 
   .story-stage-list {
